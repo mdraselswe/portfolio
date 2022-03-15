@@ -1,12 +1,53 @@
-import React from 'react'
-import './nav.css'
+import React, { useState } from 'react';
+import './nav.css';
+import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineUser } from 'react-icons/ai';
+import { BiBook } from 'react-icons/bi';
+import { RiServiceLine } from 'react-icons/ri';
+import { BiMessageSquareDetail } from 'react-icons/bi';
 
 const Nav = () => {
-    return (
-        <div>
-            Nav
-        </div>
-    )
-}
+  const [activeNow, setActiveNow] = useState('#');
 
-export default Nav
+  return (
+    <nav>
+      <a
+        href='#'
+        onClick={() => setActiveNow('#')}
+        className={activeNow === '#' ? 'active' : ''}
+      >
+        <AiOutlineHome />{' '}
+      </a>
+      <a
+        href='#about'
+        onClick={() => setActiveNow('#about')}
+        className={activeNow === '#about' ? 'active' : ''}
+      >
+        <AiOutlineUser />{' '}
+      </a>
+      <a
+        href='#experience'
+        onClick={() => setActiveNow('#experience')}
+        className={activeNow === '#experience' ? 'active' : ''}
+      >
+        <BiBook />{' '}
+      </a>
+      <a
+        href='#services'
+        onClick={() => setActiveNow('#services')}
+        className={activeNow === '#services' ? 'active' : ''}
+      >
+        <RiServiceLine />{' '}
+      </a>
+      <a
+        href='#contact'
+        onClick={() => setActiveNow('#contact')}
+        className={activeNow === '#contact' ? 'active' : ''}
+      >
+        <BiMessageSquareDetail />{' '}
+      </a>
+    </nav>
+  );
+};
+
+export default Nav;
