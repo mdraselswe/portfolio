@@ -1,9 +1,9 @@
 import React from 'react';
 import './portfolio.css';
-import IMG1 from '../../assets/portfolio1.jpg';
-import IMG2 from '../../assets/portfolio2.jpg';
-import IMG3 from '../../assets/portfolio3.jpg';
-import IMG4 from '../../assets/portfolio4.jpg';
+import IMG1 from '../../assets/portfolio1.png';
+import IMG2 from '../../assets/portfolio2.png';
+import IMG3 from '../../assets/portfolio3.png';
+import IMG4 from '../../assets/portfolio4.png';
 import IMG5 from '../../assets/portfolio5.png';
 import IMG6 from '../../assets/portfolio6.jpg';
 
@@ -33,9 +33,9 @@ const data = [
   {
     id: 4,
     image: IMG4,
-    title: 'Food Recipe',
-    github: 'hhttps://github.com/mdraselswe/Food_Recipe',
-    demo: 'https://reverent-lovelace-b1319a.netlify.com/',
+    title: 'Footylight',
+    github: '#',
+    demo: 'https://www.footylight.com/',
   },
   {
     id: 5,
@@ -71,9 +71,11 @@ const Portfolio = () => {
                 <a href={github} className='btn' target='_blank'>
                   Github
                 </a>
-                <a href={demo} className='btn btn-primary' target='_blank'>
-                  Live Demo
-                </a>
+                {demo !== '#' && (
+                  <a href={demo} className='btn btn-primary' target='_blank'>
+                    Live Demo
+                  </a>
+                )}
               </div>
             </article>
           );

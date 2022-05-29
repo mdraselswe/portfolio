@@ -1,6 +1,6 @@
 import React from 'react';
 import './about.css';
-import ME from '../../assets/me-about.jpg';
+import ME from '../../assets/me.jpg';
 import { FaAward } from 'react-icons/fa';
 import { FiUsers } from 'react-icons/fi';
 import { VscFolderLibrary } from 'react-icons/vsc';
@@ -23,27 +23,25 @@ const About = () => {
             <article className='about__card'>
               <FaAward className='about__icon' />
               <h5>Experience</h5>
-              <small>3+ Years Working</small>
+              <small>4.5+ Years Working</small>
             </article>
 
             <article className='about__card'>
               <FiUsers className='about__icon' />
               <h5>Clients</h5>
-              <small>200+ Worldwide</small>
+              <small>5+ Worldwide</small>
             </article>
 
             <article className='about__card'>
               <VscFolderLibrary className='about__icon' />
               <h5>Projects</h5>
-              <small>80+ completed</small>
+              <small>20+ completed</small>
             </article>
           </div>
 
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-            vitae dolor totam quos amet veniam ducimus rem quae, quibusdam,
-            enim, repudiandae maiores. Temporibus quasi maiores, esse molestiae
-            dicta sint consequatur.
+            I am so fluid, focused and willing to learn new things. In all, I
+            believe in knowledge integrations.
           </p>
 
           <a href='#contact' className='btn btn-primary'>
