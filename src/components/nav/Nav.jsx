@@ -3,7 +3,7 @@ import './nav.css';
 import { AiOutlineHome } from 'react-icons/ai';
 import { AiOutlineUser } from 'react-icons/ai';
 import { BiBook } from 'react-icons/bi';
-// import { RiServiceLine } from 'react-icons/ri';
+import { RiServiceLine } from 'react-icons/ri';
 import { BiMessageSquareDetail } from 'react-icons/bi';
 
 const Nav = () => {
@@ -15,36 +15,41 @@ const Nav = () => {
         href='#'
         onClick={() => setActiveNow('#')}
         className={activeNow === '#' ? 'active' : ''}
+        title='Home'
       >
-        <AiOutlineHome />{' '}
+        <AiOutlineHome />
       </a>
       <a
         href='#about'
         onClick={() => setActiveNow('#about')}
         className={activeNow === '#about' ? 'active' : ''}
+        title='About'
       >
-        <AiOutlineUser />{' '}
+        <AiOutlineUser />
       </a>
       <a
         href='#experience'
         onClick={() => setActiveNow('#experience')}
         className={activeNow === '#experience' ? 'active' : ''}
+        title='Experience'
       >
-        <BiBook />{' '}
+        <BiBook />
       </a>
-      {/* <a
-        href='#services'
-        onClick={() => setActiveNow('#services')}
-        className={activeNow === '#services' ? 'active' : ''}
+      <a
+        href='#portfolio'
+        onClick={() => setActiveNow('#portfolio')}
+        className={activeNow === '#portfolio' ? 'active' : ''}
+        title='Portfolio'
       >
-        <RiServiceLine />{' '}
-      </a> */}
+        <RiServiceLine />
+      </a>
       <a
         href='#contact'
         onClick={() => setActiveNow('#contact')}
         className={activeNow === '#contact' ? 'active' : ''}
+        title='Contact'
       >
-        <BiMessageSquareDetail />{' '}
+        <BiMessageSquareDetail />
       </a>
     </nav>
   );
