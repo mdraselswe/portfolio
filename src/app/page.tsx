@@ -64,19 +64,55 @@ export default function Home() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {[
             {
-              title: "Bohubrini - NextJS Learning Platform",
-              description: "Leading skill-learning platform in Bangladesh. Utilized modern technologies like Next.js and GraphQL to build a fast, scalable, and interactive web application. Optimized the platform for performance and SEO.",
-              tech: ["Next.js", "TypeScript", "GraphQL", "Tailwind CSS"],
-            },
-            {
               title: "Shikho Shop - E-commerce Platform",
-              description: "Built a dynamic and responsive frontend using Next.js, ensuring an intuitive shopping experience across all devices. Developed reusable components to maintain a consistent UI and enhance development efficiency.",
+              description: "A comprehensive e-commerce platform for educational resources and materials, built with modern web technologies and best practices.",
               tech: ["Next.js", "TypeScript", "GraphQL", "Tailwind CSS"],
+              demo: "https://shop.shikho.com"
             },
             {
-              title: "Responsive Template - SASS",
-              description: "Developed a responsive template without frameworks, implementing advanced CSS features like Grid, Modals, and Animations. Created a modern and flexible design system.",
-              tech: ["SASS", "Advanced CSS", "HTML5"],
+              title: "Bohubrihi - Learning Platform",
+              description: "Leading skill-learning platform in Bangladesh. Built with Next.js and GraphQL, featuring interactive courses, progress tracking, and seamless user experience.",
+              tech: ["Next.js", "TypeScript", "GraphQL", "Tailwind CSS"],
+              demo: "https://bohubrihi.com"
+            },
+            {
+              title: "NextDhabian & NextBuetian",
+              description: "Specialized learning platforms tailored for university students, offering targeted educational content and resources.",
+              tech: ["Next.js", "TypeScript", "GraphQL", "Tailwind CSS"],
+              demo: "https://nextdhabian.shikho.com"
+            },
+            {
+              title: "Modern Responsive Website",
+              description: "A showcase of modern web design principles featuring responsive layouts and clean aesthetics.",
+              tech: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+              github: "https://github.com/mdraselswe/Modern-Responsive-Website",
+              demo: "https://mdraselswe.github.io/Modern-Responsive-Website"
+            },
+            {
+              title: "Natours Tour",
+              description: "An elegant tour booking website demonstrating advanced CSS and modern design patterns.",
+              tech: ["HTML5", "SASS", "CSS Animations", "Responsive Design"],
+              github: "https://github.com/mdraselswe/Natours-Tour",
+              demo: "https://mdraselswe.github.io/Natours-Tour"
+            },
+            {
+              title: "GreenSock Animations",
+              description: "Interactive web animations showcase using the GreenSock Animation Platform (GSAP).",
+              tech: ["JavaScript", "GSAP", "HTML5", "CSS3"],
+              github: "https://github.com/mdraselswe/GreenSock",
+              demo: "https://mdraselswe.github.io/GreenSock/"
+            },
+            {
+              title: "Money Management App",
+              description: "A comprehensive financial management application for tracking expenses and managing budgets.",
+              tech: ["React Native", "Redux", "Node.js", "MongoDB"],
+              github: "https://github.com/mdraselswe/money-management-app"
+            },
+            {
+              title: "Crown Clothing",
+              description: "E-commerce platform for fashion retail with modern shopping experience.",
+              tech: ["React", "Redux", "Firebase", "Styled Components"],
+              github: "https://github.com/mdraselswe/crwn-clothing"
             },
           ].map((project, index) => (
             <div
@@ -87,7 +123,7 @@ export default function Home() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {project.tech.map((tech) => (
                   <span
                     key={tech}
@@ -96,6 +132,34 @@ export default function Home() {
                     {tech}
                   </span>
                 ))}
+              </div>
+              <div className="flex gap-4">
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                )}
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Live Demo
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -111,13 +175,13 @@ export default function Home() {
           </p>
           <div className="flex gap-4 justify-center">
             <a
-              href="mailto:mdraselwe@gmail.com"
+              href="mailto:mdraselswe@gmail.com"
               className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Send me an email
             </a>
             <a
-              href="https://www.linkedin.com/in/mdraselwe"
+              href="https://www.linkedin.com/in/mdraselswe"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block border border-gray-300 dark:border-gray-700 px-8 py-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
