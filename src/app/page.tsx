@@ -79,7 +79,10 @@ export default function Home() {
               title: "NextDhabian & NextBuetian",
               description: "Specialized learning platforms tailored for university students, offering targeted educational content and resources.",
               tech: ["Next.js", "TypeScript", "GraphQL", "Tailwind CSS"],
-              demo: "https://nextdhabian.shikho.com"
+              demos: {
+                nextdhabian: "https://nextdhabian.shikho.com",
+                nextbuetian: "https://nextbuetian.shikho.com"
+              }
             },
             {
               title: "Modern Responsive Website",
@@ -159,6 +162,32 @@ export default function Home() {
                     </svg>
                     Live Demo
                   </a>
+                )}
+                {project.demos && (
+                  <div className="flex gap-4">
+                    <a
+                      href={project.demos.nextdhabian}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                      NextDhabian Demo
+                    </a>
+                    <a
+                      href={project.demos.nextbuetian}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                      NextBuetian Demo
+                    </a>
+                  </div>
                 )}
               </div>
             </div>
