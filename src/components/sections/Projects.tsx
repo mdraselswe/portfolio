@@ -4,10 +4,10 @@ import ProjectCard from "../ui/ProjectCard";
 export default function Projects() {
 
   return (
-    <section id="projects" className="relative py-20 overflow-hidden">
+    <section id="projects" className="relative py-20 overflow-hidden bg-transparent">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 opacity-60 dark:opacity-30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.1),transparent),radial-gradient(circle_at_70%_30%,rgba(147,51,234,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 dark:from-gray-900/90 dark:to-gray-800/90" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.05),transparent),radial-gradient(circle_at_70%_30%,rgba(147,51,234,0.05),transparent)]" />
       </div>
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="animate-fade-in-up">

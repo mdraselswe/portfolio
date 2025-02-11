@@ -16,10 +16,10 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="relative py-20 overflow-hidden">
+    <section id="skills" className="relative py-20 overflow-hidden bg-gray-50/50 dark:bg-gray-800/50">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 opacity-60 dark:opacity-30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(147,51,234,0.1),transparent),radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-900/80 dark:to-gray-800/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.05),transparent),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.05),transparent)]" />
       </div>
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="animate-fade-in-up">
