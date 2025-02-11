@@ -1,3 +1,5 @@
+import SkillCard from "@/components/ui/SkillCard";
+
 export default function Skills() {
   const skills = [
     "React.js",
@@ -21,18 +23,18 @@ export default function Skills() {
       </div>
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="animate-fade-in-up">
-          <h2 className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x">Skills & Technologies</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">A comprehensive toolkit for building modern web applications</p>
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x">
+              Skills & Technologies
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              A comprehensive toolkit for building modern web applications
+            </p>
+          </div>
+          
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
             {skills.map((skill) => (
-              <div
-                key={skill}
-                className="group p-6 glass-effect rounded-xl text-center transform transition-all duration-300 hover:scale-105 hover:shadow-xl dark:hover:shadow-purple-500/10"
-              >
-                <span className="text-gray-800 dark:text-gray-200 font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                  {skill}
-                </span>
-              </div>
+              <SkillCard key={skill} skill={skill} />
             ))}
           </div>
         </div>
