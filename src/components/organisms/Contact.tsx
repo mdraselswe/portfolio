@@ -1,4 +1,12 @@
+"use client";
+
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/translations";
+
 export default function Contact() {
+  const { language } = useLanguage();
+  const t = translations[language].contact;
+
   return (
     <section
       id="contact"
@@ -11,10 +19,10 @@ export default function Contact() {
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
         <div className="animate-fade-in-up">
           <h2 className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x">
-            Get in Touch
+            {t.title}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">
-            I&lsquo;m always open to new opportunities and collaborations. Feel free to reach out!
+            {t.subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
@@ -31,7 +39,7 @@ export default function Contact() {
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                Send me an email
+                {t.email}
               </span>
               <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </a>
@@ -46,7 +54,7 @@ export default function Contact() {
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                 </svg>
-                Connect on LinkedIn
+                {t.linkedin}
               </span>
             </a>
           </div>
