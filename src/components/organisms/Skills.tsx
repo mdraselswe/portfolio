@@ -1,4 +1,4 @@
-import SkillCard from "@/components/ui/SkillCard";
+import SkillCard from "../atoms/SkillCard";
 
 export default function Skills() {
   const skills = [

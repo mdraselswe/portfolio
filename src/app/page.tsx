@@ -1,11 +1,11 @@
 "use client";
 
 import Header from "../components/organisms/Header";
-import Hero from "../components/sections/Hero";
-import Skills from "../components/sections/Skills";
-import Projects from "../components/sections/Projects";
-import Contact from "../components/sections/Contact";
 import Footer from "../components/organisms/Footer";
+import Contact from "@/components/organisms/Contact";
+import Hero from "@/components/organisms/Hero";
+import Skills from "@/components/organisms/Skills";
+import Projects from "@/components/organisms/Projects";
 
 export default function Home() {
   return (

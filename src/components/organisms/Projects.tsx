@@ -1,5 +1,5 @@
 import { projects } from "@/data/projects";
-import ProjectCard from "../molecules/ProjectCard";
+import ProjectCard from "../atoms/ProjectCard";
 
 export default function Projects() {
 
