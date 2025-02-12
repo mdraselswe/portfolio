@@ -51,7 +51,9 @@ export default function Footer() {
             </nav>
           </div>
           <div className="text-center md:text-right">
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t.footer.connect}</h4>
+            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+              {t.footer.connect}
+            </h4>
             <div className="flex justify-center md:justify-end space-x-4">
               <a
                 href="https://github.com"

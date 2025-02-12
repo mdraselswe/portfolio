@@ -15,10 +15,10 @@ export default function Hero() {
       </div>
       <div className="relative text-center">
         <div className="animate-fade-in-up">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient-x">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient-x leading-relaxed py-3">
             {t.greeting}
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed py-1">
             {t.role}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

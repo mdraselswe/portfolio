@@ -30,10 +30,10 @@ export default function Skills() {
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="animate-fade-in-up">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x">
+            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x leading-relaxed py-3">
               {translations[language].skills.title}
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed py-1">
               {translations[language].skills.subtitle}
             </p>
           </div>

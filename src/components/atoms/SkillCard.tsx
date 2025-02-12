@@ -9,7 +9,7 @@ export default function SkillCard({ skill }: SkillCardProps) {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         <div className="relative z-10">
-          <span className="text-base font-semibold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all duration-300">
+          <span className="text-base font-semibold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all duration-300 leading-relaxed py-1">
             {skill}
           </span>
         </div>

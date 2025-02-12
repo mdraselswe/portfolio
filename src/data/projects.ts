@@ -67,19 +67,22 @@ export const projects: { en: Project[]; bn: Project[] } = {
   bn: [
     {
       title: "শিখো শপ - ই-কমার্স প্ল্যাটফর্ম",
-      description: "শিক্ষামূলক সামগ্রী এবং উপকরণের জন্য একটি ব্যাপক ই-কমার্স প্ল্যাটফর্ম, আধুনিক ওয়েব প্রযুক্তি এবং সেরা অনুশীলন ব্যবহার করে নির্মিত।",
+      description:
+        "শিক্ষামূলক সামগ্রী এবং উপকরণের জন্য একটি ব্যাপক ই-কমার্স প্ল্যাটফর্ম, আধুনিক ওয়েব প্রযুক্তি এবং সেরা অনুশীলন ব্যবহার করে নির্মিত।",
       tech: ["Next.js", "TypeScript", "GraphQL", "Tailwind CSS"],
       demo: "https://shop.shikho.com",
     },
     {
       title: "বহুব্রীহি - লার্নিং প্ল্যাটফর্ম",
-      description: "বাংলাদেশের শীর্ষস্থানীয় স্কিল-লার্নিং প্ল্যাটফর্ম। Next.js এবং GraphQL দিয়ে তৈরি, ইন্টারেক্টিভ কোর্স, অগ্রগতি ট্র্যাকিং এবং নিরবচ্ছিন্ন ব্যবহারকারী অভিজ্ঞতা সহ।",
+      description:
+        "বাংলাদেশের শীর্ষস্থানীয় স্কিল-লার্নিং প্ল্যাটফর্ম। Next.js এবং GraphQL দিয়ে তৈরি, ইন্টারেক্টিভ কোর্স, অগ্রগতি ট্র্যাকিং এবং নিরবচ্ছিন্ন ব্যবহারকারী অভিজ্ঞতা সহ।",
       tech: ["Next.js", "TypeScript", "GraphQL", "Tailwind CSS"],
       demo: "https://bohubrihi.com",
     },
     {
       title: "নেক্সটঢাবিয়ান এবং নেক্সটবুয়েটিয়ান",
-      description: "বিশ্ববিদ্যালয়ের শিক্ষার্থীদের জন্য বিশেষভাবে তৈরি লার্নিং প্ল্যাটফর্ম, লক্ষ্যমূলক শিক্ষামূলক কন্টেন্ট এবং রিসোর্স প্রদান করে।",
+      description:
+        "বিশ্ববিদ্যালয়ের শিক্ষার্থীদের জন্য বিশেষভাবে তৈরি লার্নিং প্ল্যাটফর্ম, লক্ষ্যমূলক শিক্ষামূলক কন্টেন্ট এবং রিসোর্স প্রদান করে।",
       tech: ["Next.js", "TypeScript", "GraphQL", "Tailwind CSS"],
       demos: {
         nextdhabian: "https://nextdhabian.shikho.com",
@@ -88,28 +91,32 @@ export const projects: { en: Project[]; bn: Project[] } = {
     },
     {
       title: "আধুনিক রেসপনসিভ ওয়েবসাইট",
-      description: "রেসপনসিভ লেআউট এবং পরিচ্ছন্ন নান্দনিকতা সহ আধুনিক ওয়েব ডিজাইন নীতিমালার একটি প্রদর্শনী।",
+      description:
+        "রেসপনসিভ লেআউট এবং পরিচ্ছন্ন নান্দনিকতা সহ আধুনিক ওয়েব ডিজাইন নীতিমালার একটি প্রদর্শনী।",
       tech: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
       github: "https://github.com/mdraselswe/Modern-Responsive-Website",
       demo: "https://mdraselswe.github.io/Modern-Responsive-Website",
     },
     {
       title: "নাটোর্স টুর",
-      description: "উন্নত CSS এবং আধুনিক ডিজাইন প্যাটার্ন প্রদর্শনকারী একটি সুন্দর ট্যুর বুকিং ওয়েবসাইট।",
+      description:
+        "উন্নত CSS এবং আধুনিক ডিজাইন প্যাটার্ন প্রদর্শনকারী একটি সুন্দর ট্যুর বুকিং ওয়েবসাইট।",
       tech: ["HTML5", "SASS", "CSS Animations", "Responsive Design"],
       github: "https://github.com/mdraselswe/Natours-Tour",
       demo: "https://mdraselswe.github.io/Natours-Tour",
     },
     {
       title: "গ্রীনসক অ্যানিমেশন",
-      description: "গ্রীনসক অ্যানিমেশন প্ল্যাটফর্ম (GSAP) ব্যবহার করে ইন্টারেক্টিভ ওয়েব অ্যানিমেশন শোকেস।",
+      description:
+        "গ্রীনসক অ্যানিমেশন প্ল্যাটফর্ম (GSAP) ব্যবহার করে ইন্টারেক্টিভ ওয়েব অ্যানিমেশন শোকেস।",
       tech: ["JavaScript", "GSAP", "HTML5", "CSS3"],
       github: "https://github.com/mdraselswe/GreenSock",
       demo: "https://mdraselswe.github.io/GreenSock/",
     },
     {
       title: "মানি ম্যানেজমেন্ট অ্যাপ",
-      description: "খরচ ট্র্যাক করা এবং বাজেট পরিচালনার জন্য একটি ব্যাপক আর্থিক ব্যবস্থাপনা অ্যাপ্লিকেশন।",
+      description:
+        "খরচ ট্র্যাক করা এবং বাজেট পরিচালনার জন্য একটি ব্যাপক আর্থিক ব্যবস্থাপনা অ্যাপ্লিকেশন।",
       tech: ["React Native", "Redux", "Node.js", "MongoDB"],
       github: "https://github.com/mdraselswe/money-management-app",
     },
