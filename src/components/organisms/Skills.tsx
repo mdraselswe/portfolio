@@ -12,11 +12,14 @@ export default function Skills() {
     "Tailwind CSS",
     "Material UI",
     "Antd",
-    "Bootstrap"
+    "Bootstrap",
   ];
 
   return (
-    <section id="skills" className="relative py-20 overflow-hidden bg-gray-50/50 dark:bg-gray-800/50">
+    <section
+      id="skills"
+      className="relative py-20 overflow-hidden bg-gray-50/50 dark:bg-gray-800/50"
+    >
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-900/80 dark:to-gray-800/80" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.05),transparent),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.05),transparent)]" />
@@ -31,7 +34,7 @@ export default function Skills() {
               A comprehensive toolkit for building modern web applications
             </p>
           </div>
-          
+
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
             {skills.map((skill) => (
               <SkillCard key={skill} skill={skill} />

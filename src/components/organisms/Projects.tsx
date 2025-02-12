@@ -2,7 +2,6 @@ import { projects } from "@/data/projects";
 import ProjectCard from "../atoms/ProjectCard";
 
 export default function Projects() {
-
   return (
     <section id="projects" className="relative py-20 overflow-hidden bg-transparent">
       <div className="absolute inset-0 -z-10">

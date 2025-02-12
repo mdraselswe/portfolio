@@ -11,7 +11,8 @@ export default function Hero() {
             Hi, I&lsquo;m <span className="inline-block">Muhammad Rasel</span>
           </h1>
           <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Senior Front End Developer with over 7 years of expertise in React.js, Next.js, and Team Leadership
+            Senior Front End Developer with over 7 years of expertise in React.js, Next.js, and Team
+            Leadership
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <a
