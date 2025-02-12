@@ -1,7 +1,10 @@
 import { projects } from "@/data/projects";
 import ProjectCard from "../atoms/ProjectCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Projects() {
+  const { language } = useLanguage();
+
   return (
     <section id="projects" className="relative py-20 overflow-hidden bg-transparent">
       <div className="absolute inset-0 -z-10">
@@ -17,7 +20,7 @@ export default function Projects() {
             A showcase of my professional work and personal projects
           </p>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, index) => (
+            {projects[language].map((project, index) => (
               <ProjectCard key={index} project={project} />
             ))}
           </div>
