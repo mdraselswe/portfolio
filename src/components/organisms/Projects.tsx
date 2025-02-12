@@ -1,6 +1,7 @@
 import { projects } from "@/data/projects";
 import ProjectCard from "../atoms/ProjectCard";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/translations";
 
 export default function Projects() {
   const { language } = useLanguage();
@@ -14,10 +15,10 @@ export default function Projects() {
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="animate-fade-in-up">
           <h2 className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 animate-gradient-x">
-            Featured Projects
+            {translations[language].projects.title}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">
-            A showcase of my professional work and personal projects
+            {translations[language].projects.subtitle}
           </p>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {projects[language].map((project, index) => (

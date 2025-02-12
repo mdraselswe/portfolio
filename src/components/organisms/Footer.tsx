@@ -1,4 +1,10 @@
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/translations";
+
 export default function Footer() {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <footer className="relative py-12 overflow-hidden">
       <div className="absolute inset-0 -z-10">
@@ -9,43 +15,43 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-              Muhammad Rasel
+              {t.name}
             </h3>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">Senior Front End Developer</p>
+            <p className="mt-2 text-gray-600 dark:text-gray-300">{t.footer.role}</p>
           </div>
           <div className="text-center">
             <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
-              Quick Links
+              {t.footer.quickLinks}
             </h4>
             <nav className="space-y-2">
               <a
                 href="#"
                 className="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
               >
-                Home
+                {t.header.home}
               </a>
               <a
                 href="#skills"
                 className="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
               >
-                Skills
+                {t.header.skills}
               </a>
               <a
                 href="#projects"
                 className="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
               >
-                Projects
+                {t.header.projects}
               </a>
               <a
                 href="#contact"
                 className="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
               >
-                Contact
+                {t.header.contact}
               </a>
             </nav>
           </div>
           <div className="text-center md:text-right">
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Connect</h4>
+            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t.footer.connect}</h4>
             <div className="flex justify-center md:justify-end space-x-4">
               <a
                 href="https://github.com"
@@ -85,7 +91,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-gray-200/20 dark:border-gray-700/20 text-center">
           <p className="text-gray-600 dark:text-gray-300">
-            &copy; {new Date().getFullYear()} Muhammad Rasel. All rights reserved.
+            &copy; {new Date().getFullYear()} {t.name}. {t.footer.copyright}
           </p>
         </div>
       </div>

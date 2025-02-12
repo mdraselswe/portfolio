@@ -1,5 +1,6 @@
 export const translations = {
   en: {
+    name: "Muhammad Rasel",
     header: {
       home: "Home",
       skills: "Skills",
@@ -27,9 +28,17 @@ export const translations = {
       subtitle: "I'm always open to new opportunities and collaborations. Feel free to reach out!",
       email: "Send me an email",
       linkedin: "Connect on LinkedIn"
+    },
+    footer: {
+      quickLinks: "Quick Links",
+      connect: "Connect",
+      role: "Senior Front End Developer",
+      followMe: "Follow me on",
+      copyright: "All rights reserved"
     }
   },
   bn: {
+    name: "মোহাম্মদ রাসেল",
     header: {
       home: "হোম",
       skills: "দক্ষতা",
@@ -57,6 +66,13 @@ export const translations = {
       subtitle: "আমি সবসময় নতুন সুযোগ এবং সহযোগিতার জন্য উন্মুক্ত। যোগাযোগ করতে দ্বিধা করবেন না!",
       email: "ইমেইল পাঠান",
       linkedin: "লিংকডইনে যোগাযোগ করুন"
+    },
+    footer: {
+      quickLinks: "দ্রুত লিঙ্ক",
+      connect: "যোগাযোগ",
+      role: "সিনিয়র ফ্রন্ট এন্ড ডেভেলপার",
+      followMe: "আমাকে ফলো করুন",
+      copyright: "সর্বস্বত্ব সংরক্ষিত"
     }
   }
 };

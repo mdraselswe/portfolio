@@ -1,6 +1,9 @@
 import SkillCard from "../atoms/SkillCard";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/translations";
 
 export default function Skills() {
+  const { language } = useLanguage();
   const skills = [
     "React.js",
     "Next.js",
@@ -28,10 +31,10 @@ export default function Skills() {
         <div className="animate-fade-in-up">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x">
-              Skills & Technologies
+              {translations[language].skills.title}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              A comprehensive toolkit for building modern web applications
+              {translations[language].skills.subtitle}
             </p>
           </div>
 
