@@ -14,12 +14,12 @@ const eslintConfig = [
   {
     files: ["**/*.ts", "**/*.tsx"],
     plugins: {
-      "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
-      prettier: require("eslint-plugin-prettier"),
-      react: require("eslint-plugin-react"),
+      "@typescript-eslint": (await import("@typescript-eslint/eslint-plugin")).default,
+      prettier: (await import("eslint-plugin-prettier")).default,
+      react: (await import("eslint-plugin-react")).default,
     },
     languageOptions: {
-      parser: require("@typescript-eslint/parser"),
+      parser: (await import("@typescript-eslint/parser")).default,
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
