@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { translations } from "@/translations";
+import { Button } from "@/components/atoms/Button";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -123,9 +124,11 @@ export default function Header() {
 
           <div className="flex items-center gap-4">
             {/* Theme Switcher */}
-            <button
+            <Button
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
+              variant="ghost"
+              size="sm"
+              className="p-2 rounded-full"
               aria-label="Toggle theme"
             >
               {theme === "light" ? (
@@ -147,21 +150,25 @@ export default function Header() {
                   />
                 </svg>
               )}
-            </button>
+            </Button>
 
             {/* Language Switcher */}
-            <button
+            <Button
               onClick={toggleLanguage}
-              className="px-3 py-1 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
+              variant="ghost"
+              size="sm"
+              className="px-3 py-1"
               aria-label="Toggle language"
             >
               {language.toUpperCase()}
-            </button>
+            </Button>
 
             {/* Mobile Navigation Button */}
-            <button
+            <Button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-all duration-300"
+              variant="ghost"
+              size="sm"
+              className="md:hidden p-2 rounded-full"
               aria-expanded={isMobileMenuOpen}
               aria-label="Toggle navigation menu"
             >
@@ -173,7 +180,7 @@ export default function Header() {
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-            </button>
+            </Button>
           </div>
         </div>
 

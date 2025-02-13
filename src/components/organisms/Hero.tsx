@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
+import { Button } from "@/components/atoms/Button";
 
 export default function Hero() {
   const { language } = useLanguage();
@@ -22,19 +23,18 @@ export default function Hero() {
             {t.role}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <a
-              href="#contact"
-              className="group relative px-8 py-4 w-full sm:w-auto text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-lg hover:shadow-blue-500/25 dark:hover:shadow-purple-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
-            >
-              <span className="relative z-10">{t.getInTouch}</span>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </a>
-            <a
+            <Button as="a" href="#contact" variant="primary" size="lg" className="w-full sm:w-auto">
+              {t.getInTouch}
+            </Button>
+            <Button
+              as="a"
               href="#projects"
-              className="group relative px-8 py-4 w-full sm:w-auto text-lg font-semibold text-gray-700 dark:text-gray-200 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg hover:shadow-gray-200/25 dark:hover:shadow-gray-800/25 transition-all duration-300 transform hover:-translate-y-0.5"
+              variant="secondary"
+              size="lg"
+              className="w-full sm:w-auto"
             >
               {t.viewProjects}
-            </a>
+            </Button>
           </div>
         </div>
       </div>

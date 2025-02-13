@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
+import { Button } from "@/components/atoms/Button";
 
 export default function Contact() {
   const { language } = useLanguage();
@@ -25,9 +26,12 @@ export default function Contact() {
             {t.subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
+            <Button
+              as="a"
               href="mailto:mdraselswe@gmail.com?subject=Let's%20Connect%20-%20Portfolio%20Inquiry&body=Hi%20Muhammad,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect%20regarding..."
-              className="group relative px-8 py-4 text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 dark:hover:shadow-purple-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
+              variant="primary"
+              size="lg"
+              className="w-full sm:w-auto"
               aria-label="Send email to Muhammad Rasel"
             >
               <span className="flex items-center gap-2 justify-center">
@@ -41,22 +45,24 @@ export default function Contact() {
                 </svg>
                 {t.email}
               </span>
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </a>
-            <a
+            </Button>
+            <Button
+              as="a"
               href="https://www.linkedin.com/in/mdraselswe"
               target="_blank"
               rel="noopener noreferrer"
-              className="group glass-effect px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-gray-200/25 dark:hover:shadow-gray-800/25 transition-all duration-300 transform hover:-translate-y-0.5"
+              variant="secondary"
+              size="lg"
+              className="w-full sm:w-auto"
               aria-label="Connect on LinkedIn"
             >
-              <span className="flex items-center gap-2 justify-center text-gray-700 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+              <span className="flex items-center gap-2 justify-center">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                 </svg>
                 {t.linkedin}
               </span>
-            </a>
+            </Button>
           </div>
         </div>
       </div>
