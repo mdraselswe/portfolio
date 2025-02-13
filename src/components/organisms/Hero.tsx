@@ -1,8 +1,8 @@
 "use client";
 
+import { Button } from "@/components/atoms/Button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
-import { Button } from "@/components/atoms/Button";
 
 export default function Hero() {
   const { language } = useLanguage();
@@ -18,18 +18,18 @@ export default function Hero() {
       <div className="relative w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div className="text-center lg:text-left space-y-10">
           <div className="animate-fade-in-up space-y-6">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-semibold shadow-sm">
+            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium tracking-wide shadow-sm">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
               </span>
-              Senior Front End Developer
+              <span className="tracking-wider">{t.role}</span>
             </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient-x leading-[1.1] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient-x leading-tight tracking-tighter py-3">
               {t.greeting}
             </h1>
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              {t.role}
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed tracking-normal">
+              {t.desc}
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
               <Button
@@ -40,7 +40,17 @@ export default function Hero() {
                 className="w-full sm:w-auto px-8"
                 rounded
               >
-                {t.getInTouch}
+                <span className="flex items-center gap-2 justify-center">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  {t.getInTouch}
+                </span>
               </Button>
               <Button
                 as="a"
@@ -50,7 +60,17 @@ export default function Hero() {
                 className="w-full sm:w-auto px-8"
                 rounded
               >
-                {t.viewProjects}
+                <span className="flex items-center gap-2 justify-center">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                    />
+                  </svg>
+                  {t.viewProjects}
+                </span>
               </Button>
             </div>
           </div>
