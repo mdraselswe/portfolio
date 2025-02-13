@@ -23,7 +23,14 @@ export default function Hero() {
             {t.role}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Button as="a" href="#contact" variant="primary" size="lg" className="w-full sm:w-auto">
+            <Button
+              as="a"
+              href="#contact"
+              variant="primary"
+              size="lg"
+              className="w-full sm:w-auto"
+              rounded
+            >
               {t.getInTouch}
             </Button>
             <Button
@@ -32,6 +39,7 @@ export default function Hero() {
               variant="secondary"
               size="lg"
               className="w-full sm:w-auto"
+              rounded
             >
               {t.viewProjects}
             </Button>

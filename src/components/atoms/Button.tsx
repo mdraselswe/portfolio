@@ -14,6 +14,8 @@ type ButtonBaseProps<T extends ElementType = "button"> = {
   isLoading?: boolean;
   /** Render element type */
   as?: T;
+  /** Button roundness */
+  rounded?: boolean;
 };
 
 type ButtonAsButton = ButtonBaseProps<"button"> &
@@ -31,21 +33,22 @@ export const Button = forwardRef(function Button(
     size = "md",
     isLoading = false,
     as: Component = "button",
+    rounded = false,
     children,
     ...props
   }: ButtonProps,
   ref
 ) {
   const baseStyles =
-    "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 shadow-sm hover:shadow-md active:scale-[0.98]";
+    "inline-flex items-center justify-center font-medium transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 shadow-[0_1px_2px_rgba(0,0,0,0.05)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]";
 
   const variants = {
     primary:
       "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 dark:from-blue-500 dark:to-indigo-500 dark:hover:from-blue-600 dark:hover:to-indigo-600 focus-visible:ring-blue-500",
     secondary:
-      "bg-gradient-to-r from-gray-50 to-gray-100 text-gray-900 hover:from-gray-100 hover:to-gray-200 dark:from-gray-800 dark:to-gray-700 dark:text-gray-100 dark:hover:from-gray-700 dark:hover:to-gray-600 focus-visible:ring-gray-500",
+      "bg-gradient-to-r from-slate-100 to-gray-100 text-gray-800 hover:from-slate-200 hover:to-gray-200 dark:from-slate-700 dark:to-gray-600 dark:text-gray-100 dark:hover:from-slate-600 dark:hover:to-gray-500 focus-visible:ring-gray-500 border border-gray-200 dark:border-gray-600",
     outline:
-      "border-2 border-gray-300 bg-transparent hover:border-blue-500 hover:text-blue-600 dark:border-gray-600 dark:text-gray-100 dark:hover:border-blue-400 dark:hover:text-blue-400 focus-visible:ring-blue-500",
+      "border-2 border-blue-500 bg-transparent text-blue-600 hover:bg-blue-50 hover:text-blue-700 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20 dark:hover:text-blue-300 focus-visible:ring-blue-500",
     ghost:
       "bg-transparent text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-blue-400 focus-visible:ring-gray-500",
   };
@@ -56,11 +59,13 @@ export const Button = forwardRef(function Button(
     lg: "h-12 px-9 text-lg",
   };
 
+  const roundedStyles = rounded ? "rounded-full" : "rounded-lg";
+
   return (
     <Component
       ref={ref}
       disabled={Component === "button" ? isLoading : undefined}
-      className={twMerge(baseStyles, variants[variant], sizes[size], className)}
+      className={twMerge(baseStyles, variants[variant], sizes[size], roundedStyles, className)}
       {...props}
     >
       {isLoading ? (
