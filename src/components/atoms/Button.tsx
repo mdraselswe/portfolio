@@ -37,21 +37,23 @@ export const Button = forwardRef(function Button(
   ref
 ) {
   const baseStyles =
-    "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+    "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 shadow-sm hover:shadow-md active:scale-[0.98]";
 
   const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600",
+    primary:
+      "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 dark:from-blue-500 dark:to-indigo-500 dark:hover:from-blue-600 dark:hover:to-indigo-600 focus-visible:ring-blue-500",
     secondary:
-      "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700",
+      "bg-gradient-to-r from-gray-50 to-gray-100 text-gray-900 hover:from-gray-100 hover:to-gray-200 dark:from-gray-800 dark:to-gray-700 dark:text-gray-100 dark:hover:from-gray-700 dark:hover:to-gray-600 focus-visible:ring-gray-500",
     outline:
-      "border border-gray-300 bg-transparent hover:bg-gray-100 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-800",
-    ghost: "bg-transparent hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800",
+      "border-2 border-gray-300 bg-transparent hover:border-blue-500 hover:text-blue-600 dark:border-gray-600 dark:text-gray-100 dark:hover:border-blue-400 dark:hover:text-blue-400 focus-visible:ring-blue-500",
+    ghost:
+      "bg-transparent text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-blue-400 focus-visible:ring-gray-500",
   };
 
   const sizes = {
-    sm: "h-8 px-3 text-sm",
-    md: "h-10 px-4 text-base",
-    lg: "h-12 px-6 text-lg",
+    sm: "h-8 px-5 text-sm",
+    md: "h-10 px-7 text-base",
+    lg: "h-12 px-9 text-lg",
   };
 
   return (
