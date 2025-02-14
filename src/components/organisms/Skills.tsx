@@ -50,11 +50,17 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-20 overflow-hidden bg-gray-50/50 dark:bg-gray-800/50"
+      className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden bg-transparent"
     >
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-900/80 dark:to-gray-800/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.05),transparent),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.05),transparent)]" />
+      <div className="absolute inset-0 -z-10 w-screen overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/90 via-purple-50/80 to-indigo-50/90 dark:from-gray-900/90 dark:via-gray-800/80 dark:to-gray-900/90 opacity-90 dark:opacity-50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.2),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(147,51,234,0.2),transparent_50%)]" />
+        <div
+          className="absolute inset-0 bg-[linear-gradient(45deg,rgba(59,130,246,0.1)_25%,transparent_25%,transparent_75%,rgba(147,51,234,0.1)_75%)]"
+          style={{ backgroundSize: "60px 60px" }}
+        />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-30 dark:opacity-20 [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/10 dark:via-gray-900/5 dark:to-gray-900/10" />
       </div>
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="animate-fade-in-up">
