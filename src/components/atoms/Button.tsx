@@ -63,10 +63,10 @@ export const Button = forwardRef(function Button(
 
   return (
     <Component
-      ref={ref}
+      ref={ref as any}
       disabled={Component === "button" ? isLoading : undefined}
       className={twMerge(baseStyles, variants[variant], sizes[size], roundedStyles, className)}
-      {...props}
+      {...(props as any)}
     >
       {isLoading ? (
         <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
