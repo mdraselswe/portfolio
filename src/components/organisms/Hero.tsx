@@ -3,6 +3,8 @@
 import { Button } from "@/components/atoms/Button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
+import { MdEmail } from "react-icons/md";
+import { FaFolderOpen } from "react-icons/fa";
 
 export default function Hero() {
   const { language } = useLanguage();
@@ -41,14 +43,7 @@ export default function Hero() {
                 rounded
               >
                 <span className="flex items-center gap-2 justify-center">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <MdEmail className="w-5 h-5" />
                   {t.getInTouch}
                 </span>
               </Button>
@@ -61,14 +56,7 @@ export default function Hero() {
                 rounded
               >
                 <span className="flex items-center gap-2 justify-center">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                    />
-                  </svg>
+                  <FaFolderOpen className="w-5 h-5" />
                   {t.viewProjects}
                 </span>
               </Button>
@@ -79,7 +67,7 @@ export default function Hero() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 rounded-full blur-3xl" />
           <div className="relative">
             <img
-              src="/hero-illustration.svg"
+              src="./hero-illustration.svg"
               alt="Developer Animation"
               className="w-full max-w-[700px] mx-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 ease-in-out"
             />
