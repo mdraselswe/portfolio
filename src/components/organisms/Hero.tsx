@@ -4,7 +4,7 @@ import { Button } from "@/components/atoms/Button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 import { MdEmail } from "react-icons/md";
-import { FaFolderOpen } from "react-icons/fa";
+import { FaFileDownload } from "react-icons/fa";
 
 export default function Hero() {
   const { language } = useLanguage();
@@ -50,15 +50,16 @@ export default function Hero() {
                 </Button>
                 <Button
                   as="a"
-                  href="#projects"
+                  href="./Sr_Frontend_Developer_(Muhammad_ Rasel).pdf"
                   variant="secondary"
                   size="lg"
                   className="w-full sm:w-auto px-8"
                   rounded
+                  download
                 >
                   <span className="flex items-center gap-2 justify-center">
-                    <FaFolderOpen className="w-5 h-5" />
-                    {t.viewProjects}
+                    <FaFileDownload className="w-5 h-5" />
+                    {t.downloadResume}
                   </span>
                 </Button>
               </div>
