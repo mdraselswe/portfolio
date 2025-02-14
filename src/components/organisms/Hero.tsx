@@ -51,14 +51,14 @@ export default function Hero() {
                 <Button
                   as="a"
                   href="./Sr_Frontend_Developer_(Muhammad_ Rasel).pdf"
-                  variant="secondary"
+                  variant="outline"
                   size="lg"
                   className="w-full sm:w-auto px-8"
                   rounded
                   download
                 >
                   <span className="flex items-center gap-2 justify-center">
-                    <FaFileDownload className="w-5 h-5" />
+                    <FaFileDownload className="w-5 h-5 animate-bounce" />
                     {t.downloadResume}
                   </span>
                 </Button>
