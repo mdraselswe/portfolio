@@ -4,18 +4,47 @@ import { translations } from "@/translations";
 
 export default function Skills() {
   const { language } = useLanguage();
-  const skills = [
-    "React.js",
-    "Next.js",
-    "TypeScript",
-    "Context",
-    "Redux",
-    "GraphQL",
-    "Rtk Query",
-    "Tailwind CSS",
-    "Material UI",
-    "Antd",
-    "Bootstrap",
+  const skillCategories = [
+    {
+      title: "Core Technologies",
+      skills: [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "TypeScript",
+        "ES6+",
+        "Responsive Design",
+        "Web APIs",
+      ],
+    },
+    {
+      title: "Frontend Frameworks",
+      skills: ["React.js", "Next.js"],
+    },
+    {
+      title: "State Management",
+      skills: ["Redux", "Context API", "Zustand", "RTK Query"],
+    },
+    {
+      title: "UI Libraries",
+      skills: [
+        "Tailwind CSS",
+        "Material UI",
+        "Chakra UI",
+        "Ant Design",
+        "Bootstrap",
+        "Styled Components",
+        "Framer Motion",
+      ],
+    },
+    {
+      title: "Build Tools",
+      skills: ["Webpack", "Vite", "Babel", "ESLint", "Prettier", "npm", "Yarn"],
+    },
+    {
+      title: "Testing",
+      skills: ["Jest", "React Testing Library", "Storybook"],
+    },
   ];
 
   return (
@@ -38,9 +67,18 @@ export default function Skills() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {skills.map((skill) => (
-              <SkillCard key={skill} skill={skill} />
+          <div className="space-y-12">
+            {skillCategories.map((category) => (
+              <div key={category.title} className="space-y-6">
+                <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+                  {category.title}
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {category.skills.map((skill) => (
+                    <SkillCard key={skill} skill={skill} />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
