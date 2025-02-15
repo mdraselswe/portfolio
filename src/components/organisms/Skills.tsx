@@ -50,10 +50,9 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden bg-transparent"
+      className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
     >
       <div className="absolute inset-0 -z-10 w-screen overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/90 via-purple-50/80 to-indigo-50/90 dark:from-gray-900/90 dark:via-gray-800/80 dark:to-gray-900/90 opacity-90 dark:opacity-50" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.2),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(147,51,234,0.2),transparent_50%)]" />
         <div
           className="absolute inset-0 bg-[linear-gradient(45deg,rgba(59,130,246,0.1)_25%,transparent_25%,transparent_75%,rgba(147,51,234,0.1)_75%)]"
