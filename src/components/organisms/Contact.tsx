@@ -13,11 +13,11 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-20 overflow-hidden bg-gray-50/50 dark:bg-gray-800/50"
+      className="relative py-20 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
     >
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-900/80 dark:to-gray-800/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.05),transparent),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.05),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.1),transparent),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(60deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(60deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0)_100%)]" />
       </div>
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
         <div className="animate-fade-in-up">
