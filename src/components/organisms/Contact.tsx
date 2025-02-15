@@ -48,7 +48,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               variant="secondary"
               size="lg"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
               aria-label="Connect on LinkedIn"
             >
               <span className="flex items-center gap-2 justify-center">
