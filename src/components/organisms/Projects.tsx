@@ -9,10 +9,10 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative py-20 overflow-hidden bg-gradient-to-br from-white/95 via-gray-50/95 to-white/95 dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95"
+      className="relative py-20 overflow-hidden bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 dark:from-gray-900/95 dark:via-gray-800/95"
     >
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.12),transparent_70%),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.12),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.15),transparent_70%),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.15),transparent_70%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(60deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(60deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0)_100%)]" />
       </div>
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
