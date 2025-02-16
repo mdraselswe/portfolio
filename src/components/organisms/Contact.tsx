@@ -6,33 +6,11 @@ import { Button } from "@/components/atoms/Button";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { containerVariants, itemVariants } from "@/config/animations";
 
 export default function Contact() {
   const { language } = useLanguage();
   const t = translations[language].contact;
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
 
   return (
     <section

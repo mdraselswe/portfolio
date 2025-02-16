@@ -2,33 +2,11 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 import { FaGithub, FaLinkedin, FaXTwitter, FaFacebook } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { containerVariants, itemVariants } from "@/config/animations";
 
 export default function Footer() {
   const { language } = useLanguage();
   const t = translations[language];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
 
   return (
     <footer className="relative py-16 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">

@@ -2,6 +2,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 import { motion } from "framer-motion";
 import SkillCard from "../atoms/SkillCard";
+import { containerVariants, itemVariants } from "@/config/animations";
 
 export default function Skills() {
   const { language } = useLanguage();
@@ -47,29 +48,6 @@ export default function Skills() {
       skills: ["Jest", "React Testing Library", "Storybook"],
     },
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.4,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
 
   return (
     <section

@@ -6,6 +6,7 @@ import { translations } from "@/translations";
 import { MdEmail } from "react-icons/md";
 import { FaFileDownload } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { containerVariants, itemVariants, viewportConfig } from "@/config/animations";
 
 export default function Hero() {
   const { language } = useLanguage();
@@ -13,9 +14,10 @@ export default function Hero() {
 
   return (
     <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      viewport={viewportConfig}
       className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden bg-transparent"
     >
       <div className="absolute inset-0 w-screen">
@@ -25,12 +27,7 @@ export default function Hero() {
       </div>
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center lg:text-left space-y-10"
-          >
+          <motion.div variants={itemVariants} className="text-center lg:text-left space-y-10">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium tracking-wide shadow-sm">
                 <span className="relative flex h-2.5 w-2.5">
@@ -76,12 +73,7 @@ export default function Hero() {
               </div>
             </div>
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="hidden lg:block relative"
-          >
+          <motion.div variants={itemVariants} className="hidden lg:block relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse-slow" />
             <div className="relative animate-float">
               <img

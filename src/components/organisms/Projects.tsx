@@ -3,32 +3,10 @@ import ProjectCard from "../atoms/ProjectCard";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 import { motion } from "framer-motion";
+import { containerVariants, itemVariants, viewportConfig } from "@/config/animations";
 
 export default function Projects() {
   const { language } = useLanguage();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
 
   return (
     <section
@@ -44,7 +22,7 @@ export default function Projects() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={viewportConfig}
       >
         <motion.div variants={itemVariants}>
           <h2 className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 animate-gradient-x leading-relaxed py-3">
