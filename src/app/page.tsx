@@ -1,21 +1,33 @@
 "use client";
 
-import Contact from "@/components/organisms/Contact";
-import Hero from "@/components/organisms/Hero";
-import Projects from "@/components/organisms/Projects";
-import Skills from "@/components/organisms/Skills";
-import Footer from "../components/organisms/Footer";
-import Header from "../components/organisms/Header";
+import Loading from "@/components/atoms/Loading";
+import Footer from "@/components/organisms/Footer";
+import Header from "@/components/organisms/Header";
+import { Suspense, lazy } from "@/lib";
+
+// Lazy load major sections
+const Hero = lazy(() => import("@/components/organisms/Hero"));
+const Skills = lazy(() => import("@/components/organisms/Skills"));
+const Projects = lazy(() => import("@/components/organisms/Projects"));
+const Contact = lazy(() => import("@/components/organisms/Contact"));
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <main>
       <Header />
-      <Hero />
-      <Skills />
-      <Projects />
-      <Contact />
+      <Suspense fallback={<Loading />}>
+        <Hero />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <Skills />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <Projects />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <Contact />
+      </Suspense>
       <Footer />
-    </div>
+    </main>
   );
 }
