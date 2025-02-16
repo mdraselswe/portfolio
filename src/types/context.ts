@@ -1,4 +1,16 @@
-export type Theme = "light" | "dark";
+// Constants for Theme and Language
+export const THEMES = {
+  LIGHT: "light",
+  DARK: "dark",
+} as const;
+
+export const LANGUAGES = {
+  ENGLISH: "en",
+  BENGALI: "bn",
+} as const;
+
+// Theme types
+export type Theme = (typeof THEMES)[keyof typeof THEMES];
 
 export interface ThemeContextType {
   theme: Theme;
@@ -6,7 +18,8 @@ export interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-export type Language = "en" | "bn";
+// Language types
+export type Language = (typeof LANGUAGES)[keyof typeof LANGUAGES];
 
 export interface LanguageContextType {
   language: Language;
