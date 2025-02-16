@@ -1,6 +1,4 @@
-interface SkillCardProps {
-  skill: string;
-}
+import { SkillCardProps } from "@/types/skill";
 
 export default function SkillCard({ skill }: SkillCardProps) {
   return (

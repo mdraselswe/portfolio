@@ -12,10 +12,6 @@ export interface Project {
 
 export type ProjectType = Project;
 
-export interface SkillCardProps {
-  skill: string;
-}
-
 export interface ProjectCardProps {
   project: ProjectType;
 }
