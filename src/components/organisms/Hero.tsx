@@ -80,6 +80,9 @@ export default function Hero() {
                 width={700}
                 height={700}
                 priority
+                quality={75}
+                loading="eager"
+                fetchPriority="high"
                 className="w-full max-w-[700px] mx-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 ease-in-out"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-3xl filter blur-xl opacity-50 animate-pulse" />

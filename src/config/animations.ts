@@ -1,5 +1,12 @@
+import {
+  AnimationEasings,
+  AnimationTimings,
+  AnimationVariants,
+  ViewportConfig,
+} from "@/types/animation";
+
 // Animation variants for container elements
-export const containerVariants = {
+export const containerVariants: AnimationVariants["containerVariants"] = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -23,43 +30,22 @@ export const itemVariants = {
   },
 };
 
-// Animation variants for hero section elements
-export const heroVariants = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  transition: { duration: 0.5 },
-};
-
-// Animation variants for hero content
-export const heroContentVariants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay: 0.2 },
-};
-
-// Animation variants for hero illustration
-export const heroIllustrationVariants = {
-  initial: { opacity: 0, x: 20 },
-  animate: { opacity: 1, x: 0 },
-  transition: { duration: 0.6, delay: 0.4 },
-};
-
 // Common animation timing configurations
-export const timings = {
+export const timings: AnimationTimings = {
   fast: 0.3,
   normal: 0.6,
   slow: 0.9,
 };
 
 // Common easing functions
-export const easings = {
+export const easings: AnimationEasings = {
   smooth: "easeOut",
   bounce: "easeInOut",
   spring: [0.6, 0.01, -0.05, 0.95],
 };
 
 // Viewport configurations for animations
-export const viewportConfig = {
+export const viewportConfig: ViewportConfig = {
   once: true,
   margin: "-100px",
 };

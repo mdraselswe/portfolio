@@ -1,13 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-
-type Theme = "light" | "dark";
-
-interface ThemeContextType {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-}
+import { createContext, ReactNode, useContext, useEffect, useState } from "@/lib";
+import { Theme, ThemeContextType } from "@/types/context";
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
@@ -40,8 +34,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTheme(newTheme);
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme: handleThemeChange }}>
+    <ThemeContext.Provider value={{ theme, setTheme: handleThemeChange, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
