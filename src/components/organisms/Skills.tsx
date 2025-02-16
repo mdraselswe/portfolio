@@ -3,51 +3,11 @@ import { translations } from "@/translations";
 import { motion } from "framer-motion";
 import SkillCard from "../atoms/SkillCard";
 import { containerVariants, itemVariants } from "@/config/animations";
+import { skills } from "@/data/skills";
 
 export default function Skills() {
   const { language } = useLanguage();
-  const skillCategories = [
-    {
-      title: "Core Technologies",
-      skills: [
-        "HTML5",
-        "CSS3",
-        "JavaScript",
-        "TypeScript",
-        "ES6+",
-        "Responsive Design",
-        "Web APIs",
-      ],
-    },
-    {
-      title: "Frontend Frameworks",
-      skills: ["React.js", "Next.js"],
-    },
-    {
-      title: "State Management",
-      skills: ["Redux", "Context API", "Zustand", "RTK Query"],
-    },
-    {
-      title: "UI Libraries",
-      skills: [
-        "Tailwind CSS",
-        "Material UI",
-        "Chakra UI",
-        "Ant Design",
-        "Bootstrap",
-        "Styled Components",
-        "Framer Motion",
-      ],
-    },
-    {
-      title: "Build Tools",
-      skills: ["Webpack", "Vite", "Babel", "ESLint", "Prettier", "npm", "Yarn"],
-    },
-    {
-      title: "Testing",
-      skills: ["Jest", "React Testing Library", "Storybook"],
-    },
-  ];
+  const skillCategories = skills[language];
 
   return (
     <section
@@ -64,6 +24,7 @@ export default function Skills() {
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/10 dark:via-gray-900/5 dark:to-gray-900/10" />
       </div>
       <motion.div
+        key={language}
         className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
         variants={containerVariants}
         initial="hidden"
