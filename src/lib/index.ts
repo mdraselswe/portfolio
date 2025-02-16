@@ -2,11 +2,19 @@
 export { motion } from "framer-motion";
 export type { HTMLMotionProps } from "framer-motion";
 
-// Icon Libraries
-export * from "@/lib/icons";
-
 // React.js
-export { forwardRef, useEffect, useState, Suspense, lazy, createContext, useContext } from "react";
+export {
+  forwardRef,
+  useEffect,
+  useState,
+  Suspense,
+  lazy,
+  createContext,
+  useContext,
+  memo,
+  useCallback,
+  useMemo,
+} from "react";
 export type { AnchorHTMLAttributes, ButtonHTMLAttributes, ElementType, ReactNode } from "react";
 
 // Next.js

@@ -4,7 +4,8 @@ import { Button } from "@/components/atoms/Button";
 import { MotionDiv, MotionSection } from "@/components/atoms/motion";
 import { viewportConfig } from "@/config/animations";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { FaFileDownload, Image, MdEmail } from "@/lib";
+import { Image } from "@/lib";
+import { FaFileDownload, MdEmail } from "@/lib/icons";
 import { translations } from "@/translations";
 
 export default function Hero() {

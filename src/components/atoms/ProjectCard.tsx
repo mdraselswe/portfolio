@@ -1,4 +1,4 @@
-import { FiExternalLink, FiGithub } from "@/lib";
+import { FiExternalLink, FiGithub } from "@/lib/icons";
 import { ProjectCardProps } from "@/types/project";
 
 export default function ProjectCard({ project }: ProjectCardProps) {

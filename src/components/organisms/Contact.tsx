@@ -3,7 +3,7 @@
 import { Button } from "@/components/atoms/Button";
 import { MotionDiv, MotionSection } from "@/components/atoms/motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { FaLinkedin, MdEmail } from "@/lib";
+import { FaLinkedin, MdEmail } from "@/lib/icons";
 import { translations } from "@/translations";
 
 export default function Contact() {

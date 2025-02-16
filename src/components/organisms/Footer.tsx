@@ -1,6 +1,6 @@
 import { MotionDiv } from "@/components/atoms/motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { FaFacebook, FaGithub, FaLinkedin, FaXTwitter } from "@/lib";
+import { FaFacebook, FaGithub, FaLinkedin, FaXTwitter } from "@/lib/icons";
 import { translations } from "@/translations";
 
 export default function Footer() {
