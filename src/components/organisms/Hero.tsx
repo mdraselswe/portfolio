@@ -1,12 +1,10 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/translations";
-import { MdEmail } from "react-icons/md";
-import { FaFileDownload } from "react-icons/fa";
-import { motion } from "framer-motion";
 import { containerVariants, itemVariants, viewportConfig } from "@/config/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { MdEmail, FaFileDownload, motion } from "@/lib";
+import { translations } from "@/translations";
 
 export default function Hero() {
   const { language } = useLanguage();

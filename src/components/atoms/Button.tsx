@@ -1,7 +1,12 @@
 "use client";
 
-import { ButtonHTMLAttributes, AnchorHTMLAttributes, ElementType, forwardRef } from "react";
-import { twMerge } from "tailwind-merge";
+import {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ElementType,
+  forwardRef,
+  twMerge,
+} from "@/lib";
 
 type ButtonBaseProps<T extends ElementType = "button"> = {
   /** Additional classes to be merged with default styles */

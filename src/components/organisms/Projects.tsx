@@ -1,9 +1,9 @@
-import { projects } from "@/data/projects";
-import ProjectCard from "../atoms/ProjectCard";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/translations";
-import { motion } from "framer-motion";
+import ProjectCard from "@/components/atoms/ProjectCard";
 import { containerVariants, itemVariants, viewportConfig } from "@/config/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { projects } from "@/data/projects";
+import { motion } from "@/lib";
+import { translations } from "@/translations";
 
 export default function Projects() {
   const { language } = useLanguage();

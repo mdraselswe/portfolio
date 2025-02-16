@@ -1,8 +1,7 @@
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/translations";
-import { FaGithub, FaLinkedin, FaXTwitter, FaFacebook } from "react-icons/fa6";
-import { motion } from "framer-motion";
 import { containerVariants, itemVariants } from "@/config/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { FaFacebook, FaGithub, FaLinkedin, FaXTwitter, motion } from "@/lib";
+import { translations } from "@/translations";
 
 export default function Footer() {
   const { language } = useLanguage();

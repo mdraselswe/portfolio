@@ -1,12 +1,10 @@
 "use client";
 
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/translations";
 import { Button } from "@/components/atoms/Button";
-import { MdEmail } from "react-icons/md";
-import { FaLinkedin } from "react-icons/fa";
-import { motion } from "framer-motion";
 import { containerVariants, itemVariants } from "@/config/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { FaLinkedin, MdEmail, motion } from "@/lib";
+import { translations } from "@/translations";
 
 export default function Contact() {
   const { language } = useLanguage();

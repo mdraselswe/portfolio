@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "@/lib";
 
 export default function Loading() {
   const [isLoading, setIsLoading] = useState(true);

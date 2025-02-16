@@ -1,9 +1,9 @@
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/translations";
-import { motion } from "framer-motion";
-import SkillCard from "../atoms/SkillCard";
 import { containerVariants, itemVariants } from "@/config/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { skills } from "@/data/skills";
+import { motion } from "@/lib";
+import { translations } from "@/translations";
+import SkillCard from "../atoms/SkillCard";
 
 export default function Skills() {
   const { language } = useLanguage();

@@ -1,9 +1,5 @@
-import { ProjectType } from "@/types";
-import { FiGithub, FiExternalLink } from "react-icons/fi";
-
-interface ProjectCardProps {
-  project: ProjectType;
-}
+import { FiExternalLink, FiGithub } from "@/lib";
+import { ProjectCardProps } from "@/types/project";
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
