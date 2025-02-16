@@ -1,7 +1,6 @@
-import { containerVariants, itemVariants } from "@/config/animations";
+import { MotionDiv } from "@/components/atoms/motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { skills } from "@/data/skills";
-import { motion } from "@/lib";
 import { translations } from "@/translations";
 import SkillCard from "../atoms/SkillCard";
 
@@ -23,15 +22,15 @@ export default function Skills() {
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-30 dark:opacity-20 [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/10 dark:via-gray-900/5 dark:to-gray-900/10" />
       </div>
-      <motion.div
+      <MotionDiv
         key={language}
         className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
-        variants={containerVariants}
+        isContainer
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        <motion.div variants={itemVariants}>
+        <MotionDiv>
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x leading-relaxed py-3">
               {translations[language].skills.title}
@@ -40,25 +39,25 @@ export default function Skills() {
               {translations[language].skills.subtitle}
             </p>
           </div>
-        </motion.div>
+        </MotionDiv>
 
         <div className="space-y-12">
           {skillCategories.map((category, index) => (
-            <motion.div key={category.title || index} variants={itemVariants} className="space-y-6">
+            <MotionDiv key={category.title || index} className="space-y-6">
               <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
                 {category.title}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                 {category.skills.map((skill, skillIndex) => (
-                  <motion.div key={skill} variants={itemVariants} custom={skillIndex}>
+                  <MotionDiv key={skill || skillIndex}>
                     <SkillCard skill={skill} />
-                  </motion.div>
+                  </MotionDiv>
                 ))}
               </div>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
-      </motion.div>
+      </MotionDiv>
     </section>
   );
 }

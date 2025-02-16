@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button";
-import { containerVariants, itemVariants } from "@/config/animations";
+import { MotionDiv, MotionSection } from "@/components/atoms/motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { FaLinkedin, MdEmail, motion } from "@/lib";
+import { FaLinkedin, MdEmail } from "@/lib";
 import { translations } from "@/translations";
 
 export default function Contact() {
@@ -11,22 +11,19 @@ export default function Contact() {
   const t = translations[language].contact;
 
   return (
-    <section
+    <MotionSection
       id="contact"
       className="relative py-20 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
     >
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.1),transparent),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.1),transparent)]" />
         <div className="absolute inset-0 bg-[linear-gradient(60deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(60deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0)_100%)]" />
       </div>
-      <motion.div
-        className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <motion.div variants={itemVariants}>
+      <MotionDiv className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center" isContainer>
+        <MotionDiv>
           <h2 className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x">
             {t.title}
           </h2>
@@ -63,8 +60,8 @@ export default function Contact() {
               </span>
             </Button>
           </div>
-        </motion.div>
-      </motion.div>
-    </section>
+        </MotionDiv>
+      </MotionDiv>
+    </MotionSection>
   );
 }

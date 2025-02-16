@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button";
-import { containerVariants, itemVariants, viewportConfig } from "@/config/animations";
+import { MotionDiv, MotionSection } from "@/components/atoms/motion";
+import { viewportConfig } from "@/config/animations";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { MdEmail, FaFileDownload, motion, Image } from "@/lib";
+import { FaFileDownload, Image, MdEmail } from "@/lib";
 import { translations } from "@/translations";
 
 export default function Hero() {
@@ -11,8 +12,7 @@ export default function Hero() {
   const t = translations[language].hero;
 
   return (
-    <motion.section
-      variants={containerVariants}
+    <MotionSection
       initial="hidden"
       animate="visible"
       viewport={viewportConfig}
@@ -25,7 +25,7 @@ export default function Hero() {
       </div>
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div variants={itemVariants} className="text-center lg:text-left space-y-10">
+          <MotionDiv className="text-center lg:text-left space-y-10">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium tracking-wide shadow-sm">
                 <span className="relative flex h-2.5 w-2.5">
@@ -70,8 +70,8 @@ export default function Hero() {
                 </Button>
               </div>
             </div>
-          </motion.div>
-          <motion.div variants={itemVariants} className="hidden lg:block relative">
+          </MotionDiv>
+          <MotionDiv className="hidden lg:block relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse-slow" />
             <div className="relative animate-float">
               <Image
@@ -84,9 +84,9 @@ export default function Hero() {
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-3xl filter blur-xl opacity-50 animate-pulse" />
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </div>
-    </motion.section>
+    </MotionSection>
   );
 }
