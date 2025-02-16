@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useEffect, useState } from "@/lib";
+import { getStorageItem, setStorageItem, STORAGE_KEYS } from "@/lib/storage";
 import { Language, LanguageContextType, LANGUAGES } from "@/types/context";
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -9,7 +10,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(LANGUAGES.ENGLISH);
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language;
+    const savedLanguage = getStorageItem<Language>(STORAGE_KEYS.LANGUAGE);
     if (savedLanguage) {
       setLanguage(savedLanguage);
     }
@@ -17,7 +18,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
-    localStorage.setItem("language", lang);
+    setStorageItem(STORAGE_KEYS.LANGUAGE, lang);
   };
 
   const toggleLanguage = () => {
