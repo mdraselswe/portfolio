@@ -1,6 +1,7 @@
-import SkillCard from "../atoms/SkillCard";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
+import { motion } from "framer-motion";
+import SkillCard from "../atoms/SkillCard";
 
 export default function Skills() {
   const { language } = useLanguage();
@@ -47,6 +48,29 @@ export default function Skills() {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.4,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
     <section
       id="skills"
@@ -61,8 +85,14 @@ export default function Skills() {
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-30 dark:opacity-20 [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/10 dark:via-gray-900/5 dark:to-gray-900/10" />
       </div>
-      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="animate-fade-in-up">
+      <motion.div
+        className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <motion.div variants={itemVariants}>
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x leading-relaxed py-3">
               {translations[language].skills.title}
@@ -71,23 +101,25 @@ export default function Skills() {
               {translations[language].skills.subtitle}
             </p>
           </div>
+        </motion.div>
 
-          <div className="space-y-12">
-            {skillCategories.map((category) => (
-              <div key={category.title} className="space-y-6">
-                <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-                  {category.title}
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {category.skills.map((skill) => (
-                    <SkillCard key={skill} skill={skill} />
-                  ))}
-                </div>
+        <div className="space-y-12">
+          {skillCategories.map((category, index) => (
+            <motion.div key={category.title || index} variants={itemVariants} className="space-y-6">
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+                {category.title}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                {category.skills.map((skill, skillIndex) => (
+                  <motion.div key={skill} variants={itemVariants} custom={skillIndex}>
+                    <SkillCard skill={skill} />
+                  </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
