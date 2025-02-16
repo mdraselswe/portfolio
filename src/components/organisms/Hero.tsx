@@ -5,21 +5,32 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 import { MdEmail } from "react-icons/md";
 import { FaFileDownload } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   const { language } = useLanguage();
   const t = translations[language].hero;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden bg-transparent animate-fade-in">
-      <div className="absolute inset-0 -z-10 w-screen">
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden bg-transparent"
+    >
+      <div className="absolute inset-0 w-screen">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-purple-50/80 dark:from-gray-900/80 dark:to-gray-800/80 opacity-80 dark:opacity-40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.15),transparent),radial-gradient(circle_at_70%_60%,rgba(147,51,234,0.15),transparent)]" />
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
       </div>
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <div className="text-center lg:text-left space-y-10 opacity-0 animate-fade-in-up">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-center lg:text-left space-y-10"
+          >
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium tracking-wide shadow-sm">
                 <span className="relative flex h-2.5 w-2.5">
@@ -64,8 +75,13 @@ export default function Hero() {
                 </Button>
               </div>
             </div>
-          </div>
-          <div className="hidden lg:block relative opacity-0 animate-fade-in-right">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="hidden lg:block relative"
+          >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse-slow" />
             <div className="relative animate-float">
               <img
@@ -75,9 +91,9 @@ export default function Hero() {
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-3xl filter blur-xl opacity-50 animate-pulse" />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
