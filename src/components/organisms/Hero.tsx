@@ -3,7 +3,7 @@
 import { Button } from "@/components/atoms/Button";
 import { containerVariants, itemVariants, viewportConfig } from "@/config/animations";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { MdEmail, FaFileDownload, motion } from "@/lib";
+import { MdEmail, FaFileDownload, motion, Image } from "@/lib";
 import { translations } from "@/translations";
 
 export default function Hero() {
@@ -74,9 +74,12 @@ export default function Hero() {
           <motion.div variants={itemVariants} className="hidden lg:block relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse-slow" />
             <div className="relative animate-float">
-              <img
-                src="./hero-illustration.svg"
+              <Image
+                src="/hero-illustration.svg"
                 alt="Developer Animation"
+                width={700}
+                height={700}
+                priority
                 className="w-full max-w-[700px] mx-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 ease-in-out"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-3xl filter blur-xl opacity-50 animate-pulse" />
