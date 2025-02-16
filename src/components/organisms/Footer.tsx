@@ -1,25 +1,55 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/translations";
 import { FaGithub, FaLinkedin, FaXTwitter, FaFacebook } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 export default function Footer() {
   const { language } = useLanguage();
   const t = translations[language];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
 
   return (
     <footer className="relative py-16 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.1),transparent),radial-gradient(circle_at_70%_30%,rgba(147,51,234,0.1),transparent)]" />
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center md:text-left">
+      <motion.div
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8" variants={itemVariants}>
+          <motion.div className="text-center md:text-left" variants={itemVariants}>
             <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
               {t.name}
             </h3>
             <p className="mt-2 text-gray-700 dark:text-gray-300">{t.footer.role}</p>
-          </div>
-          <div className="text-center">
+          </motion.div>
+          <motion.div className="text-center" variants={itemVariants}>
             <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
               {t.footer.quickLinks}
             </h4>
@@ -49,8 +79,8 @@ export default function Footer() {
                 {t.header.contact}
               </a>
             </nav>
-          </div>
-          <div className="text-center md:text-right">
+          </motion.div>
+          <motion.div className="text-center md:text-right" variants={itemVariants}>
             <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
               {t.footer.connect}
             </h4>
@@ -92,14 +122,14 @@ export default function Footer() {
                 <FaFacebook className="h-6 w-6" />
               </a>
             </div>
-          </div>
-        </div>
-        <div className="mt-8 pt-8 border-t border-gray-300 dark:border-gray-700 text-center">
+          </motion.div>
+        </motion.div>
+        <motion.div className="mt-8 pt-8 border-t border-gray-300 dark:border-gray-700 text-center">
           <p className="text-gray-700 dark:text-gray-300">
             &copy; {new Date().getFullYear()} {t.name}. {t.footer.copyright}
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </footer>
   );
 }

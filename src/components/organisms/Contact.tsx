@@ -5,10 +5,34 @@ import { translations } from "@/translations";
 import { Button } from "@/components/atoms/Button";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Contact() {
   const { language } = useLanguage();
   const t = translations[language].contact;
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
 
   return (
     <section
@@ -19,8 +43,14 @@ export default function Contact() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.1),transparent),radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.1),transparent)]" />
         <div className="absolute inset-0 bg-[linear-gradient(60deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(60deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0)_100%)]" />
       </div>
-      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-        <div className="animate-fade-in-up">
+      <motion.div
+        className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <motion.div variants={itemVariants}>
           <h2 className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 animate-gradient-x">
             {t.title}
           </h2>
@@ -57,8 +87,8 @@ export default function Contact() {
               </span>
             </Button>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
