@@ -4,7 +4,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "@/lib
 import { getStorageItem, setStorageItem, STORAGE_KEYS } from "@/lib/storage";
 import { Language, LanguageContextType, LANGUAGES } from "@/types/context";
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(LANGUAGES.ENGLISH);

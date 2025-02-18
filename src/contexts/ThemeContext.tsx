@@ -4,7 +4,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "@/lib
 import { getStorageItem, setStorageItem, STORAGE_KEYS } from "@/lib/storage";
 import { Theme, ThemeContextType, THEMES } from "@/types/context";
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(THEMES.LIGHT);
