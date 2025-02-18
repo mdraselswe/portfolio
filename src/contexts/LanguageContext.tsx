@@ -16,17 +16,24 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  useEffect(() => {
+    const updateStorage = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      setStorageItem(STORAGE_KEYS.LANGUAGE, language);
+    };
+    updateStorage();
+  }, [language]);
+
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
-    // Ensure localStorage is updated after state change
-    Promise.resolve().then(() => {
-      setStorageItem(STORAGE_KEYS.LANGUAGE, lang);
-    });
   };
 
   const toggleLanguage = () => {
-    const newLanguage = language === LANGUAGES.ENGLISH ? LANGUAGES.BENGALI : LANGUAGES.ENGLISH;
-    handleLanguageChange(newLanguage);
+    setLanguage((currentLanguage) => {
+      const newLanguage =
+        currentLanguage === LANGUAGES.ENGLISH ? LANGUAGES.BENGALI : LANGUAGES.ENGLISH;
+      return newLanguage;
+    });
   };
 
   return (

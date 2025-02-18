@@ -1,6 +1,7 @@
 import { LanguageContext, LanguageProvider } from "@/contexts/LanguageContext";
 import { fireEvent, render, screen, useContext } from "@/lib";
 import { translations } from "@/translations";
+import { act } from "@testing-library/react";
 
 const TestComponent = () => {
   const context = useContext(LanguageContext);
@@ -74,14 +75,16 @@ describe("LanguageContext", () => {
     );
 
     const toggleButton = screen.getByTestId("language-toggle");
+
+    await act(async () => {
+      fireEvent.click(toggleButton);
+      // Wait for React state updates to complete
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    // Get the language value after state updates are complete
     const languageValue = screen.getByTestId("language-value");
-
-    fireEvent.click(toggleButton);
     expect(languageValue.textContent).toBe("bn");
-
-    // Wait for state update and localStorage to be updated
-    await new Promise((resolve) => setTimeout(resolve, 0));
-
     expect(localStorage.getItem("language")).toBe('"bn"');
   });
 });
