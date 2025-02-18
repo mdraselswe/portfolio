@@ -1,4 +1,4 @@
-import { describe, expect, test, beforeEach, afterEach } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, test } from "@/lib";
 import { getStorageItem as getItem, setStorageItem as setItem } from "@/lib/storage";
 
 type CircularType = {

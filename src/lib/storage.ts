@@ -18,6 +18,12 @@ export const getStorageItem = <T>(key: string): T | null => {
 
 export const setStorageItem = <T>(key: string, value: T): void => {
   if (typeof window === "undefined") return;
-  const stringValue = typeof value === "string" ? `"${value}"` : JSON.stringify(value);
-  localStorage.setItem(key, stringValue);
+  try {
+    const stringValue = typeof value === "string" ? `"${value}"` : JSON.stringify(value);
+    localStorage.setItem(key, stringValue);
+  } catch (error) {
+    console.warn(`Failed to serialize value for key ${key}:`, error);
+    // Store the value as-is if serialization fails
+    localStorage.setItem(key, String(value));
+  }
 };

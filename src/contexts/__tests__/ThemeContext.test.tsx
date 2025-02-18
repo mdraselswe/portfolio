@@ -1,6 +1,5 @@
 import { ThemeContext, ThemeProvider } from "@/contexts/ThemeContext";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { useContext } from "react";
+import { fireEvent, render, screen, useContext } from "@/lib";
 
 const TestComponent = () => {
   const context = useContext(ThemeContext);
@@ -19,6 +18,23 @@ const TestComponent = () => {
 };
 
 describe("ThemeContext", () => {
+  beforeEach(() => {
+    // Mock window.matchMedia
+    Object.defineProperty(window, "matchMedia", {
+      writable: true,
+      value: jest.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      })),
+    });
+  });
+
   test("provides initial theme value", () => {
     render(
       <ThemeProvider>
@@ -59,6 +75,6 @@ describe("ThemeContext", () => {
     const toggleButton = screen.getByTestId("theme-toggle");
     fireEvent.click(toggleButton);
 
-    expect(localStorage.getItem("theme")).toBe("dark");
+    expect(localStorage.getItem("theme")).toBe('"dark"');
   });
 });

@@ -18,7 +18,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
-    setStorageItem(STORAGE_KEYS.LANGUAGE, lang);
+    // Ensure localStorage is updated after state change
+    Promise.resolve().then(() => {
+      setStorageItem(STORAGE_KEYS.LANGUAGE, lang);
+    });
   };
 
   const toggleLanguage = () => {
