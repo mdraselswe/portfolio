@@ -76,7 +76,7 @@ export default function Hero() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse-slow" />
             <div className="relative animate-float">
               <Image
-                src="/hero-illustration.svg"
+                src="./hero-illustration.svg"
                 alt="Developer Animation"
                 width={700}
                 height={700}
