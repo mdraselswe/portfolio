@@ -16,9 +16,40 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Your Name",
-  description: "A showcase of my work and skills as a developer",
-  keywords: ["portfolio", "developer", "web development", "software engineer"],
+  title: "Muhammad Rasel | Senior Frontend Developer",
+  description:
+    "Senior Frontend Developer with over 7 years of expertise in React.js, Next.js, and Team Leadership. Explore my portfolio showcasing modern web development projects.",
+  keywords: [
+    "Muhammad Rasel",
+    "Frontend Developer",
+    "React Developer",
+    "Next.js Developer",
+    "Web Development",
+    "UI/UX",
+    "JavaScript",
+    "TypeScript",
+    "Portfolio",
+  ],
+  authors: [{ name: "Muhammad Rasel" }],
+  creator: "Muhammad Rasel",
+  publisher: "Muhammad Rasel",
+  robots: "index, follow",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://mdraselswe.github.io",
+    siteName: "Muhammad Rasel Portfolio",
+    title: "Muhammad Rasel | Senior Frontend Developer",
+    description:
+      "Senior Frontend Developer with over 7 years of expertise in React.js, Next.js, and Team Leadership",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Muhammad Rasel | Senior Frontend Developer",
+    description:
+      "Senior Frontend Developer with over 7 years of expertise in React.js, Next.js, and Team Leadership",
+    creator: "@mdraselswe",
+  },
 };
 
 export default function RootLayout({
