@@ -1,5 +1,6 @@
 import { LanguageContext, LanguageProvider } from "@/contexts/LanguageContext";
-import { fireEvent, render, screen, useContext } from "@/lib";
+import { useContext } from "@/lib";
+import { fireEvent, render, screen } from "@/lib/test";
 import { translations } from "@/translations";
 import { act } from "@testing-library/react";
 

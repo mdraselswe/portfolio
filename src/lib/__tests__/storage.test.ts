@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, describe, expect, test } from "@/lib";
 import { getStorageItem as getItem, setStorageItem as setItem } from "@/lib/storage";
+import { afterEach, beforeEach, describe, expect, test } from "@/lib/test";
 
 type CircularType = {
   self?: CircularType;

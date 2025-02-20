@@ -23,7 +23,3 @@ export { Image };
 
 // Tailwind CSS
 export { twMerge } from "tailwind-merge";
-
-// Testing Libraries
-export { fireEvent, render, screen, act } from "@testing-library/react";
-export { describe, expect, test, beforeEach, afterEach } from "@jest/globals";

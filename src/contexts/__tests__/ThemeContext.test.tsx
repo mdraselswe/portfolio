@@ -1,5 +1,6 @@
 import { ThemeContext, ThemeProvider } from "@/contexts/ThemeContext";
-import { fireEvent, render, screen, useContext } from "@/lib";
+import { useContext } from "@/lib";
+import { fireEvent, render, screen } from "@/lib/test";
 
 const TestComponent = () => {
   const context = useContext(ThemeContext);
