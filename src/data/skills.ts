@@ -17,6 +17,10 @@ export const skills = {
       skills: ["React.js", "Next.js"],
     },
     {
+      title: "Backend Frameworks",
+      skills: ["Node.js", "Express.js"],
+    },
+    {
       title: "State Management",
       skills: ["Redux", "Context API", "Zustand", "RTK Query"],
     },
