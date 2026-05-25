@@ -1,96 +1,244 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button";
-import { MotionDiv, MotionSection } from "@/components/atoms/motion";
-import { viewportConfig } from "@/config/animations";
+import SplitText from "@/components/atoms/SplitText";
+import AnimatedCounter from "@/components/atoms/AnimatedCounter";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Image } from "@/lib";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { motion, useMotionValue, useSpring, useTransform, useEffect } from "@/lib";
 import { FaFileDownload, MdEmail } from "@/lib/icons";
 import { translations } from "@/translations";
 
+// ── Floating stat card ────────────────────────────────────────────────────
+function StatCard({
+  value,
+  suffix,
+  label,
+  delay,
+  className = "",
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+  delay: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16, scale: 0.94 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={`flex flex-col items-center justify-center px-6 py-4 rounded-2xl border border-gray-200/80 dark:border-white/[0.08] bg-white/90 dark:bg-white/[0.03] backdrop-blur-md shadow-sm dark:shadow-none ${className}`}
+    >
+      <span className="text-2xl font-bold tabular-nums text-gray-900 dark:text-white">
+        <AnimatedCounter to={value} suffix={suffix} duration={2} />
+      </span>
+      <span className="text-xs text-gray-500 dark:text-white/40 mt-0.5 text-center leading-tight">
+        {label}
+      </span>
+    </motion.div>
+  );
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────
 export default function Hero() {
   const { language } = useLanguage();
+  const prefersReduced = useReducedMotion();
   const t = translations[language].hero;
+  const name = translations[language].name;
+
+  // Split greeting: prefix ("Hi, I'm") + name ("Muhammad Rasel")
+  const prefix = t.greeting.replace(name, "").trim().replace(/,\s*$/, "").trim();
+
+  // Mouse parallax
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const springX = useSpring(rawX, { stiffness: 50, damping: 25 });
+  const springY = useSpring(rawY, { stiffness: 50, damping: 25 });
+  const blob1X = useTransform(springX, [-1, 1], [-50, 50]);
+  const blob1Y = useTransform(springY, [-1, 1], [-40, 40]);
+  const blob2X = useTransform(springX, [-1, 1], [40, -40]);
+  const blob2Y = useTransform(springY, [-1, 1], [30, -30]);
+
+  useEffect(() => {
+    if (prefersReduced) return;
+    const onMove = (e: MouseEvent) => {
+      rawX.set((e.clientX / window.innerWidth) * 2 - 1);
+      rawY.set((e.clientY / window.innerHeight) * 2 - 1);
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [prefersReduced, rawX, rawY]);
+
+  const stats = [
+    { value: 8, suffix: "+", label: t.yearsLabel },
+    { value: 50, suffix: "+", label: t.projectsLabel },
+    { value: 15, suffix: "+", label: t.techLabel },
+    { value: 100, suffix: "%", label: t.satisfactionLabel },
+  ];
 
   return (
-    <MotionSection
-      initial="hidden"
-      animate="visible"
-      viewport={viewportConfig}
-      className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden bg-transparent"
-    >
-      <div className="absolute inset-0 w-screen">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-purple-50/80 dark:from-gray-900/80 dark:to-gray-800/80 opacity-80 dark:opacity-40" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.15),transparent),radial-gradient(circle_at_70%_60%,rgba(147,51,234,0.15),transparent)]" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-20 px-4">
+      {/* ── Background ── */}
+      <div className="absolute inset-0 -z-10">
+        {/* Base */}
+        <div className="absolute inset-0 bg-white dark:bg-[#050508]" />
+
+        {/* Grid lines */}
+        <div
+          className="absolute inset-0 opacity-100 dark:opacity-100"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+        <div
+          className="absolute inset-0 hidden dark:block"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+
+        {/* Fade edge */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,transparent_60%,white_100%)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,transparent_60%,#050508_100%)]" />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white dark:from-[#050508] to-transparent" />
+
+        {/* Ambient parallax blobs */}
+        <motion.div
+          className="absolute w-[600px] h-[400px] top-[10%] left-[15%] bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-[120px] animate-glow-breathe"
+          style={prefersReduced ? {} : { x: blob1X, y: blob1Y }}
+          aria-hidden
+        />
+        <motion.div
+          className="absolute w-[500px] h-[400px] bottom-[20%] right-[10%] bg-violet-500/8 dark:bg-violet-500/12 rounded-full blur-[100px] animate-glow-breathe [animation-delay:2.5s]"
+          style={prefersReduced ? {} : { x: blob2X, y: blob2Y }}
+          aria-hidden
+        />
+        <div className="absolute w-[300px] h-[300px] top-[40%] right-[25%] bg-cyan-500/5 dark:bg-cyan-500/08 rounded-full blur-[80px] animate-glow-breathe [animation-delay:1.2s]" />
       </div>
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <MotionDiv className="text-center lg:text-left space-y-10">
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium tracking-wide shadow-sm">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
-                </span>
-                <span className="tracking-wider">{t.role}</span>
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient-x leading-tight tracking-tighter py-3">
-                {t.greeting}
-              </h1>
-              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed tracking-normal">
-                {t.desc}
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
-                <Button
-                  as="a"
-                  href="#contact"
-                  variant="primary"
-                  size="lg"
-                  className="w-full sm:w-auto px-8"
-                  rounded
-                >
-                  <span className="flex items-center gap-2 justify-center">
-                    <MdEmail className="w-5 h-5" />
-                    {t.getInTouch}
-                  </span>
-                </Button>
-                <Button
-                  as="a"
-                  href="./Sr_Frontend_Developer_(Muhammad_ Rasel).pdf"
-                  variant="outline"
-                  size="lg"
-                  className="w-full sm:w-auto px-8"
-                  rounded
-                  download
-                >
-                  <span className="flex items-center gap-2 justify-center">
-                    <FaFileDownload className="w-5 h-5 animate-bounce" />
-                    {t.downloadResume}
-                  </span>
-                </Button>
-              </div>
-            </div>
-          </MotionDiv>
-          <MotionDiv className="hidden lg:block relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse-slow" />
-            <div className="relative animate-float">
-              <Image
-                src="./hero-illustration.svg"
-                alt="Developer Animation"
-                width={700}
-                height={700}
-                priority
-                quality={75}
-                loading="eager"
-                fetchPriority="high"
-                className="w-full max-w-[700px] mx-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 ease-in-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-3xl filter blur-xl opacity-50 animate-pulse" />
-            </div>
-          </MotionDiv>
+
+      {/* ── Content ── */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
+        {/* Availability badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-white/[0.08] bg-white/80 dark:bg-white/[0.04] backdrop-blur-sm text-sm text-gray-600 dark:text-white/60 mb-10 shadow-sm"
+        >
+          <span className="relative flex w-2 h-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+            <span className="relative inline-flex rounded-full w-2 h-2 bg-emerald-500" />
+          </span>
+          {t.availability}
+        </motion.div>
+
+        {/* ── Headline ── */}
+        <h1 className="mb-6 font-bold tracking-tight leading-none" aria-label={t.greeting}>
+          {/* Prefix: dimmer, smaller */}
+          <span className="block text-3xl sm:text-4xl font-medium text-gray-500 dark:text-white/35 mb-2">
+            <SplitText text={prefix} mode="words" delay={0.15} stagger={0.07} />
+          </span>
+
+          {/* Name: massive gradient */}
+          <span
+            className="block text-5xl sm:text-7xl lg:text-8xl bg-gradient-to-br from-gray-900 via-blue-800 to-violet-700 dark:from-white dark:via-blue-200 dark:to-violet-300 bg-clip-text text-transparent animate-gradient-shift"
+            style={{ backgroundSize: "200% 200%" }}
+          >
+            <SplitText text={name} mode="words" delay={0.35} stagger={0.1} duration={0.75} />
+          </span>
+        </h1>
+
+        {/* Role tag */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-500/40 bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 text-sm font-medium mb-6"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          {t.role}
+        </motion.div>
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="text-base sm:text-lg text-gray-500 dark:text-white/45 max-w-2xl mx-auto leading-relaxed mb-10"
+        >
+          {t.desc}
+        </motion.p>
+
+        {/* ── CTAs ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-16"
+        >
+          {/* Primary: gradient with glow */}
+          <Button
+            as="a"
+            href="#contact"
+            variant="primary"
+            size="lg"
+            rounded
+            className="w-full sm:w-auto px-8 shadow-lg shadow-blue-600/20 hover:shadow-blue-600/35 hover:-translate-y-0.5"
+          >
+            <span className="flex items-center gap-2">
+              <MdEmail className="w-4 h-4" />
+              {t.getInTouch}
+            </span>
+          </Button>
+
+          {/* Secondary: ghost */}
+          <Button
+            as="a"
+            href="./Sr_Frontend_Developer_(Muhammad_ Rasel).pdf"
+            variant="outline"
+            size="lg"
+            rounded
+            className="w-full sm:w-auto px-8 hover:-translate-y-0.5"
+            download
+          >
+            <span className="flex items-center gap-2">
+              <FaFileDownload className="w-4 h-4" />
+              {t.downloadResume}
+            </span>
+          </Button>
+        </motion.div>
+
+        {/* ── Stat cards row ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
+          {stats.map((s, i) => (
+            <StatCard
+              key={i}
+              value={s.value}
+              suffix={s.suffix}
+              label={s.label}
+              delay={1.3 + i * 0.08}
+            />
+          ))}
         </div>
       </div>
-    </MotionSection>
+
+      {/* ── Scroll indicator ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+        aria-hidden
+      >
+        <span className="text-xs text-gray-400 dark:text-white/25 font-mono tracking-widest uppercase">
+          scroll
+        </span>
+        <div className="w-px h-8 bg-gradient-to-b from-gray-300 dark:from-white/20 to-transparent" />
+      </motion.div>
+    </section>
   );
 }

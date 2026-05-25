@@ -1,112 +1,148 @@
-import { MotionDiv } from "@/components/atoms/motion";
+"use client";
+
+import { motion } from "@/lib";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { FaFacebook, FaGithub, FaLinkedin, FaXTwitter } from "@/lib/icons";
 import { translations } from "@/translations";
+import { fadeInUp, fastStaggerContainer, viewportConfig } from "@/config/animations";
 
+// ── Hover reveal link ─────────────────────────────────────────────────────
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a href={href} className="group relative inline-block overflow-hidden py-0.5">
+      <span className="block text-sm text-gray-500 dark:text-white/40 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-full">
+        {children}
+      </span>
+      <span
+        className="absolute inset-0 flex items-center text-sm text-blue-600 dark:text-blue-400 font-medium translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]"
+        aria-hidden
+      >
+        {children}
+      </span>
+    </a>
+  );
+}
+
+// ── Social icon with spring lift ──────────────────────────────────────────
+function SocialIcon({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="p-2 rounded-xl text-gray-400 dark:text-white/30 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/8 transition-colors duration-200"
+      whileHover={{ y: -3, scale: 1.1 }}
+      transition={{ type: "spring", stiffness: 400, damping: 20 }}
+    >
+      {children}
+    </motion.a>
+  );
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────
 export default function Footer() {
   const { language } = useLanguage();
   const t = translations[language];
 
   return (
-    <footer className="relative py-16 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.1),transparent),radial-gradient(circle_at_70%_30%,rgba(147,51,234,0.1),transparent)]" />
+    <footer className="relative border-t border-gray-100 dark:border-white/[0.05] bg-white dark:bg-[#050508]">
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_40%_at_50%_100%,rgba(59,130,246,0.04),transparent)] dark:bg-[radial-gradient(ellipse_80%_40%_at_50%_100%,rgba(59,130,246,0.06),transparent)]" />
       </div>
-      <MotionDiv
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-        isContainer
+
+      <motion.div
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14"
+        variants={fastStaggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={viewportConfig}
       >
-        <MotionDiv className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <MotionDiv className="text-center md:text-left">
-            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+        {/* ── Main row ── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+          {/* Brand column */}
+          <motion.div variants={fadeInUp} className="md:col-span-1">
+            <h3 className="text-base font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent mb-1">
               {t.name}
             </h3>
-            <p className="mt-2 text-gray-700 dark:text-gray-300">{t.footer.role}</p>
-          </MotionDiv>
-          <MotionDiv className="text-center">
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-sm text-gray-400 dark:text-white/35 mb-5">{t.footer.role}</p>
+
+            {/* Social icons */}
+            <div className="flex items-center gap-1 -ml-2">
+              <SocialIcon href="http://github.com/mdraselswe" label="GitHub">
+                <FaGithub className="h-4 w-4" />
+              </SocialIcon>
+              <SocialIcon href="https://www.linkedin.com/in/mdraselswe" label="LinkedIn">
+                <FaLinkedin className="h-4 w-4" />
+              </SocialIcon>
+              <SocialIcon href="https://x.com/mdraselswe" label="Twitter">
+                <FaXTwitter className="h-4 w-4" />
+              </SocialIcon>
+              <SocialIcon href="https://facebook.com/mdraselswe" label="Facebook">
+                <FaFacebook className="h-4 w-4" />
+              </SocialIcon>
+            </div>
+          </motion.div>
+
+          {/* Quick links */}
+          <motion.div variants={fadeInUp} className="md:col-span-1">
+            <h4 className="text-xs font-mono tracking-[0.18em] uppercase text-gray-400 dark:text-white/25 mb-5">
               {t.footer.quickLinks}
             </h4>
-            <nav className="space-y-2">
-              <a
-                href="#"
-                className="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-              >
-                {t.header.home}
-              </a>
-              <a
-                href="#skills"
-                className="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-              >
-                {t.header.skills}
-              </a>
-              <a
-                href="#projects"
-                className="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-              >
-                {t.header.projects}
-              </a>
-              <a
-                href="#contact"
-                className="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-              >
-                {t.header.contact}
-              </a>
+            <nav className="flex flex-col gap-2.5">
+              <FooterLink href="#">{t.header.home}</FooterLink>
+              <FooterLink href="#skills">{t.header.skills}</FooterLink>
+              <FooterLink href="#projects">{t.header.projects}</FooterLink>
+              <FooterLink href="#contact">{t.header.contact}</FooterLink>
             </nav>
-          </MotionDiv>
-          <MotionDiv className="text-center md:text-right">
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+          </motion.div>
+
+          {/* Connect */}
+          <motion.div variants={fadeInUp} className="md:col-span-1">
+            <h4 className="text-xs font-mono tracking-[0.18em] uppercase text-gray-400 dark:text-white/25 mb-5">
               {t.footer.connect}
             </h4>
-            <div className="flex justify-center md:justify-end space-x-4">
+            <div className="flex flex-col gap-2.5">
               <a
-                href="http://github.com/mdraselswe"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                href="mailto:mdraselswe@gmail.com"
+                className="text-sm text-gray-500 dark:text-white/40 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-mono"
               >
-                <span className="sr-only">GitHub</span>
-                <FaGithub className="h-6 w-6" />
+                mdraselswe@gmail.com
               </a>
               <a
                 href="https://www.linkedin.com/in/mdraselswe"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                className="text-sm text-gray-500 dark:text-white/40 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
               >
-                <span className="sr-only">LinkedIn</span>
-                <FaLinkedin className="h-6 w-6" />
-              </a>
-              <a
-                href="https://x.com/mdraselswe"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-              >
-                <span className="sr-only">Twitter</span>
-                <FaXTwitter className="h-6 w-6" />
-              </a>
-              <a
-                href="https://facebook.com/mdraselswe"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-              >
-                <span className="sr-only">Facebook</span>
-                <FaFacebook className="h-6 w-6" />
+                linkedin.com/in/mdraselswe
               </a>
             </div>
-          </MotionDiv>
-        </MotionDiv>
-        <MotionDiv className="mt-8 pt-8 border-t border-gray-300 dark:border-gray-700 text-center">
-          <p className="text-gray-700 dark:text-gray-300">
-            &copy; {new Date().getFullYear()} {t.name}. {t.footer.copyright}
+          </motion.div>
+        </div>
+
+        {/* ── Bottom bar ── */}
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-gray-100 dark:border-white/[0.05]"
+        >
+          <p className="text-xs text-gray-400 dark:text-white/25 font-mono">
+            &copy; {new Date().getFullYear()} {t.name} — {t.footer.copyright}
           </p>
-        </MotionDiv>
-      </MotionDiv>
+
+          <p className="text-xs text-gray-400 dark:text-white/20 font-mono">
+            Built with Next.js & Framer Motion
+          </p>
+        </motion.div>
+      </motion.div>
     </footer>
   );
 }

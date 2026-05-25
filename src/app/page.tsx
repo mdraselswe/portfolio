@@ -10,6 +10,7 @@ const Hero = lazy(() => import("@/components/organisms/Hero"));
 const Skills = lazy(() => import("@/components/organisms/Skills"));
 const Projects = lazy(() => import("@/components/organisms/Projects"));
 const Contact = lazy(() => import("@/components/organisms/Contact"));
+const Stats = lazy(() => import("@/components/organisms/Stats"));
 
 export default function Home() {
   return (
@@ -17,6 +18,9 @@ export default function Home() {
       <Header />
       <Suspense fallback={<Loading />}>
         <Hero />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <Stats />
       </Suspense>
       <Suspense fallback={<Loading />}>
         <Skills />

@@ -13,6 +13,11 @@ export const translations = {
       desc: "Dynamic Frontend Engineer with 8+ years of React.js expertise, focused on creating seamless user interfaces and leading high-impact projects while mentoring team members in agile environments.",
       getInTouch: "Get in Touch",
       downloadResume: "Download Resume",
+      availability: "Available for new opportunities",
+      yearsLabel: "Years Experience",
+      projectsLabel: "Projects Delivered",
+      techLabel: "Technologies",
+      satisfactionLabel: "Client Satisfaction",
     },
     skills: {
       title: "Skills & Technologies",
@@ -52,6 +57,11 @@ export const translations = {
       desc: "৮+ বছরের React.js বিশেষজ্ঞতা সহ একজন গতিশীল ফ্রন্ট-এন্ড ইঞ্জিনিয়ার, যিনি নিরবচ্ছিন্ন ইউজার ইন্টারফেস তৈরি এবং এজাইল পরিবেশে টিম সদস্যদের মেন্টরিং করার মাধ্যমে প্রজেক্ট পরিচালনায় মনোনিবেশ করেন।",
       getInTouch: "যোগাযোগ করুন",
       downloadResume: "রিজিউমি ডাউনলোড করুন",
+      availability: "নতুন সুযোগের জন্য উপলব্ধ",
+      yearsLabel: "বছরের অভিজ্ঞতা",
+      projectsLabel: "প্রজেক্ট সম্পন্ন",
+      techLabel: "প্রযুক্তি দক্ষতা",
+      satisfactionLabel: "ক্লায়েন্ট সন্তুষ্টি",
     },
     skills: {
       title: "দক্ষতা এবং প্রযুক্তি",

@@ -1,5 +1,14 @@
 // Animation Libraries
-export { motion } from "framer-motion";
+export {
+  motion,
+  animate,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useInView,
+  useScroll,
+} from "framer-motion";
 export type { HTMLMotionProps } from "framer-motion";
 
 // React.js
@@ -7,6 +16,7 @@ export {
   forwardRef,
   useEffect,
   useState,
+  useRef,
   Suspense,
   lazy,
   createContext,

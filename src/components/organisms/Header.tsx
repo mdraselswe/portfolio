@@ -1,13 +1,24 @@
 "use client";
 
-import { Button } from "@/components/atoms/Button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
-import { memo, useCallback, useEffect, useMemo, useState } from "@/lib";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "@/lib";
 import { FaBars, FaMoon, FaSun } from "@/lib/icons";
 import { translations } from "@/translations";
 
-const NavItem = memo(function NavItem({
+// ── Nav item (desktop) ────────────────────────────────────────────────────
+const NavLink = memo(function NavLink({
   href,
   isActive,
   onClick,
@@ -22,17 +33,26 @@ const NavItem = memo(function NavItem({
     <a
       href={href}
       onClick={onClick}
-      className={`relative text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 group py-2 ${isActive ? "text-blue-600 dark:text-blue-400" : ""}`}
+      className={`relative text-sm font-medium transition-colors duration-200 py-1 ${
+        isActive
+          ? "text-blue-600 dark:text-blue-400"
+          : "text-gray-600 dark:text-white/50 hover:text-gray-900 dark:hover:text-white/90"
+      }`}
     >
-      <span>{children}</span>
-      <span
-        className={`absolute bottom-0 left-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
-      ></span>
+      {children}
+      {isActive && (
+        <motion.span
+          layoutId="nav-indicator"
+          className="absolute -bottom-0.5 left-0 right-0 h-px bg-blue-500 dark:bg-blue-400 rounded-full"
+          transition={{ type: "spring", stiffness: 500, damping: 40 }}
+        />
+      )}
     </a>
   );
 });
 
-const MobileNavItem = memo(function MobileNavItem({
+// ── Mobile nav item ───────────────────────────────────────────────────────
+const MobileNavLink = memo(function MobileNavLink({
   href,
   isActive,
   onClick,
@@ -46,72 +66,66 @@ const MobileNavItem = memo(function MobileNavItem({
   return (
     <a
       href={href}
-      className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 ${isActive ? "text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800" : ""}`}
       onClick={onClick}
+      className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+        isActive
+          ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+          : "text-gray-700 dark:text-white/60 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white"
+      }`}
     >
       {children}
     </a>
   );
 });
 
+// ── Header ────────────────────────────────────────────────────────────────
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [manualNav, setManualNav] = useState(false);
+
   const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
+  const prefersReduced = useReducedMotion();
   const t = translations[language].header;
 
-  const [isManualNavigation, setIsManualNavigation] = useState(false);
+  // Scroll-based pill height compression
+  const { scrollY } = useScroll();
+  const pillPaddingY = useTransform(scrollY, [0, 80], [12, 8]);
+  const pillPaddingX = useTransform(scrollY, [0, 80], [20, 16]);
 
+  // Active section via IntersectionObserver
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (!isManualNavigation) {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const sectionId = entry.target.id || "";
-              const intersectionRatio = entry.intersectionRatio;
-
-              if (intersectionRatio > 0.2) {
-                setActiveSection(sectionId);
-              }
-            }
-          });
-        }
+        if (manualNav) return;
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.intersectionRatio > 0.2) {
+            setActiveSection(e.target.id ?? "");
+          }
+        });
       },
-      { threshold: [0, 0.2, 0.4, 0.6, 0.8], rootMargin: "-50px 0px -40% 0px" }
+      { threshold: [0.2, 0.5], rootMargin: "-50px 0px -40% 0px" }
     );
-
-    const sections = document.querySelectorAll("section[id]");
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
-
-    const heroSection = document.querySelector("section:first-of-type");
-    if (heroSection) {
-      observer.observe(heroSection);
-    }
-
+    document.querySelectorAll("section[id]").forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, [isManualNavigation]);
+  }, [manualNav]);
 
-  const handleNavClick = useCallback((sectionId: string) => {
-    setIsManualNavigation(true);
-    setActiveSection(sectionId);
-    setIsMobileMenuOpen(false);
-
-    setTimeout(() => {
-      setIsManualNavigation(false);
-    }, 1000);
+  const handleNavClick = useCallback((id: string) => {
+    setManualNav(true);
+    setActiveSection(id);
+    setMobileOpen(false);
+    setTimeout(() => setManualNav(false), 1000);
   }, []);
 
-  const toggleLanguage = useCallback(() => {
-    setLanguage(language === "en" ? "bn" : "en");
-  }, [language, setLanguage]);
-
-  const toggleTheme = useCallback(() => {
-    setTheme(theme === "light" ? "dark" : "light");
-  }, [theme, setTheme]);
+  const toggleLanguage = useCallback(
+    () => setLanguage(language === "en" ? "bn" : "en"),
+    [language, setLanguage]
+  );
+  const toggleTheme = useCallback(
+    () => setTheme(theme === "light" ? "dark" : "light"),
+    [theme, setTheme]
+  );
 
   const navItems = useMemo(
     () => [
@@ -124,85 +138,112 @@ export default function Header() {
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/95 dark:bg-gray-900/80 border-b border-gray-100/50 dark:border-gray-700/20 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          <a
-            href="#"
-            onClick={() => handleNavClick("")}
-            className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent hover:from-indigo-600 hover:to-blue-600 transition-all duration-300"
-          >
-            {translations[language].name}
-          </a>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-10">
-            {navItems.map((item) => (
-              <NavItem
-                key={item.id}
-                href={item.href}
-                isActive={activeSection === item.id}
-                onClick={() => handleNavClick(item.id)}
-              >
-                {item.label}
-              </NavItem>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-4">
-            {/* Theme Switcher */}
-            <Button
-              onClick={toggleTheme}
-              variant="ghost"
-              size="sm"
-              className="p-2 rounded-full"
-              aria-label="Toggle theme"
-            >
-              {theme === "light" ? <FaMoon className="h-5 w-5" /> : <FaSun className="h-5 w-5" />}
-            </Button>
-
-            {/* Language Switcher */}
-            <Button
-              onClick={toggleLanguage}
-              variant="ghost"
-              size="sm"
-              className="px-3 py-1"
-              aria-label="Toggle language"
-            >
-              {language.toUpperCase()}
-            </Button>
-
-            {/* Mobile Navigation Button */}
-            <Button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              variant="ghost"
-              size="sm"
-              className="md:hidden p-2 rounded-full"
-              aria-expanded={isMobileMenuOpen}
-              aria-label="Toggle navigation menu"
-            >
-              <FaBars className="h-6 w-6" />
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Menu */}
-        <div
-          className={`md:hidden ${isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"} transition-all duration-300 ease-in-out absolute top-full left-0 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-700/20`}
+    // pointer-events-none on outer so the transparent area doesn't eat scroll events
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 pointer-events-none">
+      <div className="pointer-events-auto w-full max-w-2xl">
+        {/* ── Floating pill ── */}
+        <motion.div
+          className="glass-pill dark:glass shadow-lg shadow-black/5 dark:shadow-black/40 rounded-2xl overflow-hidden"
+          style={
+            prefersReduced
+              ? {}
+              : {
+                  paddingTop: pillPaddingY,
+                  paddingBottom: pillPaddingY,
+                  paddingLeft: pillPaddingX,
+                  paddingRight: pillPaddingX,
+                }
+          }
         >
-          <nav className="px-4 py-4 space-y-2 max-w-7xl mx-auto">
-            {navItems.map((item) => (
-              <MobileNavItem
-                key={item.id}
-                href={item.href}
-                isActive={activeSection === item.id}
-                onClick={() => handleNavClick(item.id)}
+          {/* Static padding fallback for reduced-motion */}
+          <div className={prefersReduced ? "px-5 py-3" : ""}>
+            <div className="flex items-center justify-between gap-4">
+              {/* Logo */}
+              <a
+                href="#"
+                onClick={() => handleNavClick("")}
+                className="text-base font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent shrink-0"
               >
-                {item.label}
-              </MobileNavItem>
-            ))}
-          </nav>
-        </div>
+                {translations[language].name}
+              </a>
+
+              {/* Desktop nav */}
+              <nav className="hidden md:flex items-center gap-6">
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.id}
+                    href={item.href}
+                    isActive={activeSection === item.id}
+                    onClick={() => handleNavClick(item.id)}
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </nav>
+
+              {/* Actions */}
+              <div className="flex items-center gap-1 shrink-0">
+                {/* Theme */}
+                <button
+                  onClick={toggleTheme}
+                  aria-label="Toggle theme"
+                  className="p-2 rounded-xl text-gray-600 dark:text-white/50 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/8 transition-all duration-200"
+                >
+                  {theme === "light" ? (
+                    <FaMoon className="w-4 h-4" />
+                  ) : (
+                    <FaSun className="w-4 h-4" />
+                  )}
+                </button>
+
+                {/* Language */}
+                <button
+                  onClick={toggleLanguage}
+                  aria-label="Toggle language"
+                  className="px-2.5 py-1.5 rounded-xl text-xs font-semibold text-gray-600 dark:text-white/50 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/8 transition-all duration-200 font-mono"
+                >
+                  {language.toUpperCase()}
+                </button>
+
+                {/* Mobile hamburger */}
+                <button
+                  onClick={() => setMobileOpen(!mobileOpen)}
+                  aria-label="Toggle navigation"
+                  aria-expanded={mobileOpen}
+                  className="md:hidden p-2 rounded-xl text-gray-600 dark:text-white/50 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/8 transition-all duration-200"
+                >
+                  <FaBars className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Mobile dropdown ── */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 35 }}
+              className="mt-2 p-2 rounded-2xl glass-pill dark:glass shadow-lg shadow-black/5 dark:shadow-black/40"
+            >
+              <nav className="flex flex-col">
+                {navItems.map((item) => (
+                  <MobileNavLink
+                    key={item.id}
+                    href={item.href}
+                    isActive={activeSection === item.id}
+                    onClick={() => handleNavClick(item.id)}
+                  >
+                    {item.label}
+                  </MobileNavLink>
+                ))}
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

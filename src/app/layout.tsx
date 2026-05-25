@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Loading from "@/components/atoms/Loading";
+import CustomCursor from "@/components/atoms/CustomCursor";
+import LenisInit from "@/components/atoms/LenisInit";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -64,6 +66,8 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider>
+          <LenisInit />
+          <CustomCursor />
           <Loading />
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
