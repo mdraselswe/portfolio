@@ -12,6 +12,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "@/lib";
 import { FaBars, FaMoon, FaSun } from "@/lib/icons";
@@ -82,7 +83,7 @@ const MobileNavLink = memo(function MobileNavLink({
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const [manualNav, setManualNav] = useState(false);
+  const manualNavRef = useRef(false);
 
   const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
@@ -94,28 +95,39 @@ export default function Header() {
   const pillPaddingY = useTransform(scrollY, [0, 80], [12, 8]);
   const pillPaddingX = useTransform(scrollY, [0, 80], [20, 16]);
 
-  // Active section via IntersectionObserver
+  // Scroll-position-based active section (both directions)
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (manualNav) return;
-        entries.forEach((e) => {
-          if (e.isIntersecting && e.intersectionRatio > 0.2) {
-            setActiveSection(e.target.id ?? "");
-          }
-        });
-      },
-      { threshold: [0.2, 0.5], rootMargin: "-50px 0px -40% 0px" }
-    );
-    document.querySelectorAll("section[id]").forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, [manualNav]);
+    const update = () => {
+      if (manualNavRef.current) return;
+
+      if (window.scrollY < 80) {
+        setActiveSection("");
+        return;
+      }
+
+      const scrollPos = window.scrollY + 120;
+      const sections = Array.from(document.querySelectorAll<HTMLElement>("section[id]"));
+      let current = "";
+      for (const section of sections) {
+        if (section.offsetTop <= scrollPos) {
+          current = section.id;
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   const handleNavClick = useCallback((id: string) => {
-    setManualNav(true);
+    manualNavRef.current = true;
     setActiveSection(id);
     setMobileOpen(false);
-    setTimeout(() => setManualNav(false), 1000);
+    setTimeout(() => {
+      manualNavRef.current = false;
+    }, 1500);
   }, []);
 
   const toggleLanguage = useCallback(

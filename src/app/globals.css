@@ -36,7 +36,7 @@
 /* ── Base ─────────────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 96px;
 }
 
 body {
@@ -56,7 +56,7 @@ body {
 
 /* ── Scroll offset for anchored sections ─────────────────────────────────── */
 section[id] {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 96px;
   position: relative;
 }
 

@@ -14,7 +14,7 @@ export const skills = {
     },
     {
       title: "Frontend Frameworks",
-      skills: ["React.js", "Next.js"],
+      skills: ["React.js", "Next.js", "REST API", "GraphQL"],
     },
     {
       title: "Backend Frameworks",
@@ -56,6 +56,8 @@ export const skills = {
         "ES6+",
         "রেসপনসিভ ডিজাইন",
         "ওয়েব এপিআই",
+        "REST API",
+        "GraphQL",
       ],
     },
     {
