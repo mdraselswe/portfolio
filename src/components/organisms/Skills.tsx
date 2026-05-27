@@ -7,8 +7,6 @@ import { skills } from "@/data/skills";
 import { translations } from "@/translations";
 
 // ── Bento col-span logic ──────────────────────────────────────────────────
-// Pattern: [2,1] → [1,2] → [2,1] → last row fills naturally
-// 6 items → rows: 3/3/3 | 7 items → rows: 3/3/3+1(full)
 const SPAN_MAP: Record<number, string> = {
   0: "lg:col-span-2",
   1: "lg:col-span-1",
@@ -19,29 +17,60 @@ const SPAN_MAP: Record<number, string> = {
 };
 
 function getSpan(index: number, total: number): string {
-  if (index === total - 1 && total === 7) return "lg:col-span-3"; // Backend → full-width banner
+  if (index === total - 1 && total === 7) return "lg:col-span-3";
   return SPAN_MAP[index] ?? "lg:col-span-1";
 }
 
-// Accent per cell (cycles)
-const ACCENTS = [
-  "hover:border-blue-500/30 dark:hover:border-blue-400/25",
-  "hover:border-violet-500/30 dark:hover:border-violet-400/25",
-  "hover:border-cyan-500/30 dark:hover:border-cyan-400/25",
-  "hover:border-indigo-500/30 dark:hover:border-indigo-400/25",
-  "hover:border-pink-500/30 dark:hover:border-pink-400/25",
-  "hover:border-emerald-500/30 dark:hover:border-emerald-400/25",
-  "hover:border-amber-500/30 dark:hover:border-amber-400/25",
-];
-
-const GLOW_COLORS = [
-  "rgba(59,130,246,0.06)",
-  "rgba(124,58,237,0.06)",
-  "rgba(6,182,212,0.06)",
-  "rgba(99,102,241,0.06)",
-  "rgba(236,72,153,0.06)",
-  "rgba(16,185,129,0.06)",
-  "rgba(245,158,11,0.06)",
+const CELL_CONFIG = [
+  {
+    emoji: "⚡",
+    accent: "hover:border-blue-500/40 dark:hover:border-blue-400/35",
+    glow: "rgba(59,130,246,0.14)",
+    shimmer: "via-blue-400/40",
+    pill: "hover:border-blue-400/50 hover:text-blue-400 dark:hover:text-blue-300 hover:bg-blue-500/10",
+  },
+  {
+    emoji: "⚛",
+    accent: "hover:border-cyan-500/40 dark:hover:border-cyan-400/35",
+    glow: "rgba(6,182,212,0.14)",
+    shimmer: "via-cyan-400/40",
+    pill: "hover:border-cyan-400/50 hover:text-cyan-400 dark:hover:text-cyan-300 hover:bg-cyan-500/10",
+  },
+  {
+    emoji: "🔧",
+    accent: "hover:border-violet-500/40 dark:hover:border-violet-400/35",
+    glow: "rgba(124,58,237,0.14)",
+    shimmer: "via-violet-400/40",
+    pill: "hover:border-violet-400/50 hover:text-violet-400 dark:hover:text-violet-300 hover:bg-violet-500/10",
+  },
+  {
+    emoji: "♾",
+    accent: "hover:border-indigo-500/40 dark:hover:border-indigo-400/35",
+    glow: "rgba(99,102,241,0.14)",
+    shimmer: "via-indigo-400/40",
+    pill: "hover:border-indigo-400/50 hover:text-indigo-400 dark:hover:text-indigo-300 hover:bg-indigo-500/10",
+  },
+  {
+    emoji: "🎨",
+    accent: "hover:border-pink-500/40 dark:hover:border-pink-400/35",
+    glow: "rgba(236,72,153,0.14)",
+    shimmer: "via-pink-400/40",
+    pill: "hover:border-pink-400/50 hover:text-pink-400 dark:hover:text-pink-300 hover:bg-pink-500/10",
+  },
+  {
+    emoji: "⚙",
+    accent: "hover:border-emerald-500/40 dark:hover:border-emerald-400/35",
+    glow: "rgba(16,185,129,0.14)",
+    shimmer: "via-emerald-400/40",
+    pill: "hover:border-emerald-400/50 hover:text-emerald-400 dark:hover:text-emerald-300 hover:bg-emerald-500/10",
+  },
+  {
+    emoji: "🧪",
+    accent: "hover:border-amber-500/40 dark:hover:border-amber-400/35",
+    glow: "rgba(245,158,11,0.14)",
+    shimmer: "via-amber-400/40",
+    pill: "hover:border-amber-400/50 hover:text-amber-400 dark:hover:text-amber-300 hover:bg-amber-500/10",
+  },
 ];
 
 // ── Single bento cell ─────────────────────────────────────────────────────
@@ -57,8 +86,8 @@ function BentoCell({
   isFullWidth: boolean;
 }) {
   const prefersReduced = useReducedMotion();
+  const cfg = CELL_CONFIG[index % CELL_CONFIG.length];
 
-  // Track mouse for radial glow inside the cell
   const mx = useMotionValue(50);
   const my = useMotionValue(50);
 
@@ -69,14 +98,12 @@ function BentoCell({
     my.set(((e.clientY - rect.top) / rect.height) * 100);
   }
 
-  const glowColor = GLOW_COLORS[index % GLOW_COLORS.length];
-
   return (
     <motion.div
       className={`${colSpan} bento-cell group relative rounded-2xl overflow-hidden
-        border border-gray-100 dark:border-white/[0.06]
-        bg-white dark:bg-white/[0.018]
-        ${ACCENTS[index % ACCENTS.length]}
+        border border-gray-100 dark:border-white/[0.07]
+        bg-white dark:bg-white/[0.022]
+        ${cfg.accent}
         transition-all duration-300
         ${isFullWidth ? "flex items-center gap-8 p-6" : "p-6"}
       `}
@@ -84,31 +111,28 @@ function BentoCell({
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{
-        duration: 0.55,
-        delay: index * 0.07,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      whileHover={prefersReduced ? {} : { y: -3 }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={prefersReduced ? {} : { y: -4, scale: 1.005 }}
     >
-      {/* Mouse-tracked inner glow */}
+      {/* Mouse-tracked radial glow */}
       <motion.div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none z-0 rounded-2xl"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0 rounded-2xl"
         style={{
-          background: `radial-gradient(circle at ${mx}% ${my}%, ${glowColor} 0%, transparent 65%)`,
+          background: `radial-gradient(circle at ${mx}% ${my}%, ${cfg.glow} 0%, transparent 60%)`,
         }}
         aria-hidden
       />
 
-      {/* Top shimmer line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Top shimmer line — accent-colored */}
+      <div
+        className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${cfg.shimmer} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+      />
 
       {isFullWidth ? (
-        // Full-width layout (last cell / Backend)
         <>
           <div className="shrink-0 relative z-10">
-            <span className="text-xs font-mono text-gray-400 dark:text-white/20 block mb-1">
-              {String(index + 1).padStart(2, "0")}
+            <span className="text-2xl mb-2 block group-hover:scale-110 transition-transform duration-300">
+              {cfg.emoji}
             </span>
             <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-white/50">
               {category.title}
@@ -116,25 +140,23 @@ function BentoCell({
           </div>
           <div className="flex flex-wrap gap-2 relative z-10">
             {category.skills.map((skill) => (
-              <SkillPill key={skill} skill={skill} />
+              <SkillPill key={skill} skill={skill} pillCls={cfg.pill} />
             ))}
           </div>
         </>
       ) : (
-        // Standard bento layout
         <div className="relative z-10 h-full flex flex-col">
-          <div className="mb-5">
-            <span className="text-xs font-mono text-gray-300 dark:text-white/20 block mb-2">
-              {String(index + 1).padStart(2, "0")}
+          <div className="mb-4">
+            <span className="text-2xl mb-3 block group-hover:scale-110 transition-transform duration-300 origin-left">
+              {cfg.emoji}
             </span>
             <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-white/50">
               {category.title}
             </h3>
           </div>
-
           <div className="flex flex-wrap gap-2 mt-auto">
             {category.skills.map((skill) => (
-              <SkillPill key={skill} skill={skill} />
+              <SkillPill key={skill} skill={skill} pillCls={cfg.pill} />
             ))}
           </div>
         </div>
@@ -144,9 +166,11 @@ function BentoCell({
 }
 
 // ── Skill pill ────────────────────────────────────────────────────────────
-function SkillPill({ skill }: { skill: string }) {
+function SkillPill({ skill, pillCls }: { skill: string; pillCls: string }) {
   return (
-    <span className="px-3 py-1.5 rounded-full text-xs font-medium border border-gray-100 dark:border-white/[0.07] bg-gray-50 dark:bg-white/[0.03] text-gray-700 dark:text-white/60 hover:border-blue-300 dark:hover:border-blue-400/40 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-500/8 transition-all duration-200">
+    <span
+      className={`px-3 py-1.5 rounded-full text-xs font-medium border border-gray-100 dark:border-white/[0.08] bg-gray-50 dark:bg-white/[0.03] text-gray-700 dark:text-white/55 transition-all duration-200 ${pillCls}`}
+    >
       {skill}
     </span>
   );

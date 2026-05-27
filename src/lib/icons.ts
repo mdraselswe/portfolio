@@ -13,7 +13,7 @@ export {
 export { FaFileDownload } from "react-icons/fa";
 
 // Feather Icons
-export { FiExternalLink, FiGithub } from "react-icons/fi";
+export { FiExternalLink, FiGithub, FiSend } from "react-icons/fi";
 
 // Material Design Icons
 export { MdEmail } from "react-icons/md";
