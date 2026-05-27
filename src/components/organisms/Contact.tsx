@@ -1,28 +1,46 @@
 "use client";
 
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { motion } from "@/lib";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { FaLinkedin, MdEmail, FiSend } from "@/lib/icons";
 import { translations } from "@/translations";
 
+type Status = "idle" | "sending" | "success" | "error";
+
 function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio Contact from ${form.name}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
-    );
-    window.location.href = `mailto:mdraselswe@gmail.com?subject=${subject}&body=${body}`;
-    setSent(true);
+    setStatus("sending");
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+          to_email: "mdraselswe@gmail.com",
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 4000);
+    } catch {
+      setStatus("error");
+    }
   }
 
   const inputCls =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/[0.09] bg-white dark:bg-white/[0.04] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/25 focus:outline-none focus:border-blue-400 dark:focus:border-blue-500/60 focus:bg-white dark:focus:bg-white/[0.07] transition-all duration-200 text-sm";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/[0.09] bg-white dark:bg-white/[0.04] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/25 focus:outline-none focus:border-blue-400 dark:focus:border-blue-500/60 focus:bg-white dark:focus:bg-white/[0.07] transition-all duration-200 text-sm disabled:opacity-50";
+
+  const isSending = status === "sending";
 
   return (
     <motion.form
@@ -38,6 +56,7 @@ function ContactForm() {
           type="text"
           placeholder="Your name"
           required
+          disabled={isSending}
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           className={inputCls}
@@ -46,6 +65,7 @@ function ContactForm() {
           type="email"
           placeholder="your@email.com"
           required
+          disabled={isSending}
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           className={inputCls}
@@ -55,18 +75,35 @@ function ContactForm() {
         rows={5}
         placeholder="Tell me about your project..."
         required
+        disabled={isSending}
         value={form.message}
         onChange={(e) => setForm({ ...form, message: e.target.value })}
         className={`${inputCls} resize-none`}
       />
+
+      {/* Status messages */}
+      {status === "success" && (
+        <p className="text-sm text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          Message sent! I&apos;ll reply within 24h.
+        </p>
+      )}
+      {status === "error" && (
+        <p className="text-sm text-rose-500 dark:text-rose-400 font-mono flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+          Failed to send. Try emailing directly.
+        </p>
+      )}
+
       <motion.button
         type="submit"
-        whileHover={{ scale: 1.02, y: -1 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/20 hover:shadow-blue-500/35 transition-all duration-300 flex items-center justify-center gap-2"
+        disabled={isSending || status === "success"}
+        whileHover={isSending || status === "success" ? {} : { scale: 1.02, y: -1 }}
+        whileTap={isSending || status === "success" ? {} : { scale: 0.98 }}
+        className="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/20 hover:shadow-blue-500/35 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        <FiSend className="w-4 h-4" />
-        {sent ? "Opening email client…" : "Send Message"}
+        <FiSend className={`w-4 h-4 ${isSending ? "animate-pulse" : ""}`} />
+        {isSending ? "Sending…" : status === "success" ? "Sent ✓" : "Send Message"}
       </motion.button>
     </motion.form>
   );
