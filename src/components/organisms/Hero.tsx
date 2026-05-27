@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/atoms/Button";
 import SplitText from "@/components/atoms/SplitText";
-import AnimatedCounter from "@/components/atoms/AnimatedCounter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { motion, useMotionValue, useSpring, useTransform, useEffect } from "@/lib";
@@ -47,35 +46,6 @@ const FLOATING_PILLS = [
     pos: "bottom-12 -right-14",
   },
 ];
-
-// ── Stat card ─────────────────────────────────────────────────────────────
-function StatCard({
-  value,
-  suffix,
-  label,
-  delay,
-}: {
-  value: number;
-  suffix: string;
-  label: string;
-  delay: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16, scale: 0.94 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col items-center justify-center px-5 py-4 rounded-2xl border border-gray-200/80 dark:border-white/[0.07] bg-white/90 dark:bg-white/[0.03] backdrop-blur-md shadow-sm"
-    >
-      <span className="text-2xl font-bold tabular-nums text-gray-900 dark:text-white">
-        <AnimatedCounter to={value} suffix={suffix} duration={2} />
-      </span>
-      <span className="text-xs text-gray-500 dark:text-white/35 mt-0.5 text-center leading-tight">
-        {label}
-      </span>
-    </motion.div>
-  );
-}
 
 // ── Profile card (right column) ───────────────────────────────────────────
 function ProfileCard({ name }: { name: string }) {
@@ -206,13 +176,6 @@ export default function Hero() {
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
   }, [prefersReduced, rawX, rawY]);
-
-  const stats = [
-    { value: 8, suffix: "+", label: t.yearsLabel },
-    { value: 50, suffix: "+", label: t.projectsLabel },
-    { value: 15, suffix: "+", label: t.techLabel },
-    { value: 100, suffix: "%", label: t.satisfactionLabel },
-  ];
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
@@ -348,19 +311,6 @@ export default function Hero() {
           <div className="flex-none flex items-center justify-center">
             <ProfileCard name={name} />
           </div>
-        </div>
-
-        {/* ── Stats row ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-12 lg:mt-16 max-w-2xl lg:max-w-none mx-auto">
-          {stats.map((s, i) => (
-            <StatCard
-              key={i}
-              value={s.value}
-              suffix={s.suffix}
-              label={s.label}
-              delay={1.3 + i * 0.08}
-            />
-          ))}
         </div>
       </div>
 

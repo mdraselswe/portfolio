@@ -1,83 +1,64 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-
-type CursorVariant = "default" | "hover";
 
 export default function CustomCursor() {
   const prefersReduced = useReducedMotion();
-  const [variant, setVariant] = useState<CursorVariant>("default");
-  const [visible, setVisible] = useState(false);
-
-  const mouseX = useMotionValue(-200);
-  const mouseY = useMotionValue(-200);
-
-  // Dot: tight spring → feels glued to cursor
-  const dotX = useSpring(mouseX, { stiffness: 1000, damping: 40, mass: 0.2 });
-  const dotY = useSpring(mouseY, { stiffness: 1000, damping: 40, mass: 0.2 });
-
-  // Ring: loose spring → lags behind creating depth
-  const ringX = useSpring(mouseX, { stiffness: 200, damping: 28, mass: 0.5 });
-  const ringY = useSpring(mouseY, { stiffness: 200, damping: 28, mass: 0.5 });
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (prefersReduced) return;
 
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
+
+    let raf = 0;
+    let tx = -100,
+      ty = -100;
+    // Ring lags behind via lerp — no spring overhead
+    let rx = -100,
+      ry = -100;
+
     const onMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-      if (!visible) setVisible(true);
+      tx = e.clientX;
+      ty = e.clientY;
     };
 
-    const onOver = (e: MouseEvent) => {
-      const el = (e.target as Element).closest("a, button, [data-magnetic]");
-      if (el) setVariant("hover");
+    const tick = () => {
+      // Dot: instant
+      dot.style.transform = `translate(${tx - 5}px, ${ty - 5}px)`;
+      // Ring: lerp toward dot (light smooth follow)
+      rx += (tx - rx) * 0.18;
+      ry += (ty - ry) * 0.18;
+      ring.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`;
+      raf = requestAnimationFrame(tick);
     };
 
-    const onOut = (e: MouseEvent) => {
-      const to = e.relatedTarget as Element | null;
-      if (!to?.closest("a, button, [data-magnetic]")) setVariant("default");
-    };
-
-    window.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseover", onOver);
-    document.addEventListener("mouseout", onOut);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    raf = requestAnimationFrame(tick);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseover", onOver);
-      document.removeEventListener("mouseout", onOut);
+      cancelAnimationFrame(raf);
     };
-  }, [prefersReduced, visible, mouseX, mouseY]);
+  }, [prefersReduced]);
 
   if (prefersReduced) return null;
 
-  const isHover = variant === "hover";
-
   return (
     <>
-      {/* Dot — snappy, mix-blend creates invert effect on any bg */}
-      <motion.div
-        className="fixed top-0 left-0 rounded-full bg-white mix-blend-difference pointer-events-none z-[9999]"
-        style={{ x: dotX, y: dotY, translateX: "-50%", translateY: "-50%" }}
-        animate={{ width: isHover ? 14 : 8, height: isHover ? 14 : 8, opacity: visible ? 1 : 0 }}
-        transition={{ type: "spring", stiffness: 600, damping: 30 }}
+      {/* Dot */}
+      <div
+        ref={dotRef}
+        className="fixed top-0 left-0 w-2.5 h-2.5 rounded-full bg-blue-500 pointer-events-none z-[9999] will-change-transform"
       />
-
-      {/* Ring — lags, expands on hover */}
-      <motion.div
-        className="fixed top-0 left-0 rounded-full border pointer-events-none z-[9998]"
-        style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}
-        animate={{
-          width: isHover ? 52 : 28,
-          height: isHover ? 52 : 28,
-          borderColor: isHover ? "rgb(99 102 241)" : "rgb(59 130 246)",
-          backgroundColor: isHover ? "rgba(99,102,241,0.08)" : "transparent",
-          opacity: visible ? 1 : 0,
-        }}
-        transition={{ type: "spring", stiffness: 200, damping: 22 }}
+      {/* Ring */}
+      <div
+        ref={ringRef}
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-blue-400/50 pointer-events-none z-[9998] will-change-transform"
       />
     </>
   );
