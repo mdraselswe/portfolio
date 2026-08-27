@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mdraselswe.github.io",
+    url: "https://mdrasel.site",
     siteName: "Muhammad Rasel Portfolio",
     title: "Muhammad Rasel | Senior Frontend Developer",
     description:

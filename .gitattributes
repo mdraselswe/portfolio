@@ -1,0 +1,4 @@
+# Keep line endings LF in the working tree on every platform.
+# Without this, core.autocrlf=true checks files out as CRLF and the
+# prettier/prettier lint rule (endOfLine: lf) fails the build locally.
+* text=auto eol=lf
