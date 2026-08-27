@@ -32,7 +32,11 @@ function ContactForm() {
       setStatus("success");
       setForm({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 4000);
-    } catch {
+    } catch (err) {
+      // Surfaces misconfiguration (missing NEXT_PUBLIC_EMAILJS_* vars) instead of
+      // failing silently — those are inlined at build time, so a deploy without
+      // them ships `undefined` to emailjs.send().
+      console.error("EmailJS send failed:", err);
       setStatus("error");
     }
   }
