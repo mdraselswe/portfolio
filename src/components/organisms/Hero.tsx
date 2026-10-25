@@ -26,7 +26,7 @@ const dock = [
     external: true,
   },
   { label: "Email", href: "mailto:mdraselswe@gmail.com", Icon: MdEmail, tone: 3, external: false },
-  { label: "Résumé", href: RESUME, Icon: FaFileDownload, tone: 2, external: false },
+  { label: "CV", href: RESUME, Icon: FaFileDownload, tone: 2, external: false },
 ];
 
 /** Entrance animations are CSS, staggered through the --d variable. */
@@ -155,7 +155,7 @@ export default function Hero({ lang }: { lang: Language }) {
                     href={href}
                     aria-label={label}
                     {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    {...(label === "Résumé" ? { download: true } : {})}
+                    {...(label === "CV" ? { download: true } : {})}
                     className={`block rounded-2xl ${tileMotion}`}
                   >
                     <AppTile Icon={Icon} tone={tone} size="md" />

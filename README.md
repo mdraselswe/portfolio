@@ -10,8 +10,9 @@ Next.js 15, TypeScript and Tailwind CSS.
 
 - **Two real URLs** — `/` (English) and `/bn` (Bangla), each server-rendered, with `hreflang`
   alternates and both listed in the sitemap, so both can be indexed
-- **Server components first** — every section renders on the server; only the header, one effects
-  controller, the role rotator and the contact form hydrate in the browser
+- **No client framework** — both pages are static HTML with no React or Next.js runtime in the
+  browser (`unstable_runtimeJS: false`); one small inline script handles every interaction, so
+  Lighthouse blocking time is zero
 - **Motion without a library** — CSS entrances, scroll reveals, count-ups, tilt, spotlight and
   magnetic effects driven by `data-*` attributes and one small client controller; View Transitions
   for the theme switch; everything stops under `prefers-reduced-motion`
@@ -20,13 +21,13 @@ Next.js 15, TypeScript and Tailwind CSS.
   `sitemap.xml`, `robots.txt`, web manifest and a share image
 - **Accessible** — skip link, labelled form, visible focus, 44px touch targets, axe-checked in light
   and dark, English and Bangla
-- **Working contact form** — EmailJS, loaded only when the form is first submitted
+- **Working contact form** — sent through the EmailJS REST API, no SDK
 
 ## Tech stack
 
 | Area      | Stack                                                |
 | --------- | ---------------------------------------------------- |
-| Framework | Next.js 15 (App Router)                              |
+| Framework | Next.js 15 (Pages Router, static, zero client JS)    |
 | Language  | TypeScript, React 19                                 |
 | Styling   | Tailwind CSS 3, `tailwind-merge`                     |
 | Email     | EmailJS                                              |
@@ -81,21 +82,20 @@ template locked to your own domain. Set the same variables in the Vercel project
 
 ```
 src/
-├── app/
-│   ├── (en)/                # layout + page for /
-│   ├── (bn)/bn/             # layout + page for /bn
-│   ├── globals.css          # design tokens and all motion CSS
-│   └── sitemap.ts, robots.ts, manifest.ts
+├── pages/
+│   ├── index.tsx, bn.tsx    # / and /bn, both without a client runtime
+│   ├── _document.tsx        # <html lang>, inline CSS, pre-paint theme script
+│   └── _app.tsx             # fonts and global CSS
+├── styles/globals.css       # design tokens and all motion CSS
 ├── components/
 │   ├── atoms/               # Button, AppTile, project cards, Reveal, Effects, ContactForm …
-│   └── organisms/           # RootShell, HomePage, Header, Hero, About, Projects, Skills, Contact, Footer
-├── contexts/                # ThemeContext
+│   └── organisms/           # HomePage, Header, Hero, About, Projects, Skills, Contact, Footer
 ├── data/                    # projects.ts, skills.ts, appTiles.ts — keyed by `en` / `bn`
-├── lib/                     # i18n, seo (metadata + JSON-LD), storage, view transitions
+├── lib/                     # siteScript (all interactivity), i18n, seo (head + JSON-LD)
 ├── translations/            # all UI copy, EN and BN
 └── types/
 e2e/                         # Playwright specs
-public/                      # og.png, résumé PDF
+public/                      # og.png, CV PDF, robots.txt, sitemap.xml, manifest
 ```
 
 ## Adding a project

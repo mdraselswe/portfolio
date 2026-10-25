@@ -1,4 +1,3 @@
-import type { Metadata, Viewport } from "next";
 import { projects } from "@/data/projects";
 import { skills } from "@/data/skills";
 import { pathFor } from "@/lib/i18n";
@@ -63,62 +62,39 @@ export const KEYWORDS = [
   "এআই ওয়েব ডেভেলপমেন্ট",
 ];
 
-export const viewportConfig: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2f4f0" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1210" },
-  ],
-};
+/** Absolute URL of a page, without a trailing slash on the home page (matches og:url). */
+export const pageUrl = (lang: Language) =>
+  `${SITE.url}${pathFor(lang) === "/" ? "" : pathFor(lang)}`;
 
-export function buildMetadata(lang: Language): Metadata {
+/** Everything the page <head> needs, per language. Rendered by `SeoHead`. */
+export function headFor(lang: Language) {
   const copy = COPY[lang];
-  const path = pathFor(lang);
-
+  const other = lang === "en" ? "bn" : "en";
   return {
-    metadataBase: new URL(SITE.url),
     title: copy.title,
     description: copy.description,
-    keywords: KEYWORDS,
-    applicationName: `${SITE.name} Portfolio`,
-    authors: [{ name: SITE.name, url: SITE.url }],
-    creator: SITE.name,
-    publisher: SITE.name,
-    category: "technology",
-    alternates: {
-      canonical: path,
-      languages: { en: "/", bn: "/bn", "x-default": "/" },
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
-      },
-    },
-    openGraph: {
+    keywords: KEYWORDS.join(", "),
+    canonical: pageUrl(lang),
+    alternates: [
+      { hrefLang: "en", href: SITE.url },
+      { hrefLang: "bn", href: `${SITE.url}/bn` },
+      { hrefLang: "x-default", href: SITE.url },
+    ],
+    robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+    og: {
       type: "profile",
       locale: copy.locale,
-      alternateLocale: [COPY[lang === "en" ? "bn" : "en"].locale],
-      url: path,
+      alternateLocale: COPY[other].locale,
+      url: pageUrl(lang),
       siteName: `${SITE.name} Portfolio`,
-      title: copy.title,
-      description: copy.description,
-      firstName: "Muhammad",
-      lastName: "Rasel",
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: copy.ogAlt }],
+      image: `${SITE.url}/og.png`,
+      imageAlt: copy.ogAlt,
     },
-    twitter: {
-      card: "summary_large_image",
-      title: copy.title,
-      description: copy.description,
-      creator: "@mdraselswe",
-      images: ["/og.png"],
-    },
-    verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION },
+    themeColors: [
+      { media: "(prefers-color-scheme: light)", color: "#f2f4f0" },
+      { media: "(prefers-color-scheme: dark)", color: "#0b1210" },
+    ],
+    googleVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   };
 }
 
@@ -129,7 +105,7 @@ const knowsAbout = Array.from(new Set(skills.en.flatMap((c) => c.skills)));
 
 export function buildJsonLd(lang: Language) {
   const copy = COPY[lang];
-  const pageUrl = `${SITE.url}${pathFor(lang) === "/" ? "" : pathFor(lang)}`;
+  const url = pageUrl(lang);
 
   const person = {
     "@type": "Person",
@@ -149,7 +125,7 @@ export function buildJsonLd(lang: Language) {
     knowsAbout,
     knowsLanguage: ["en", "bn"],
     sameAs: Object.values(SITE.social),
-    mainEntityOfPage: { "@id": `${pageUrl}#profile` },
+    mainEntityOfPage: { "@id": `${url}#profile` },
   };
 
   const website = {
@@ -164,8 +140,8 @@ export function buildJsonLd(lang: Language) {
 
   const profilePage = {
     "@type": "ProfilePage",
-    "@id": `${pageUrl}#profile`,
-    url: pageUrl,
+    "@id": `${url}#profile`,
+    url,
     name: copy.title,
     inLanguage: lang,
     isPartOf: { "@id": siteId },
@@ -175,7 +151,7 @@ export function buildJsonLd(lang: Language) {
 
   const work = {
     "@type": "ItemList",
-    "@id": `${pageUrl}#work`,
+    "@id": `${url}#work`,
     name: "Selected projects by Muhammad Rasel",
     itemListElement: projects[lang].map((p, i) => ({
       "@type": "ListItem",

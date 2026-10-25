@@ -252,8 +252,8 @@ test.describe("screenshots for visual review", () => {
   }
 });
 
-test.describe("résumé and toolkit", () => {
-  test("the résumé link downloads the CV as a PDF", async ({ page, request }) => {
+test.describe("CV download and toolkit", () => {
+  test("the CV link downloads the PDF", async ({ page, request }) => {
     const res = await request.get("/Muhammad-Rasel-CV.pdf");
     expect(res.status()).toBe(200);
     expect(res.headers()["content-type"]).toContain("pdf");
@@ -264,12 +264,12 @@ test.describe("résumé and toolkit", () => {
     await open(page);
     const [download] = await Promise.all([
       page.waitForEvent("download"),
-      page.getByRole("link", { name: "Download résumé" }).click(),
+      page.getByRole("link", { name: "Download CV" }).click(),
     ]);
     expect(download.suggestedFilename()).toBe("Muhammad-Rasel-CV.pdf");
   });
 
-  test("the old résumé file is gone", async ({ request }) => {
+  test("the old CV file is gone", async ({ request }) => {
     const res = await request.get("/Sr_Frontend_Developer_(Muhammad_%20Rasel).pdf");
     expect(res.status()).toBe(404);
   });

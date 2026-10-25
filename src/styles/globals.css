@@ -212,7 +212,7 @@ section[id] {
   width: 46rem;
   height: 46rem;
   left: -12%;
-  top: -22%;
+  top: -14rem;
   background: radial-gradient(closest-side, rgb(var(--accent) / 0.4), transparent);
 }
 
@@ -220,7 +220,7 @@ section[id] {
   width: 40rem;
   height: 40rem;
   right: -10%;
-  top: -4%;
+  top: -2.5rem;
   background: radial-gradient(closest-side, rgb(var(--marigold) / 0.4), transparent);
   animation-duration: 26s;
   animation-direction: alternate-reverse;
@@ -230,7 +230,7 @@ section[id] {
   width: 36rem;
   height: 36rem;
   left: 34%;
-  top: 30%;
+  top: 19rem;
   background: radial-gradient(closest-side, rgb(43 76 140 / 0.3), transparent);
   animation-duration: 32s;
 }
@@ -634,4 +634,15 @@ body > footer {
   .ping-dot {
     animation: none !important;
   }
+}
+
+/* Continuous loops (ticker, tile bob, aurora drift, availability dot) wait for the visitor:
+   siteScript adds .motion-on on the first pointer move, scroll, touch or key press, or after 6s.
+   A first screen that keeps moving while the page loads reads as "not finished yet" to
+   Lighthouse's Speed Index and makes the score swing from run to run. */
+html:not(.motion-on) .marquee-track,
+html:not(.motion-on) .animate-bob,
+html:not(.motion-on) .aurora i,
+html:not(.motion-on) .ping-dot {
+  animation-play-state: paused;
 }

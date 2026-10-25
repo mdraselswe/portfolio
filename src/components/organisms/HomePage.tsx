@@ -7,11 +7,12 @@ import Hero from "@/components/organisms/Hero";
 import JsonLd from "@/components/atoms/JsonLd";
 import Projects from "@/components/organisms/Projects";
 import Skills from "@/components/organisms/Skills";
+import SiteScript from "@/components/atoms/SiteScript";
 import SkipLink from "@/components/atoms/SkipLink";
 import { buildJsonLd } from "@/lib/seo";
 import type { Language } from "@/types/context";
 
-/** One page, two languages. Everything below the header is rendered on the server. */
+/** One page, two languages, rendered to static HTML. `SiteScript` is the only JavaScript it ships. */
 export default function HomePage({ lang }: { lang: Language }) {
   return (
     <>
@@ -27,6 +28,7 @@ export default function HomePage({ lang }: { lang: Language }) {
         <Contact lang={lang} />
       </main>
       <Footer lang={lang} />
+      <SiteScript />
     </>
   );
 }

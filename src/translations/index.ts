@@ -25,7 +25,7 @@ export const translations = {
       title: "I make the calls. AI makes me fast.",
       desc: "Senior frontend engineer in Dhaka. I build fast, accessible React and Next.js products, from online shops to learning platforms used by millions of students.",
       seeWork: "See my work",
-      downloadResume: "Download résumé",
+      downloadResume: "Download CV",
       appsLabel: "Products I've built. Select one to read about it.",
       linksLabel: "Find me elsewhere",
     },

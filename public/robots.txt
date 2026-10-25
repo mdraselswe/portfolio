@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://mdrasel.site
+Sitemap: https://mdrasel.site/sitemap.xml

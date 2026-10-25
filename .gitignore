@@ -46,3 +46,4 @@ test-results/
 playwright-report/
 /.next-prod/
 /.next-prod*/
+/.next-*/

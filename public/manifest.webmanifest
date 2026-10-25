@@ -1,0 +1,10 @@
+{
+  "name": "Muhammad Rasel | Frontend & React Developer",
+  "short_name": "Muhammad Rasel",
+  "description": "Software Engineer and Frontend Developer in Dhaka. 8+ years of React.js, Next.js and TypeScript.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f2f4f0",
+  "theme_color": "#0c6b52",
+  "icons": [{ "src": "/favicon.ico", "sizes": "any", "type": "image/x-icon" }]
+}
