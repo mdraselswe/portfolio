@@ -1,84 +1,51 @@
-"use client";
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
-import {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ElementType,
-  forwardRef,
-  twMerge,
-} from "@/lib";
-
-type ButtonBaseProps<T extends ElementType = "button"> = {
+type ButtonBaseProps = {
   /** Additional classes to be merged with default styles */
   className?: string;
   /** Button variants */
   variant?: "primary" | "secondary" | "outline" | "ghost";
-  /** Button sizes */
+  /** Button sizes. Every size keeps a 44px minimum touch target. */
   size?: "sm" | "md" | "lg";
-  /** Loading state */
-  isLoading?: boolean;
-  /** Render element type */
-  as?: T;
-  /** Button roundness */
-  rounded?: boolean;
 };
 
-type ButtonAsButton = ButtonBaseProps<"button"> &
-  Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonBaseProps<"button">>;
+type ButtonAsButton = ButtonBaseProps & { as?: "button" } & Omit<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    keyof ButtonBaseProps
+  >;
 
-type ButtonAsAnchor = ButtonBaseProps<"a"> &
-  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof ButtonBaseProps<"a">>;
+type ButtonAsAnchor = ButtonBaseProps & { as: "a" } & Omit<
+    AnchorHTMLAttributes<HTMLAnchorElement>,
+    keyof ButtonBaseProps
+  >;
 
 export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
-export const Button = forwardRef(function Button(
-  {
-    className,
-    variant = "primary",
-    size = "md",
-    isLoading = false,
-    as: Component = "button",
-    rounded = false,
-    children,
-    ...props
-  }: ButtonProps,
-  ref
-) {
-  const baseStyles =
-    "inline-flex items-center justify-center font-medium transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 shadow-[0_1px_2px_rgba(0,0,0,0.05)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]";
+const baseStyles =
+  "group/btn relative isolate overflow-hidden inline-flex items-center justify-center gap-2 rounded-full font-medium transition-[transform,background-color,color,border-color] duration-200 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50";
 
-  const variants = {
-    primary:
-      "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 dark:from-blue-500 dark:to-indigo-500 dark:hover:from-blue-600 dark:hover:to-indigo-600 focus-visible:ring-blue-500",
-    secondary:
-      "bg-gradient-to-r from-slate-100 to-gray-100 text-gray-800 hover:from-slate-200 hover:to-gray-200 dark:from-slate-700 dark:to-gray-600 dark:text-gray-100 dark:hover:from-slate-600 dark:hover:to-gray-500 focus-visible:ring-gray-500 border border-gray-200 dark:border-gray-600",
-    outline:
-      "border-2 border-blue-500 bg-transparent text-blue-600 hover:bg-blue-50 hover:text-blue-700 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20 dark:hover:text-blue-300 focus-visible:ring-blue-500",
-    ghost:
-      "bg-transparent text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-blue-400 focus-visible:ring-gray-500",
-  };
+const variants = {
+  primary:
+    "bg-accent text-accent-ink hover:brightness-110 before:absolute before:inset-0 before:-z-10 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-full",
+  secondary: "bg-ink/10 text-ink hover:bg-ink/15",
+  outline: "border border-ink/25 text-ink hover:bg-ink/5",
+  ghost: "text-ink hover:bg-ink/8",
+};
 
-  const sizes = {
-    sm: "h-8 px-5 text-sm",
-    md: "h-10 px-7 text-base",
-    lg: "h-12 px-9 text-lg",
-  };
+const sizes = {
+  sm: "min-h-11 px-5 text-sm",
+  md: "min-h-12 px-6 text-base",
+  lg: "min-h-14 px-8 text-base",
+};
 
-  const roundedStyles = rounded ? "rounded-full" : "rounded-lg";
+/** A server-renderable button, or a link styled as one. */
+export function Button(props: ButtonProps) {
+  const { className, variant = "primary", size = "md", as, ...rest } = props;
+  const classes = twMerge(baseStyles, variants[variant], sizes[size], className);
 
-  return (
-    <Component
-      ref={ref as any}
-      disabled={Component === "button" ? isLoading : undefined}
-      className={twMerge(baseStyles, variants[variant], sizes[size], roundedStyles, className)}
-      {...(props as any)}
-    >
-      {isLoading ? (
-        <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-      ) : null}
-      {children}
-    </Component>
-  );
-});
-
-Button.displayName = "Button";
+  if (as === "a") {
+    return <a className={classes} {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)} />;
+  }
+  return <button className={classes} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)} />;
+}

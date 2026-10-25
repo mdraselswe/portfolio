@@ -2,273 +2,176 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design tokens ────────────────────────────────────────────────────────── */
+/* ── Design tokens ────────────────────────────────────────────────────────────
+   Colours are space-separated RGB channels so Tailwind can apply alpha
+   (`bg-ink/10`). Contrast for body text: ink on paper ≥ 15:1, muted on paper
+   ≥ 6:1 in both themes. */
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-
-  /* Premium light surfaces */
-  --surface-01: #f8fafc;
-  --surface-02: #f1f5f9;
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-strong: rgba(0, 0, 0, 0.12);
-
-  /* Glow colors (light: dimmer) */
-  --glow-blue: rgba(59, 130, 246, 0.08);
-  --glow-violet: rgba(124, 58, 237, 0.06);
+  --paper: 242 244 240;
+  --surface: 255 255 255;
+  --ink: 14 26 22;
+  --muted: 75 90 84;
+  --accent: 12 107 82;
+  --accent-ink: 255 255 255;
+  --marigold: 232 163 23;
 }
 
 .dark {
-  --background: #050508;
-  --foreground: #f8fafc;
-
-  /* Premium dark surfaces */
-  --surface-01: #0d0d14;
-  --surface-02: #111118;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-strong: rgba(255, 255, 255, 0.12);
-
-  /* Glow colors (dark: brighter) */
-  --glow-blue: rgba(59, 130, 246, 0.15);
-  --glow-violet: rgba(124, 58, 237, 0.12);
+  --paper: 11 18 16;
+  --surface: 19 29 26;
+  --ink: 234 242 238;
+  --muted: 157 176 168;
+  --accent: 79 209 165;
+  --accent-ink: 11 18 16;
+  --marigold: 240 180 60;
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────────── */
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  color-scheme: light;
+  scroll-padding-top: 6rem;
+  text-size-adjust: 100%;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  color: var(--foreground);
-  background-color: var(--background);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  color: rgb(var(--ink));
+  background-color: rgb(var(--paper));
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, Roboto, sans-serif,
+    var(--font-bn), sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Premium dark body: ambient glow at top */
-.dark body {
-  background-image:
-    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(59, 130, 246, 0.07) 0%, transparent 100%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 100%);
-}
-
-/* ── Scroll offset for anchored sections ─────────────────────────────────── */
-section[id] {
-  scroll-margin-top: 96px;
-  position: relative;
-}
-
-/* ── Custom cursor (from previous session) ───────────────────────────────── */
-@media (hover: hover) and (pointer: fine) {
-  *,
-  *::before,
-  *::after {
-    cursor: none !important;
-  }
-}
-
-/* ── Reduced-motion safety net ───────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-float-gentle,
-  .animate-pulse-slow,
-  .animate-gradient-x,
-  .animate-gradient-shift,
-  .animate-glow-breathe,
-  .animate-bounce,
-  .animate-ping {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-/* ── Keyframes ───────────────────────────────────────────────────────────── */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-18px);
-  }
-}
-
-@keyframes float-gentle {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes gradient-x {
-  0%,
-  100% {
-    background-size: 200% 200%;
-    background-position: left center;
-  }
-  50% {
-    background-size: 200% 200%;
-    background-position: right center;
-  }
-}
-
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes pulse-slow {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.2;
-  }
-}
-
-@keyframes glow-breathe {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 0.65;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* ── Animation utility classes ───────────────────────────────────────────── */
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-float-gentle {
-  animation: float-gentle 7s ease-in-out infinite;
-}
-
-.animate-gradient-x {
-  animation: gradient-x 8s ease infinite;
-  background-size: 200% 200%;
-}
-
-.animate-gradient-shift {
-  animation: gradient-shift 6s ease infinite;
-  background-size: 200% 200%;
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 4s ease-in-out infinite;
-}
-
-.animate-glow-breathe {
-  animation: glow-breathe 5s ease-in-out infinite;
-}
-
-.animate-shimmer {
-  animation: shimmer 2.5s infinite;
-}
-
-.animate-fade-in {
-  animation: fade-in 0.8s ease-out forwards;
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.6s ease-out forwards;
-}
-
-/* ── Glass morphism utility ──────────────────────────────────────────────── */
-.glass {
-  backdrop-filter: blur(16px) saturate(180%);
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dark .glass {
-  background: rgba(5, 5, 8, 0.6);
-  border-color: rgba(255, 255, 255, 0.07);
-}
-
-.glass-pill {
-  backdrop-filter: blur(20px) saturate(160%);
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.dark .glass-pill {
-  background: rgba(13, 13, 20, 0.75);
-  border-color: rgba(255, 255, 255, 0.07);
-}
-
-/* ── Bento cell glow on hover ────────────────────────────────────────────── */
-.bento-cell {
-  position: relative;
+  min-height: 100vh;
   transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-.bento-cell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    circle at var(--mx, 50%) var(--my, 50%),
-    rgba(59, 130, 246, 0.07) 0%,
-    transparent 70%
+/* Bengali needs more air and a Bengali-first stack. */
+:lang(bn) body,
+html:lang(bn) body {
+  font-family:
+    var(--font-bn),
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Segoe UI",
+    system-ui,
+    Roboto,
+    sans-serif,
+    sans-serif;
+  line-height: 1.85;
+}
+
+html:lang(bn) .font-display {
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+::selection {
+  color: rgb(var(--ink));
+  background: rgb(var(--marigold) / 0.55);
+}
+
+/* ── Focus: always visible, never colour-only ─────────────────────────────── */
+:focus-visible {
+  outline: 3px solid rgb(var(--accent));
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --muted: 40 52 47;
+  }
+  .dark {
+    --muted: 205 220 213;
+  }
+  :focus-visible {
+    outline-width: 4px;
+  }
+}
+
+/* ── Layout helpers ───────────────────────────────────────────────────────── */
+.section-shell {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  .section-shell {
+    width: min(100% - 4rem, 72rem);
+  }
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* ── App tiles: one shape, one light source, eight hues ───────────────────── */
+.tile {
+  --tile: 90 90 90;
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 23%;
+  color: #fff;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, rgb(var(--tile)) 82%, white) 0%,
+    rgb(var(--tile)) 70%
   );
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-  z-index: 0;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    inset 0 -1px 0 rgb(0 0 0 / 0.12),
+    0 6px 16px -6px rgb(var(--tile) / 0.55);
 }
 
-.bento-cell:hover::before {
-  opacity: 1;
+.tile-0 {
+  --tile: 181 68 110;
+}
+.tile-1 {
+  --tile: 43 76 140;
+}
+.tile-2 {
+  --tile: 12 107 82;
+}
+.tile-3 {
+  --tile: 192 51 43;
+}
+.tile-4 {
+  --tile: 232 163 23;
+  color: #1a1405;
+}
+.tile-5 {
+  --tile: 91 75 138;
+}
+.tile-6 {
+  --tile: 31 122 149;
+}
+.tile-7 {
+  --tile: 94 122 30;
+}
+.tile-neutral {
+  --tile: 70 84 78;
 }
 
 /* ── Scrollbar ───────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -276,10 +179,459 @@ section[id] {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.3);
+  background: rgb(var(--ink) / 0.18);
   border-radius: 999px;
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
+/* ── Motion ───────────────────────────────────────────────────────────────── */
+.aurora {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora i {
+  position: absolute;
+  border-radius: 9999px;
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .aurora i {
+    will-change: transform;
+    animation: drift 20s ease-in-out infinite alternate;
+  }
+}
+
+.dark .aurora i {
+  opacity: 0.6;
+}
+
+.aurora i:nth-child(1) {
+  width: 46rem;
+  height: 46rem;
+  left: -12%;
+  top: -22%;
+  background: radial-gradient(closest-side, rgb(var(--accent) / 0.4), transparent);
+}
+
+.aurora i:nth-child(2) {
+  width: 40rem;
+  height: 40rem;
+  right: -10%;
+  top: -4%;
+  background: radial-gradient(closest-side, rgb(var(--marigold) / 0.4), transparent);
+  animation-duration: 26s;
+  animation-direction: alternate-reverse;
+}
+
+.aurora i:nth-child(3) {
+  width: 36rem;
+  height: 36rem;
+  left: 34%;
+  top: 30%;
+  background: radial-gradient(closest-side, rgb(43 76 140 / 0.3), transparent);
+  animation-duration: 32s;
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(8%, 12%, 0) scale(1.18);
+  }
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgb(var(--ink) / 0.09) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bob {
+  animation: bob 4.8s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora i,
+  .animate-bob,
+  .marquee-track {
+    animation: none;
+  }
+  .marquee-track {
+    flex-wrap: wrap;
+    width: auto;
+  }
+}
+
+/* View transitions: circular reveal for theme, cross-fade for language */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-vt="circle"]::view-transition-old(root) {
+  z-index: 1;
+}
+
+html[data-vt="circle"]::view-transition-new(root) {
+  z-index: 2;
+  animation: vt-circle 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html[data-vt="fade"]::view-transition-old(root) {
+  animation: vt-out 0.28s ease both;
+}
+
+html[data-vt="fade"]::view-transition-new(root) {
+  animation: vt-in 0.28s ease both;
+}
+
+@keyframes vt-circle {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+  to {
+    clip-path: circle(150vmax at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ── Entrance animations: pure CSS so they never wait for JavaScript ──────── */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes word-up {
+  from {
+    transform: translateY(115%);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6) translateY(12px);
+  }
+}
+
+.rise {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+.word-up {
+  display: inline-block;
+  animation: word-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+.pop {
+  animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .word-up,
+  .pop {
+    animation: none;
+  }
+}
+
+/* Hue exposed as --tile for tinted surfaces (cards) without recolouring their text */
+.hue-0 {
+  --tile: 181 68 110;
+}
+.hue-1 {
+  --tile: 43 76 140;
+}
+.hue-2 {
+  --tile: 12 107 82;
+}
+.hue-3 {
+  --tile: 192 51 43;
+}
+.hue-4 {
+  --tile: 232 163 23;
+}
+.hue-5 {
+  --tile: 91 75 138;
+}
+.hue-6 {
+  --tile: 31 122 149;
+}
+.hue-7 {
+  --tile: 94 122 30;
+}
+.hue-neutral {
+  --tile: 70 84 78;
+}
+
+/* ── Scroll reveal, hairline draw, role swap, header drop, spotlight ──────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--y, 28px));
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+}
+
+.reveal[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+.draw {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.draw[data-shown] {
+  transform: none;
+}
+
+@keyframes role-in {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+.role-in {
+  animation: role-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+}
+
+.drop {
+  animation: drop 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.spotlight {
+  display: none;
+  background: radial-gradient(
+    520px circle at var(--sx, -1000px) var(--sy, -1000px),
+    rgb(var(--accent) / 0.16),
+    transparent 65%
+  );
+}
+
+@media (hover: hover) {
+  .spotlight {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .draw {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .role-in,
+  .drop {
+    animation: none;
+  }
+}
+
+/* Transform-only entrances: text is painted on the first frame, so they never delay LCP */
+@keyframes slide {
+  from {
+    transform: translateY(14px);
+  }
+}
+
+@keyframes word-in {
+  from {
+    transform: translateY(0.32em);
+  }
+}
+
+.slide {
+  animation: slide 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+.word-in {
+  display: inline-block;
+  animation: word-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .word-in {
+    animation: none;
+  }
+}
+
+/* Skip style, layout and paint for every section below the hero until it nears the viewport.
+   That keeps the first layout small, which is most of what Lighthouse mobile measures as
+   blocking time. The intrinsic sizes are the measured heights per breakpoint (English and
+   Bangla differ by under 3%), so anchor links land where they should. `auto` makes the
+   browser remember the real height once a section has been seen. */
+main > section:not(#top),
+body > footer {
+  content-visibility: auto;
+}
+
+#about {
+  contain-intrinsic-size: auto 1380px;
+}
+#work {
+  contain-intrinsic-size: auto 7250px;
+}
+#toolkit {
+  contain-intrinsic-size: auto 2470px;
+}
+#contact {
+  contain-intrinsic-size: auto 990px;
+}
+body > footer {
+  contain-intrinsic-size: auto 245px;
+}
+
+@media (min-width: 640px) {
+  #about {
+    contain-intrinsic-size: auto 1330px;
+  }
+  #work {
+    contain-intrinsic-size: auto 6470px;
+  }
+  #toolkit {
+    contain-intrinsic-size: auto 2140px;
+  }
+  #contact {
+    contain-intrinsic-size: auto 1070px;
+  }
+  body > footer {
+    contain-intrinsic-size: auto 165px;
+  }
+}
+
+@media (min-width: 768px) {
+  #about {
+    contain-intrinsic-size: auto 1310px;
+  }
+  #work {
+    contain-intrinsic-size: auto 5220px;
+  }
+  #toolkit {
+    contain-intrinsic-size: auto 2020px;
+  }
+  #contact {
+    contain-intrinsic-size: auto 1070px;
+  }
+  body > footer {
+    contain-intrinsic-size: auto 155px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #about {
+    contain-intrinsic-size: auto 1030px;
+  }
+  #work {
+    contain-intrinsic-size: auto 4800px;
+  }
+  #toolkit {
+    contain-intrinsic-size: auto 1620px;
+  }
+  #contact {
+    contain-intrinsic-size: auto 808px;
+  }
+  body > footer {
+    contain-intrinsic-size: auto 155px;
+  }
+}
+
+@media (min-width: 1280px) {
+  #about {
+    contain-intrinsic-size: auto 930px;
+  }
+  #work {
+    contain-intrinsic-size: auto 4440px;
+  }
+  #toolkit {
+    contain-intrinsic-size: auto 1540px;
+  }
+  #contact {
+    contain-intrinsic-size: auto 808px;
+  }
+  body > footer {
+    contain-intrinsic-size: auto 155px;
+  }
+}
+
+/* ── Phones and tablets: fewer moving parts ───────────────────────────────────
+   Every running CSS animation costs style recalculation on the main thread, which is what
+   Lighthouse mobile measures as blocking time. Small screens keep the page's single entrance
+   (.rise) and all scroll reveals; the staggered hero choreography is a desktop treat. */
+@keyframes ping-dot {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.ping-dot {
+  animation: ping-dot 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@media (max-width: 1023.98px), (prefers-reduced-motion: reduce) {
+  .slide,
+  .word-in,
+  .pop,
+  .animate-bob,
+  .ping-dot {
+    animation: none !important;
+  }
 }

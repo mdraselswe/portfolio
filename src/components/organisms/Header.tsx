@@ -1,261 +1,141 @@
 "use client";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useTransform,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "@/lib";
-import { FaBars, FaMoon, FaSun } from "@/lib/icons";
-import { translations } from "@/translations";
+import { FaMoon, FaSun } from "@/lib/icons";
+import { getT, otherLang, pathFor } from "@/lib/i18n";
+import { withViewTransition } from "@/lib/viewTransition";
+import type { Language } from "@/types/context";
 
-// ── Nav item (desktop) ────────────────────────────────────────────────────
-const NavLink = memo(function NavLink({
-  href,
-  isActive,
-  onClick,
-  children,
-}: {
-  href: string;
-  isActive: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      onClick={onClick}
-      className={`relative text-sm font-medium transition-colors duration-200 py-1 ${
-        isActive
-          ? "text-blue-600 dark:text-blue-400"
-          : "text-gray-600 dark:text-white/50 hover:text-gray-900 dark:hover:text-white/90"
-      }`}
-    >
-      {children}
-      {isActive && (
-        <motion.span
-          layoutId="nav-indicator"
-          className="absolute -bottom-0.5 left-0 right-0 h-px bg-blue-500 dark:bg-blue-400 rounded-full"
-          transition={{ type: "spring", stiffness: 500, damping: 40 }}
-        />
-      )}
-    </a>
-  );
-});
+const SECTION_IDS = ["top", "about", "work", "toolkit", "contact"] as const;
 
-// ── Mobile nav item ───────────────────────────────────────────────────────
-const MobileNavLink = memo(function MobileNavLink({
-  href,
-  isActive,
-  onClick,
-  children,
-}: {
-  href: string;
-  isActive: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      onClick={onClick}
-      className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-        isActive
-          ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
-          : "text-gray-700 dark:text-white/60 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white"
-      }`}
-    >
-      {children}
-    </a>
-  );
-});
+const controlClass =
+  "inline-flex h-11 min-w-11 items-center justify-center rounded-full px-3 text-sm font-medium text-ink transition-[background-color,transform] hover:bg-ink/8 active:scale-90";
 
-// ── Header ────────────────────────────────────────────────────────────────
-export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-  const manualNavRef = useRef(false);
+export default function Header({ lang }: { lang: Language }) {
+  const [active, setActive] = useState<string>("top");
+  const [scrolled, setScrolled] = useState(false);
+  const [pill, setPill] = useState<{ x: number; w: number } | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const { theme, toggleTheme } = useTheme();
+  const t = getT(lang).header;
+  const other = otherLang(lang);
 
-  const { language, setLanguage } = useLanguage();
-  const { theme, setTheme } = useTheme();
-  const prefersReduced = useReducedMotion();
-  const t = translations[language].header;
-
-  // Scroll-based pill height compression
-  const { scrollY } = useScroll();
-  const pillPaddingY = useTransform(scrollY, [0, 80], [12, 8]);
-  const pillPaddingX = useTransform(scrollY, [0, 80], [20, 16]);
-
-  // Scroll-position-based active section (both directions)
+  // Condense the bar once the page moves.
   useEffect(() => {
-    const update = () => {
-      if (manualNavRef.current) return;
-
-      if (window.scrollY < 80) {
-        setActiveSection("");
-        return;
-      }
-
-      const scrollPos = window.scrollY + 120;
-      const sections = Array.from(document.querySelectorAll<HTMLElement>("section[id]"));
-      let current = "";
-      for (const section of sections) {
-        if (section.offsetTop <= scrollPos) {
-          current = section.id;
-        }
-      }
-      setActiveSection(current);
-    };
-
-    window.addEventListener("scroll", update, { passive: true });
+    const update = () => setScrolled(window.scrollY > 24);
     update();
+    window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
   }, []);
 
-  const handleNavClick = useCallback((id: string) => {
-    manualNavRef.current = true;
-    setActiveSection(id);
-    setMobileOpen(false);
-    setTimeout(() => {
-      manualNavRef.current = false;
-    }, 1500);
+  // Highlight the section that crosses the middle band of the viewport.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
-  const toggleLanguage = useCallback(
-    () => setLanguage(language === "en" ? "bn" : "en"),
-    [language, setLanguage]
-  );
-  const toggleTheme = useCallback(
-    () => setTheme(theme === "light" ? "dark" : "light"),
-    [theme, setTheme]
-  );
+  // The sliding pill sits behind the active link.
+  useEffect(() => {
+    const place = () => {
+      const link = navRef.current?.querySelector<HTMLElement>('[aria-current="true"]');
+      setPill(link ? { x: link.offsetLeft, w: link.offsetWidth } : null);
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [active, lang]);
 
-  const navItems = useMemo(
+  const links = useMemo(
     () => [
-      { href: "#", id: "", label: t.home },
-      { href: "#skills", id: "skills", label: t.skills },
-      { href: "#projects", id: "projects", label: t.projects },
-      { href: "#contact", id: "contact", label: t.contact },
+      { id: "work", label: t.work },
+      { id: "toolkit", label: t.toolkit },
+      { id: "contact", label: t.contact },
     ],
     [t]
   );
 
+  function onTheme(e: React.MouseEvent<HTMLButtonElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const next = theme === "light" ? "dark" : "light";
+    withViewTransition(
+      () => {
+        document.documentElement.classList.toggle("dark", next === "dark");
+        toggleTheme();
+      },
+      "circle",
+      { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
+    );
+  }
+
   return (
-    // pointer-events-none on outer so the transparent area doesn't eat scroll events
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 pointer-events-none">
-      <div className="pointer-events-auto w-full max-w-2xl">
-        {/* ── Floating pill ── */}
-        <motion.div
-          className="glass-pill dark:glass shadow-lg shadow-black/5 dark:shadow-black/40 rounded-2xl overflow-hidden"
-          style={
-            prefersReduced
-              ? {}
-              : {
-                  paddingTop: pillPaddingY,
-                  paddingBottom: pillPaddingY,
-                  paddingLeft: pillPaddingX,
-                  paddingRight: pillPaddingX,
-                }
-          }
+    <header className="drop pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-3">
+      <div
+        className={`pointer-events-auto flex w-full max-w-[44rem] items-center justify-between rounded-full border p-1.5 transition-[background-color,box-shadow,border-color] duration-300 md:backdrop-blur-xl ${
+          scrolled
+            ? "border-ink/15 bg-surface/95 shadow-[0_12px_40px_-12px_rgb(0_0_0/0.35)] md:bg-surface/90"
+            : "border-ink/10 bg-surface/90 shadow-none md:bg-surface/60"
+        }`}
+      >
+        <a
+          href="#top"
+          aria-label={t.home}
+          className="inline-grid h-11 w-11 shrink-0 place-items-center rounded-full bg-ink font-display text-sm font-semibold text-paper transition-transform hover:rotate-[-8deg] active:scale-90"
         >
-          {/* Static padding fallback for reduced-motion */}
-          <div className={prefersReduced ? "px-5 py-3" : ""}>
-            <div className="flex items-center justify-between gap-4">
-              {/* Logo */}
-              <a
-                href="#"
-                onClick={() => handleNavClick("")}
-                className="text-base font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent shrink-0"
-              >
-                {translations[language].name}
-              </a>
+          {lang === "en" ? "MR" : "রা"}
+        </a>
 
-              {/* Desktop nav */}
-              <nav className="hidden md:flex items-center gap-6">
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.id}
-                    href={item.href}
-                    isActive={activeSection === item.id}
-                    onClick={() => handleNavClick(item.id)}
-                  >
-                    {item.label}
-                  </NavLink>
-                ))}
-              </nav>
-
-              {/* Actions */}
-              <div className="flex items-center gap-1 shrink-0">
-                {/* Theme */}
-                <button
-                  onClick={toggleTheme}
-                  aria-label="Toggle theme"
-                  className="p-2 rounded-xl text-gray-600 dark:text-white/50 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/8 transition-all duration-200"
-                >
-                  {theme === "light" ? (
-                    <FaMoon className="w-4 h-4" />
-                  ) : (
-                    <FaSun className="w-4 h-4" />
-                  )}
-                </button>
-
-                {/* Language */}
-                <button
-                  onClick={toggleLanguage}
-                  aria-label="Toggle language"
-                  className="px-2.5 py-1.5 rounded-xl text-xs font-semibold text-gray-600 dark:text-white/50 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/8 transition-all duration-200 font-mono"
-                >
-                  {language.toUpperCase()}
-                </button>
-
-                {/* Mobile hamburger */}
-                <button
-                  onClick={() => setMobileOpen(!mobileOpen)}
-                  aria-label="Toggle navigation"
-                  aria-expanded={mobileOpen}
-                  className="md:hidden p-2 rounded-xl text-gray-600 dark:text-white/50 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/8 transition-all duration-200"
-                >
-                  <FaBars className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ── Mobile dropdown ── */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -8, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 35 }}
-              className="mt-2 p-2 rounded-2xl glass-pill dark:glass shadow-lg shadow-black/5 dark:shadow-black/40"
-            >
-              <nav className="flex flex-col">
-                {navItems.map((item) => (
-                  <MobileNavLink
-                    key={item.id}
-                    href={item.href}
-                    isActive={activeSection === item.id}
-                    onClick={() => handleNavClick(item.id)}
-                  >
-                    {item.label}
-                  </MobileNavLink>
-                ))}
-              </nav>
-            </motion.div>
+        <nav ref={navRef} aria-label="Primary" className="relative flex items-center">
+          {pill && (
+            <span
+              aria-hidden
+              className="absolute left-0 top-0 h-11 rounded-full bg-ink/10 transition-[transform,width] duration-300 ease-[cubic-bezier(.22,1,.36,1)]"
+              style={{ width: pill.w, transform: `translateX(${pill.x}px)` }}
+            />
           )}
-        </AnimatePresence>
+          {links.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              aria-current={active === link.id ? "true" : undefined}
+              className="relative inline-flex h-11 items-center rounded-full px-3 text-sm font-medium text-ink sm:px-4"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="flex items-center">
+          <button
+            type="button"
+            onClick={onTheme}
+            aria-label={theme === "light" ? t.toDark : t.toLight}
+            className={controlClass}
+          >
+            {theme === "light" ? <FaMoon aria-hidden /> : <FaSun aria-hidden />}
+          </button>
+          <Link
+            href={pathFor(other)}
+            hrefLang={other}
+            lang={other}
+            aria-label={t.languageAction}
+            className={controlClass}
+          >
+            {t.languageLabel}
+          </Link>
+        </div>
       </div>
     </header>
   );

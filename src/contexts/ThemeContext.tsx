@@ -8,6 +8,8 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(THEMES.LIGHT);
+  // Skip the first persist so the default doesn't overwrite a saved preference.
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     // Check for saved theme preference
@@ -22,14 +24,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     } else {
       setTheme(systemPreference);
     }
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
     // Update localStorage and document class when theme changes
     setStorageItem(STORAGE_KEYS.THEME, theme);
     document.documentElement.classList.remove(THEMES.LIGHT, THEMES.DARK);
     document.documentElement.classList.add(theme);
-  }, [theme]);
+  }, [theme, hydrated]);
 
   const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme);

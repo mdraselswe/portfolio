@@ -1,30 +1,36 @@
 # Portfolio — Muhammad Rasel
 
-Personal portfolio of **Muhammad Rasel**, Senior Frontend Developer. A single-page,
-bilingual (English / বাংলা) site built with Next.js 15, TypeScript and Tailwind CSS.
+Personal portfolio of **Muhammad Rasel**, Software Engineer and Frontend / React Developer in Dhaka.
+Two statically generated pages, English at `/` and Bangla (বাংলা) at `/bn`, built with
+Next.js 15, TypeScript and Tailwind CSS.
 
 **Live:** [mdrasel.site](https://mdrasel.site)
 
 ## Features
 
-- **Bilingual** — full EN/BN switch; every string lives in `src/translations/index.ts`
-- **Light / dark theme** — follows `prefers-color-scheme`, remembers the choice in localStorage
-- **Motion** — Framer Motion section reveals, Lenis smooth scroll, custom cursor, animated counters
-- **Lazy sections** — every major section is `React.lazy` + `Suspense` loaded from `src/app/page.tsx`
-- **Working contact form** — EmailJS, no backend required
-- **SEO ready** — Open Graph and Twitter card metadata, long-lived cache headers for static assets
-- **Accessible by default** — respects `prefers-reduced-motion`
+- **Two real URLs** — `/` (English) and `/bn` (Bangla), each server-rendered, with `hreflang`
+  alternates and both listed in the sitemap, so both can be indexed
+- **Server components first** — every section renders on the server; only the header, one effects
+  controller, the role rotator and the contact form hydrate in the browser
+- **Motion without a library** — CSS entrances, scroll reveals, count-ups, tilt, spotlight and
+  magnetic effects driven by `data-*` attributes and one small client controller; View Transitions
+  for the theme switch; everything stops under `prefers-reduced-motion`
+- **Light / dark theme** — follows `prefers-color-scheme`, remembers the choice, no flash on load
+- **SEO** — metadata per language, JSON-LD (`Person`, `WebSite`, `ProfilePage`, `ItemList`),
+  `sitemap.xml`, `robots.txt`, web manifest and a share image
+- **Accessible** — skip link, labelled form, visible focus, 44px touch targets, axe-checked in light
+  and dark, English and Bangla
+- **Working contact form** — EmailJS, loaded only when the form is first submitted
 
 ## Tech stack
 
 | Area      | Stack                                                |
 | --------- | ---------------------------------------------------- |
-| Framework | Next.js 15 (App Router, Turbopack in dev)            |
+| Framework | Next.js 15 (App Router)                              |
 | Language  | TypeScript, React 19                                 |
 | Styling   | Tailwind CSS 3, `tailwind-merge`                     |
-| Motion    | Framer Motion, Lenis                                 |
 | Email     | EmailJS                                              |
-| Testing   | Jest, React Testing Library                          |
+| Testing   | Jest, React Testing Library, Playwright, axe-core    |
 | Quality   | ESLint 9 (flat config), Prettier, Husky, lint-staged |
 | Hosting   | Vercel                                               |
 
@@ -37,7 +43,8 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) (English) or
+[http://localhost:3000/bn](http://localhost:3000/bn) (Bangla).
 
 ### Environment variables
 
@@ -47,73 +54,80 @@ The contact form needs an [EmailJS](https://www.emailjs.com/) account. Create `.
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+# optional: Google Search Console verification token
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your_token
 ```
 
-These are public by design (`NEXT_PUBLIC_*`) — they ship in the client bundle, so keep the
-EmailJS template locked to your own domain. The same three variables must be set in the
-Vercel project settings for the deployed site.
+These are public by design (`NEXT_PUBLIC_*`) and ship in the client bundle, so keep the EmailJS
+template locked to your own domain. Set the same variables in the Vercel project settings.
 
 ## Scripts
 
-| Command                 | What it does               |
-| ----------------------- | -------------------------- |
-| `npm run dev`           | Dev server with Turbopack  |
-| `npm run build`         | Production build           |
-| `npm start`             | Serve the production build |
-| `npm run lint`          | ESLint                     |
-| `npm run format`        | Prettier write             |
-| `npm run format:check`  | Prettier check (no writes) |
-| `npm test`              | Jest with coverage         |
-| `npm run test:watch`    | Jest in watch mode         |
-| `npm run test:coverage` | Jest coverage report       |
+| Command               | What it does                                         |
+| --------------------- | ---------------------------------------------------- |
+| `npm run dev`         | Dev server with Turbopack                            |
+| `npm run build`       | Production build                                     |
+| `npm start`           | Serve the production build                           |
+| `npm run lint`        | ESLint                                               |
+| `npm run format`      | Prettier write                                       |
+| `npm test`            | Jest unit tests                                      |
+| `npx playwright test` | End-to-end: SEO, accessibility (axe), motion, layout |
 
-A Husky pre-commit hook runs `eslint --fix` and `prettier --write` on staged files.
+`npx playwright test` uses a dev server on port 3111, or any server you point `E2E_PORT` at
+(use a production build for numbers that match Lighthouse). A Husky pre-commit hook runs
+`eslint --fix` and `prettier --write` on staged files.
 
 ## Project structure
 
 ```
 src/
-├── app/                  # App Router entry — layout, page, global styles
+├── app/
+│   ├── (en)/                # layout + page for /
+│   ├── (bn)/bn/             # layout + page for /bn
+│   ├── globals.css          # design tokens and all motion CSS
+│   └── sitemap.ts, robots.ts, manifest.ts
 ├── components/
-│   ├── atoms/            # Button, ProjectCard, SkillCard, cursor, loaders
-│   └── organisms/        # Header, Hero, Skills, Projects, Stats, Contact, Footer
-├── config/animations.ts  # Shared Framer Motion variants and timings
-├── contexts/             # ThemeContext, LanguageContext
-├── data/                 # projects.ts, skills.ts — keyed by `en` / `bn`
-├── hooks/                # useLenis, useReducedMotion
-├── lib/                  # Re-export barrel + localStorage helpers
-├── translations/         # All UI copy, EN and BN
-└── types/                # Shared TypeScript types
+│   ├── atoms/               # Button, AppTile, project cards, Reveal, Effects, ContactForm …
+│   └── organisms/           # RootShell, HomePage, Header, Hero, About, Projects, Skills, Contact, Footer
+├── contexts/                # ThemeContext
+├── data/                    # projects.ts, skills.ts, appTiles.ts — keyed by `en` / `bn`
+├── lib/                     # i18n, seo (metadata + JSON-LD), storage, view transitions
+├── translations/            # all UI copy, EN and BN
+└── types/
+e2e/                         # Playwright specs
+public/                      # og.png, résumé PDF
 ```
 
-Content lives in `src/data/` and `src/translations/` — add a project or change copy there,
-not in the components. Both files are keyed by language, so every entry needs an `en` **and**
-a `bn` version.
+## Adding a project
 
-`@/` is a path alias for `src/` (configured in `tsconfig.json`, mirrored in `jest.config.mjs`).
+Add an entry to both the `en` and `bn` lists in `src/data/projects.ts` with the same `slug` and a
+`group` (`featured`, `platform`, `more` or `earlier`), then add its position to `ORDER` at the bottom
+of that file. Give it an icon in `src/data/appTiles.ts`. `featured` projects appear as large cards;
+the first six slugs in `HERO_SLUGS` appear on the hero home screen.
 
 ## Testing
 
 ```bash
-npm test
+npm test               # unit tests
+npx playwright test    # e2e (needs a server, see above)
 ```
-
-Tests live in `__tests__/` folders next to the code they cover and run on jsdom with
-React Testing Library.
 
 ## Deployment
 
 Deployed on **Vercel**. Every push to `main` triggers a production deploy to
-[mdrasel.site](https://mdrasel.site); pull requests get their own preview URL.
+[mdrasel.site](https://mdrasel.site); pull requests get their own preview URL. After the first
+deploy, add the domain to Google Search Console and submit `https://mdrasel.site/sitemap.xml`.
 
 ## Featured projects
 
-| Project           | Live                                                     | Source                                                    |
-| ----------------- | -------------------------------------------------------- | --------------------------------------------------------- |
-| Pregnancy Tracker | [pregnancy.mdrasel.site](https://pregnancy.mdrasel.site) | [GitHub](https://github.com/mdraselswe/pregnancy-tracker) |
-| LifeTrack         | [lifetrack.mdrasel.site](https://lifetrack.mdrasel.site) | [GitHub](https://github.com/mdraselswe/lifetrack)         |
-| Husnul Dua        | [dua.mdrasel.site](https://dua.mdrasel.site)             | [GitHub](https://github.com/mdraselswe/husnul-dua)        |
-| BloodReach        | [blood-reach.vercel.app](https://blood-reach.vercel.app) | [GitHub](https://github.com/mdraselswe/blood-reach)       |
+| Project           | Live                                                           | Source                                                    |
+| ----------------- | -------------------------------------------------------------- | --------------------------------------------------------- |
+| Pregnancy Tracker | [pregnancy.mdrasel.site](https://pregnancy.mdrasel.site)       | [GitHub](https://github.com/mdraselswe/pregnancy-tracker) |
+| LifeTrack         | [lifetrack.mdrasel.site](https://lifetrack.mdrasel.site)       | [GitHub](https://github.com/mdraselswe/lifetrack)         |
+| Jelar Shad        | [jelarshad.shojashapta.com](https://jelarshad.shojashapta.com) | [GitHub](https://github.com/mdraselswe/jelarshad)         |
+| GeduShop          | [gedushop.com](https://gedushop.com)                           | [GitHub](https://github.com/mdraselswe/gedushop-frontend) |
+| CleanCV           | [cv.mdrasel.site](https://cv.mdrasel.site)                     | [GitHub](https://github.com/mdraselswe/cleancv)           |
+| Husnul Dua        | [dua.mdrasel.site](https://dua.mdrasel.site)                   | [GitHub](https://github.com/mdraselswe/husnul-dua)        |
 
 ## Contact
 

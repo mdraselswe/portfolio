@@ -1,11 +1,27 @@
 // Font Awesome 6 Icons
 export {
+  FaBaby,
   FaBars,
+  FaBell,
+  FaBookOpen,
+  FaBookQuran,
+  FaArrowUp,
+  FaCartShopping,
+  FaChartLine,
+  FaCheck,
+  FaCode,
+  FaDroplet,
   FaFacebook,
+  FaFileLines,
   FaGithub,
+  FaGraduationCap,
   FaLinkedin,
+  FaMapLocationDot,
   FaMoon,
+  FaStore,
   FaSun,
+  FaUtensils,
+  FaWallet,
   FaXTwitter,
 } from "react-icons/fa6";
 
