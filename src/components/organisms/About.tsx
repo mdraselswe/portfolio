@@ -34,7 +34,7 @@ export default function About({ lang }: { lang: Language }) {
         <Divider />
         <div className="mt-12 grid gap-10 sm:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
           <Reveal>
-            <SectionHeading id="about-title" title={t.title} />
+            <SectionHeading id="about-title" title={t.title} eyebrow={getT(lang).eyebrow.about} />
             <p className="mt-6 max-w-[56ch] text-lg">{t.p1}</p>
           </Reveal>
 

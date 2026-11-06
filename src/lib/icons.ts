@@ -5,6 +5,7 @@ export {
   FaBell,
   FaBookOpen,
   FaBookQuran,
+  FaArrowRight,
   FaArrowUp,
   FaCartShopping,
   FaChartLine,

@@ -27,7 +27,7 @@ const baseStyles =
 
 const variants = {
   primary:
-    "bg-accent text-accent-ink hover:brightness-110 before:absolute before:inset-0 before:-z-10 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-full",
+    "bg-gradient-to-r from-accent to-[rgb(168_85_247)] text-white shadow-[0_12px_32px_-10px_rgb(var(--accent)/0.7)] hover:brightness-110 before:absolute before:inset-0 before:-z-10 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-full",
   secondary: "bg-ink/10 text-ink hover:bg-ink/15",
   outline: "border border-ink/25 text-ink hover:bg-ink/5",
   ghost: "text-ink hover:bg-ink/8",

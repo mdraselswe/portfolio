@@ -19,7 +19,12 @@ export default function Skills({ lang }: { lang: Language }) {
       <div className="section-shell">
         <Divider />
         <Reveal className="mt-12 sm:mt-14">
-          <SectionHeading id="toolkit-title" title={t.title} intro={t.intro} />
+          <SectionHeading
+            id="toolkit-title"
+            title={t.title}
+            intro={t.intro}
+            eyebrow={getT(lang).eyebrow.toolkit}
+          />
         </Reveal>
 
         <dl className="mt-12 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">

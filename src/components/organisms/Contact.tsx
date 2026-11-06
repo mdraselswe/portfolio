@@ -47,7 +47,12 @@ export default function Contact({ lang }: { lang: Language }) {
       <div aria-hidden className="section-glow" />
       <div className="section-shell grid gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal>
-          <SectionHeading id="contact-title" title={t.title} intro={t.intro} />
+          <SectionHeading
+            id="contact-title"
+            title={t.title}
+            intro={t.intro}
+            eyebrow={getT(lang).eyebrow.contact}
+          />
           <ul aria-label={t.details.label} className="mt-9 grid gap-3">
             {details.map(({ label, value, href, Icon, external }) => {
               const body = (

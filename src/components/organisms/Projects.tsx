@@ -21,7 +21,12 @@ export default function Projects({ lang }: { lang: Language }) {
       <div className="section-shell">
         <Divider />
         <Reveal className="mt-12 sm:mt-14">
-          <SectionHeading id="work-title" title={t.title} intro={t.intro} />
+          <SectionHeading
+            id="work-title"
+            title={t.title}
+            intro={t.intro}
+            eyebrow={getT(lang).eyebrow.work}
+          />
         </Reveal>
 
         <div className="mt-12 space-y-14 sm:mt-14 sm:space-y-16">

@@ -13,7 +13,7 @@
   --muted: 84 92 116;
   --accent: 79 70 229;
   --accent-ink: 255 255 255;
-  --aqua: 8 145 178;
+  --aqua: 14 116 144;
   --marigold: 217 119 6;
 }
 
@@ -784,4 +784,119 @@ html:not(.motion-on) .ping-dot {
 
 .menu > summary::-webkit-details-marker {
   display: none;
+}
+
+/* ── Showcase pass: serif accent word, glowing orb, grain ─────────────────── */
+.accent-word {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgb(var(--accent));
+}
+
+/* Italic serif does not exist for Bangla: keep the colour, drop the slant */
+:lang(bn) .accent-word {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: inherit;
+}
+
+.orb {
+  left: 50%;
+  top: 50%;
+  width: 42rem;
+  height: 42rem;
+  transform: translate(-50%, -50%);
+}
+
+.orb-core {
+  position: absolute;
+  inset: 3rem;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 50% 0, rgb(var(--accent) / 0.28), transparent 55%), rgb(var(--paper));
+  box-shadow:
+    0 0 0 1px rgb(var(--accent) / 0.4),
+    0 -2rem 6rem -1rem rgb(var(--accent) / 0.5),
+    inset 0 1.5rem 4rem rgb(var(--aqua) / 0.25);
+}
+
+.orb-core::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    repeating-linear-gradient(0deg, rgb(var(--ink) / 0.08) 0 1px, transparent 1px 2.2rem),
+    repeating-linear-gradient(90deg, rgb(var(--ink) / 0.08) 0 1px, transparent 1px 2.2rem);
+  mask-image: radial-gradient(circle at 50% 100%, #000 15%, transparent 70%);
+}
+
+.orb-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.orb-ring text {
+  font:
+    600 10.5px ui-monospace,
+    "SF Mono",
+    Menlo,
+    Consolas,
+    monospace;
+  fill: rgb(var(--muted));
+}
+
+.spark {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: rgb(var(--aqua));
+  box-shadow: 0 0 0.9rem rgb(var(--aqua) / 0.9);
+  opacity: 0.8;
+}
+
+@keyframes orb-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spark-float {
+  50% {
+    transform: translate3d(0.6rem, -1.2rem, 0);
+    opacity: 0.35;
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .orb-ring {
+    animation: orb-turn 90s linear infinite;
+  }
+  .spark {
+    animation: spark-float 9s ease-in-out infinite;
+  }
+}
+
+html:not(.motion-on) .orb-ring,
+html:not(.motion-on) .spark {
+  animation-play-state: paused;
+}
+
+/* Fine film grain on large screens only: a full-screen layer is not worth it on phones */
+@media (min-width: 1024px) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 }
