@@ -1,5 +1,6 @@
 import About from "@/components/organisms/About";
 import Contact from "@/components/organisms/Contact";
+import Education from "@/components/organisms/Education";
 import Effects from "@/components/atoms/Effects";
 import Experience from "@/components/organisms/Experience";
 import Footer from "@/components/organisms/Footer";
@@ -25,6 +26,7 @@ export default function HomePage({ lang }: { lang: Language }) {
         <Hero lang={lang} />
         <About lang={lang} />
         <Experience lang={lang} />
+        <Education lang={lang} />
         <Projects lang={lang} />
         <Skills lang={lang} />
         <Contact lang={lang} />

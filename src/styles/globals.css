@@ -533,6 +533,9 @@ body > footer {
 #experience {
   contain-intrinsic-size: auto 2600px;
 }
+#education {
+  contain-intrinsic-size: auto 480px;
+}
 #work {
   contain-intrinsic-size: auto 7250px;
 }

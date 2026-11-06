@@ -60,7 +60,10 @@ export const translations = {
       title: "Experience",
       intro:
         "Eight years across learning, health, food delivery and agency products, always in React.",
-      education: "Education",
+    },
+    education: {
+      title: "Education",
+      intro: "Where I studied software engineering.",
     },
     work: {
       title: "Selected work",
@@ -170,7 +173,10 @@ export const translations = {
       title: "অভিজ্ঞতা",
       intro:
         "আট বছর ধরে লার্নিং, হেলথ, ফুড ডেলিভারি ও এজেন্সির প্রোডাক্টে কাজ করেছি, সব সময় React নিয়ে।",
-      education: "শিক্ষা",
+    },
+    education: {
+      title: "শিক্ষা",
+      intro: "যেখানে সফটওয়্যার ইঞ্জিনিয়ারিং পড়েছি।",
     },
     work: {
       title: "নির্বাচিত কাজ",

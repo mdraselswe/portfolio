@@ -38,6 +38,7 @@ test.describe("structure and content", () => {
     for (const name of [
       "About Muhammad Rasel",
       "Experience",
+      "Education",
       "Selected work",
       "Toolkit",
       "Let's talk",
@@ -55,7 +56,7 @@ test.describe("structure and content", () => {
     for (const company of ["Shikho", "Grameen Digital Health", "Shohoz", "Shimahin"]) {
       await expect(page.locator("#experience")).toContainText(company);
     }
-    await expect(page.locator("#experience")).toContainText("Daffodil International University");
+    await expect(page.locator("#education")).toContainText("Daffodil International University");
   });
 
   test("project links are labelled and open safely", async ({ page }) => {
