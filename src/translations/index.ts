@@ -23,7 +23,7 @@ export const translations = {
     },
     hero: {
       availability: "Open to senior frontend roles",
-      kicker: "Senior Frontend Engineer · Dhaka, Bangladesh",
+      kicker: "Muhammad Rasel · Senior Frontend Engineer, Dhaka",
       roles: ["Software Engineer", "Frontend Developer", "React Developer", "Next.js Developer"],
       title: "I make the calls. AI makes me fast.",
       desc: "8+ years building fast, accessible React and Next.js products, from online shops to learning platforms used by 3M+ students. I lead frontends, grow component libraries and mentor teams.",
@@ -128,7 +128,7 @@ export const translations = {
     },
     hero: {
       availability: "সিনিয়র ফ্রন্টএন্ড রোলের জন্য প্রস্তুত",
-      kicker: "সিনিয়র ফ্রন্টএন্ড ইঞ্জিনিয়ার · ঢাকা, বাংলাদেশ",
+      kicker: "মোহাম্মদ রাসেল · সিনিয়র ফ্রন্টএন্ড ইঞ্জিনিয়ার, ঢাকা",
       roles: [
         "সফটওয়্যার ইঞ্জিনিয়ার",
         "ফ্রন্টএন্ড ডেভেলপার",
