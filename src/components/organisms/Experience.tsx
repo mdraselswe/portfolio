@@ -71,7 +71,9 @@ export default function Experience({ lang }: { lang: Language }) {
         </ol>
 
         <Reveal className="mt-12 sm:mt-14" y={20}>
-          <h3 className="text-base font-semibold text-muted">{t.education}</h3>
+          <h3 className="font-display text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
+            {t.education}
+          </h3>
           <div className="glass mt-4 flex items-start gap-4 rounded-3xl p-5 sm:items-center sm:p-7">
             <span
               aria-hidden

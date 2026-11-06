@@ -26,7 +26,7 @@ export const translations = {
       kicker: "Muhammad Rasel · Senior Frontend Engineer, Dhaka",
       roles: ["Software Engineer", "Frontend Developer", "React Developer", "Next.js Developer"],
       title: "I make the calls. AI makes me fast.",
-      desc: "8+ years building fast, accessible React and Next.js products, from online shops to learning platforms used by 3M+ students. I lead frontends, grow component libraries and mentor teams.",
+      desc: "8+ years building fast, accessible React and Next.js products, from online shops to learning platforms. I lead frontends, grow component libraries and mentor teams.",
       now: {
         label: "Currently",
         role: "Senior Software Engineer",
@@ -36,9 +36,9 @@ export const translations = {
       },
       stats: {
         years: "Years of experience",
-        students: "Students on platforms I led",
-        downloads: "App downloads",
-        speed: "Faster UI delivery",
+        speed: "Faster UI delivery with my component library",
+        rerenders: "Fewer redundant re-renders",
+        bugs: "Fewer production bugs",
       },
       seeWork: "See my work",
       downloadResume: "Download CV",
@@ -136,7 +136,7 @@ export const translations = {
         "Next.js ডেভেলপার",
       ],
       title: "সিদ্ধান্ত আমার, গতি এআই-এর।",
-      desc: "৮+ বছর ধরে দ্রুত ও সবার ব্যবহারযোগ্য React আর Next.js প্রোডাক্ট বানাচ্ছি, অনলাইন শপ থেকে ৩M+ শিক্ষার্থীর লার্নিং প্ল্যাটফর্ম পর্যন্ত। ফ্রন্টএন্ড লিড করি, কম্পোনেন্ট লাইব্রেরি গড়ি, আর টিমকে মেন্টর করি।",
+      desc: "৮+ বছর ধরে দ্রুত ও সবার ব্যবহারযোগ্য React আর Next.js প্রোডাক্ট বানাচ্ছি, অনলাইন শপ থেকে লার্নিং প্ল্যাটফর্ম পর্যন্ত। ফ্রন্টএন্ড লিড করি, কম্পোনেন্ট লাইব্রেরি গড়ি, আর টিমকে মেন্টর করি।",
       now: {
         label: "বর্তমানে",
         role: "সিনিয়র সফটওয়্যার ইঞ্জিনিয়ার",
@@ -146,9 +146,9 @@ export const translations = {
       },
       stats: {
         years: "বছরের অভিজ্ঞতা",
-        students: "শিক্ষার্থী, যেসব প্ল্যাটফর্মে নেতৃত্ব দিয়েছি",
-        downloads: "অ্যাপ ডাউনলোড",
-        speed: "দ্রুত UI ডেলিভারি",
+        speed: "দ্রুত UI ডেলিভারি, আমার কম্পোনেন্ট লাইব্রেরিতে",
+        rerenders: "কম অপ্রয়োজনীয় রি-রেন্ডার",
+        bugs: "কম প্রোডাকশন বাগ",
       },
       seeWork: "আমার কাজ দেখুন",
       downloadResume: "সিভি ডাউনলোড করুন",

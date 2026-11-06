@@ -235,8 +235,8 @@ test.describe("motion", () => {
     await page.locator("#top dl").scrollIntoViewIfNeeded();
     await page.waitForTimeout(2500);
     await expect(page.locator("#top dl dd").first()).toHaveText("8+");
-    await expect(page.locator("#top dl dd").nth(1)).toHaveText("3M+");
-    await expect(page.locator("#top dl dd").nth(2)).toHaveText("4.5M+");
+    await expect(page.locator("#top dl dd").nth(1)).toHaveText("10x");
+    await expect(page.locator("#top dl dd").nth(2)).toHaveText("85%+");
   });
 
   test("role rotator keeps every title readable for assistive tech", async ({ page }) => {

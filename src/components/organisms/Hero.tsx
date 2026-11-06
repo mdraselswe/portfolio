@@ -30,9 +30,9 @@ export default function Hero({ lang }: { lang: Language }) {
 
   const stats = [
     { to: 8, suffix: "+", label: t.stats.years },
-    { to: 3, suffix: "M+", label: t.stats.students },
-    { to: 4.5, suffix: "M+", label: t.stats.downloads },
     { to: 10, suffix: "x", label: t.stats.speed },
+    { to: 85, suffix: "%+", label: t.stats.rerenders },
+    { to: 10, suffix: "x", label: t.stats.bugs },
   ];
 
   return (
