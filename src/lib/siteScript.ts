@@ -13,6 +13,7 @@
  *   [data-progress]      scroll progress bar
  *   [data-header-bar]    gets data-scrolled once the page moves
  *   [data-nav]           links with data-section; [data-pill] slides behind the current one
+ *   [data-menu]          mobile <details> menu, closed after a choice
  *   [data-theme-toggle]  light/dark switch with a circular View Transition
  *   [data-roles]         cycles through a JSON list of job titles
  *   [data-contact]       contact form, sent through the EmailJS REST API
@@ -30,7 +31,8 @@ export function siteScript() {
     const start = performance.now();
     const tick = (now: number) => {
       const p = Math.min((now - start) / 1600, 1);
-      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 4))) + suffix;
+      const decimals = (String(to).split(".")[1] || "").length;
+      el.textContent = (to * (1 - Math.pow(1 - p, 4))).toFixed(decimals) + suffix;
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -160,11 +162,23 @@ export function siteScript() {
     },
     { rootMargin: "-45% 0px -50% 0px" }
   );
-  ["top", "about", "work", "toolkit", "contact"].forEach((id) => {
+  ["top", "about", "experience", "work", "toolkit", "contact"].forEach((id) => {
     const el = doc.getElementById(id);
     if (el) spy.observe(el);
   });
   window.addEventListener("resize", placePill);
+
+  // ── Mobile menu: a native <details>; close it after a choice or on Escape ────────────────
+  const menu = doc.querySelector<HTMLDetailsElement>("[data-menu]");
+  if (menu) {
+    menu.addEventListener("click", (e) => {
+      const t = e.target as Element;
+      if (t.closest && t.closest("a")) menu.open = false;
+    });
+    doc.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") menu.open = false;
+    });
+  }
 
   // ── Theme: light/dark with a circular reveal ─────────────────────────────────────────────
   type TransitionDoc = Document & {

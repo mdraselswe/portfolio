@@ -9,6 +9,9 @@ export const translations = {
     name: "Muhammad Rasel",
     skipToContent: "Skip to content",
     header: {
+      about: "About",
+      experience: "Experience",
+      menu: "Open menu",
       work: "Work",
       toolkit: "Toolkit",
       contact: "Contact",
@@ -20,10 +23,23 @@ export const translations = {
     },
     hero: {
       availability: "Open to senior frontend roles",
-      kicker: "Muhammad Rasel, Software Engineer in Dhaka",
+      kicker: "Senior Frontend Engineer · Dhaka, Bangladesh",
       roles: ["Software Engineer", "Frontend Developer", "React Developer", "Next.js Developer"],
       title: "I make the calls. AI makes me fast.",
-      desc: "Senior frontend engineer in Dhaka. I build fast, accessible React and Next.js products, from online shops to learning platforms used by millions of students.",
+      desc: "8+ years building fast, accessible React and Next.js products, from online shops to learning platforms used by 3M+ students. I lead frontends, grow component libraries and mentor teams.",
+      now: {
+        label: "Currently",
+        role: "Senior Software Engineer",
+        company: "Shikho Technologies",
+        period: "Dec 2022 – Present",
+        stack: ["Next.js", "TypeScript", "GraphQL"],
+      },
+      stats: {
+        years: "Years of experience",
+        students: "Students on platforms I led",
+        downloads: "App downloads",
+        speed: "Faster UI delivery",
+      },
       seeWork: "See my work",
       downloadResume: "Download CV",
       appsLabel: "Products I've built. Select one to read about it.",
@@ -38,12 +54,6 @@ export const translations = {
         "Performance, accessibility and testing",
         "Mentoring and technical leadership",
       ],
-      stats: {
-        years: "Years building for the web",
-        students: "Students on platforms I led the frontend for",
-        speed: "Faster UI delivery with a shared component library",
-        products: "Products running on that library",
-      },
       marquee: "Technologies I use",
     },
     work: {
@@ -90,6 +100,9 @@ export const translations = {
     name: "মোহাম্মদ রাসেল",
     skipToContent: "মূল কনটেন্টে যান",
     header: {
+      about: "পরিচিতি",
+      experience: "অভিজ্ঞতা",
+      menu: "মেনু খুলুন",
       work: "কাজ",
       toolkit: "টুলকিট",
       contact: "যোগাযোগ",
@@ -101,7 +114,7 @@ export const translations = {
     },
     hero: {
       availability: "সিনিয়র ফ্রন্টএন্ড রোলের জন্য প্রস্তুত",
-      kicker: "মোহাম্মদ রাসেল, ঢাকার সফটওয়্যার ইঞ্জিনিয়ার",
+      kicker: "সিনিয়র ফ্রন্টএন্ড ইঞ্জিনিয়ার · ঢাকা, বাংলাদেশ",
       roles: [
         "সফটওয়্যার ইঞ্জিনিয়ার",
         "ফ্রন্টএন্ড ডেভেলপার",
@@ -109,7 +122,20 @@ export const translations = {
         "Next.js ডেভেলপার",
       ],
       title: "সিদ্ধান্ত আমার, গতি এআই-এর।",
-      desc: "ঢাকার সিনিয়র ফ্রন্টএন্ড ইঞ্জিনিয়ার। অনলাইন শপ থেকে লাখো শিক্ষার্থীর লার্নিং প্ল্যাটফর্ম পর্যন্ত, দ্রুত ও সবার ব্যবহারযোগ্য React আর Next.js প্রোডাক্ট বানাই।",
+      desc: "৮+ বছর ধরে দ্রুত ও সবার ব্যবহারযোগ্য React আর Next.js প্রোডাক্ট বানাচ্ছি, অনলাইন শপ থেকে ৩M+ শিক্ষার্থীর লার্নিং প্ল্যাটফর্ম পর্যন্ত। ফ্রন্টএন্ড লিড করি, কম্পোনেন্ট লাইব্রেরি গড়ি, আর টিমকে মেন্টর করি।",
+      now: {
+        label: "বর্তমানে",
+        role: "সিনিয়র সফটওয়্যার ইঞ্জিনিয়ার",
+        company: "শিখো টেকনোলজিস",
+        period: "ডিসেম্বর ২০২২ – বর্তমান",
+        stack: ["Next.js", "TypeScript", "GraphQL"],
+      },
+      stats: {
+        years: "বছরের অভিজ্ঞতা",
+        students: "শিক্ষার্থী, যেসব প্ল্যাটফর্মে নেতৃত্ব দিয়েছি",
+        downloads: "অ্যাপ ডাউনলোড",
+        speed: "দ্রুত UI ডেলিভারি",
+      },
       seeWork: "আমার কাজ দেখুন",
       downloadResume: "সিভি ডাউনলোড করুন",
       appsLabel: "আমার তৈরি প্রোডাক্ট। বিস্তারিত পড়তে একটিতে ক্লিক করুন।",
@@ -124,12 +150,6 @@ export const translations = {
         "পারফরম্যান্স, অ্যাক্সেসিবিলিটি ও টেস্টিং",
         "মেন্টরিং ও টেকনিক্যাল লিডারশিপ",
       ],
-      stats: {
-        years: "বছর ধরে ওয়েব বানাচ্ছি",
-        students: "শিক্ষার্থী, যেসব প্ল্যাটফর্মের ফ্রন্টএন্ডে নেতৃত্ব দিয়েছি",
-        speed: "দ্রুত UI ডেলিভারি, শেয়ার্ড কম্পোনেন্ট লাইব্রেরির কল্যাণে",
-        products: "প্রোডাক্ট চলছে সেই একই লাইব্রেরিতে",
-      },
       marquee: "আমার ব্যবহৃত প্রযুক্তি",
     },
     work: {
