@@ -1,6 +1,7 @@
 import About from "@/components/organisms/About";
 import Contact from "@/components/organisms/Contact";
 import Effects from "@/components/atoms/Effects";
+import Experience from "@/components/organisms/Experience";
 import Footer from "@/components/organisms/Footer";
 import Header from "@/components/organisms/Header";
 import Hero from "@/components/organisms/Hero";
@@ -23,6 +24,7 @@ export default function HomePage({ lang }: { lang: Language }) {
       <main id="main" className="overflow-x-clip">
         <Hero lang={lang} />
         <About lang={lang} />
+        <Experience lang={lang} />
         <Projects lang={lang} />
         <Skills lang={lang} />
         <Contact lang={lang} />

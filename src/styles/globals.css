@@ -530,6 +530,9 @@ body > footer {
 #about {
   contain-intrinsic-size: auto 1380px;
 }
+#experience {
+  contain-intrinsic-size: auto 2600px;
+}
 #work {
   contain-intrinsic-size: auto 7250px;
 }

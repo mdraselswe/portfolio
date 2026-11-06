@@ -56,6 +56,12 @@ export const translations = {
       ],
       marquee: "Technologies I use",
     },
+    experience: {
+      title: "Experience",
+      intro:
+        "Eight years across learning, health, food delivery and agency products, always in React.",
+      education: "Education",
+    },
     work: {
       title: "Selected work",
       intro:
@@ -151,6 +157,12 @@ export const translations = {
         "মেন্টরিং ও টেকনিক্যাল লিডারশিপ",
       ],
       marquee: "আমার ব্যবহৃত প্রযুক্তি",
+    },
+    experience: {
+      title: "অভিজ্ঞতা",
+      intro:
+        "আট বছর ধরে লার্নিং, হেলথ, ফুড ডেলিভারি ও এজেন্সির প্রোডাক্টে কাজ করেছি, সব সময় React নিয়ে।",
+      education: "শিক্ষা",
     },
     work: {
       title: "নির্বাচিত কাজ",
