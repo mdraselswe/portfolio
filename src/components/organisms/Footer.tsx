@@ -1,4 +1,4 @@
-import { FaFacebook, FaGithub, FaLinkedin, FaXTwitter } from "@/lib/icons";
+import { FaArrowUp, FaFacebook, FaGithub, FaLinkedin, FaXTwitter } from "@/lib/icons";
 import { getT } from "@/lib/i18n";
 import type { Language } from "@/types/context";
 
@@ -13,7 +13,11 @@ export default function Footer({ lang }: { lang: Language }) {
   const t = getT(lang);
 
   return (
-    <footer className="border-t border-ink/10 py-10">
+    <footer className="relative border-t border-ink/10 py-10">
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-60"
+      />
       <div className="section-shell flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="font-display text-lg font-semibold">{t.name}</p>
@@ -23,21 +27,30 @@ export default function Footer({ lang }: { lang: Language }) {
           </p>
         </div>
 
-        <ul aria-label={t.footer.social} className="-mx-2 flex items-center">
-          {socials.map(({ label, href, Icon }) => (
-            <li key={label}>
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="inline-grid h-11 w-11 place-items-center rounded-full text-lg transition-colors hover:bg-ink/8"
-              >
-                <Icon aria-hidden />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center gap-2">
+          <ul aria-label={t.footer.social} className="-mx-2 flex items-center">
+            {socials.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="inline-grid h-11 w-11 place-items-center rounded-full text-lg transition-colors hover:bg-ink/8"
+                >
+                  <Icon aria-hidden />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#top"
+            aria-label={t.footer.top}
+            className="inline-grid h-11 w-11 place-items-center rounded-full bg-accent text-accent-ink transition-transform hover:-translate-y-0.5 active:scale-90"
+          >
+            <FaArrowUp aria-hidden />
+          </a>
+        </div>
       </div>
     </footer>
   );

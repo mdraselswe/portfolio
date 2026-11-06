@@ -85,6 +85,13 @@ export const translations = {
       intro:
         "Hiring a senior frontend engineer, or have a product to ship? Tell me about it and I'll reply within a day.",
       emailDirect: "Or email directly",
+      details: {
+        label: "Contact details",
+        email: "Email",
+        phone: "Phone",
+        location: "Location",
+        locationValue: "Dhaka, Bangladesh",
+      },
       name: "Name",
       email: "Email",
       message: "Message",
@@ -100,6 +107,7 @@ export const translations = {
       rights: "All rights reserved",
       built: "Built with Next.js",
       social: "Social links",
+      top: "Back to top",
     },
   },
   bn: {
@@ -187,6 +195,13 @@ export const translations = {
       intro:
         "সিনিয়র ফ্রন্টএন্ড ইঞ্জিনিয়ার খুঁজছেন, নাকি শিপ করার মতো একটা প্রোডাক্ট আছে? আমাকে জানান, এক দিনের মধ্যে উত্তর দেব।",
       emailDirect: "অথবা সরাসরি ইমেইল করুন",
+      details: {
+        label: "যোগাযোগের তথ্য",
+        email: "ইমেইল",
+        phone: "ফোন",
+        location: "অবস্থান",
+        locationValue: "ঢাকা, বাংলাদেশ",
+      },
       name: "নাম",
       email: "ইমেইল",
       message: "বার্তা",
@@ -202,6 +217,7 @@ export const translations = {
       rights: "সর্বস্বত্ব সংরক্ষিত",
       built: "Next.js দিয়ে তৈরি",
       social: "সোশ্যাল লিংক",
+      top: "উপরে ফিরে যান",
     },
   },
 };
