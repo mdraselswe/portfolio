@@ -16,12 +16,7 @@ export default function Education({ lang }: { lang: Language }) {
       <div className="section-shell">
         <Divider />
         <Reveal className="mt-12 sm:mt-14">
-          <SectionHeading
-            id="education-title"
-            title={t.title}
-            intro={t.intro}
-            eyebrow={getT(lang).eyebrow.education}
-          />
+          <SectionHeading id="education-title" title={t.title} intro={t.intro} />
         </Reveal>
 
         <Reveal className="mt-10 sm:mt-12" y={20}>

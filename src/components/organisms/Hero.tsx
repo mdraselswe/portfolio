@@ -1,9 +1,8 @@
 import { Fragment } from "react";
 import { Button } from "@/components/atoms/Button";
-import HeroOrb from "@/components/atoms/HeroOrb";
 import Counter from "@/components/atoms/Counter";
 import RoleRotator from "@/components/atoms/RoleRotator";
-import { FaArrowRight, FaFileDownload, FaGithub, FaLinkedin, MdEmail } from "@/lib/icons";
+import { FaFileDownload, FaGithub, FaLinkedin, MdEmail } from "@/lib/icons";
 import { getT } from "@/lib/i18n";
 import type { Language } from "@/types/context";
 import type { CSSProperties } from "react";
@@ -84,9 +83,7 @@ export default function Hero({ lang }: { lang: Language }) {
               <Fragment key={`${i}-${word}`}>
                 <span
                   style={delay(0.06 + i * 0.05)}
-                  className={`word-in ${i >= accentFrom ? "gradient-text" : ""} ${
-                    i === words.length - 1 ? "accent-word" : ""
-                  }`}
+                  className={`word-in ${i >= accentFrom ? "gradient-text" : ""}`}
                 >
                   {word}
                 </span>{" "}
@@ -109,10 +106,6 @@ export default function Hero({ lang }: { lang: Language }) {
             <div data-magnetic className="inline-block transition-transform duration-200 ease-out">
               <Button as="a" href="#work" size="lg">
                 {t.seeWork}
-                <FaArrowRight
-                  aria-hidden
-                  className="transition-transform group-hover/btn:translate-x-1"
-                />
               </Button>
             </div>
             <Button as="a" href={RESUME} download variant="outline" size="lg">
@@ -138,11 +131,7 @@ export default function Hero({ lang }: { lang: Language }) {
         </div>
 
         {/* Snapshot card: where I work now, and the numbers behind it. */}
-        <div
-          style={delay(0.3)}
-          className="rise relative mx-auto w-full max-w-[32rem] lg:max-w-none"
-        >
-          <HeroOrb />
+        <div style={delay(0.3)} className="rise mx-auto w-full max-w-[32rem] lg:max-w-none">
           <div
             data-tilt
             className="glass beam relative rounded-[2rem] p-5 shadow-[0_40px_90px_-40px_rgb(var(--accent)/0.5)] transition-transform duration-200 ease-out sm:p-7"

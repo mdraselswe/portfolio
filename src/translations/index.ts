@@ -8,14 +8,6 @@ export const translations = {
   en: {
     name: "Muhammad Rasel",
     skipToContent: "Skip to content",
-    eyebrow: {
-      about: "01 · About",
-      experience: "02 · Experience",
-      education: "03 · Education",
-      work: "04 · Work",
-      toolkit: "05 · Toolkit",
-      contact: "06 · Contact",
-    },
     header: {
       about: "About",
       experience: "Experience",
@@ -124,14 +116,6 @@ export const translations = {
   bn: {
     name: "মোহাম্মদ রাসেল",
     skipToContent: "মূল কনটেন্টে যান",
-    eyebrow: {
-      about: "০১ · পরিচিতি",
-      experience: "০২ · অভিজ্ঞতা",
-      education: "০৩ · শিক্ষা",
-      work: "০৪ · কাজ",
-      toolkit: "০৫ · টুলকিট",
-      contact: "০৬ · যোগাযোগ",
-    },
     header: {
       about: "পরিচিতি",
       experience: "অভিজ্ঞতা",

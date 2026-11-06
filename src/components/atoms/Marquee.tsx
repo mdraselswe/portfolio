@@ -8,7 +8,7 @@ export default function Marquee({ items, label }: MarqueeProps) {
   const row = (hidden: boolean) => (
     <ul
       aria-hidden={hidden || undefined}
-      className="flex shrink-0 items-center gap-12 pr-12 font-mono-ui text-sm font-semibold uppercase tracking-[0.22em] text-ink/70 sm:text-base"
+      className="flex shrink-0 items-center gap-12 pr-12 font-display text-2xl font-semibold text-ink/80 sm:text-3xl"
     >
       {items.map((item) => (
         <li key={item} className="flex items-center gap-12 whitespace-nowrap">

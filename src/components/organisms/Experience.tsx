@@ -19,12 +19,7 @@ export default function Experience({ lang }: { lang: Language }) {
       <div className="section-shell">
         <Divider />
         <Reveal className="mt-12 sm:mt-14">
-          <SectionHeading
-            id="experience-title"
-            title={t.title}
-            intro={t.intro}
-            eyebrow={getT(lang).eyebrow.experience}
-          />
+          <SectionHeading id="experience-title" title={t.title} intro={t.intro} />
         </Reveal>
 
         <ol className="rail mt-12 space-y-6 sm:mt-14 sm:space-y-8">

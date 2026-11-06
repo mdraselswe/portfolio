@@ -143,8 +143,7 @@ test.describe("Bangla page (/bn)", () => {
   });
 
   test("Bangla content is in the server-rendered HTML", async ({ request }) => {
-    // Headings set their last word in <em>, so compare the visible text, not the markup.
-    const html = (await (await request.get("/bn")).text()).replace(/<[^>]+>/g, "");
+    const html = await (await request.get("/bn")).text();
     expect(html).toContain("নির্বাচিত কাজ");
     expect(html).toContain("প্রেগন্যান্সি ট্র্যাকার");
   });
@@ -152,7 +151,7 @@ test.describe("Bangla page (/bn)", () => {
 
 test.describe("server rendering", () => {
   test("sections are in the raw HTML, no JavaScript needed", async ({ request }) => {
-    const html = (await (await request.get("/")).text()).replace(/<[^>]+>/g, "");
+    const html = await (await request.get("/")).text();
     for (const text of [
       "About Muhammad Rasel",
       "Selected work",
