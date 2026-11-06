@@ -19,6 +19,7 @@ export default {
         muted: channel("muted"),
         accent: channel("accent"),
         "accent-ink": channel("accent-ink"),
+        aqua: channel("aqua"),
         marigold: channel("marigold"),
       },
       fontFamily: {
