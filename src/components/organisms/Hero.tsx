@@ -1,8 +1,7 @@
 import { Fragment } from "react";
-import AppTile from "@/components/atoms/AppTile";
 import { Button } from "@/components/atoms/Button";
+import Counter from "@/components/atoms/Counter";
 import RoleRotator from "@/components/atoms/RoleRotator";
-import { heroTiles } from "@/data/appTiles";
 import { FaFileDownload, FaGithub, FaLinkedin, MdEmail } from "@/lib/icons";
 import { getT } from "@/lib/i18n";
 import type { Language } from "@/types/context";
@@ -11,39 +10,36 @@ import type { CSSProperties } from "react";
 const RESUME = "/Muhammad-Rasel-CV.pdf";
 
 const dock = [
-  {
-    label: "GitHub",
-    href: "https://github.com/mdraselswe",
-    Icon: FaGithub,
-    tone: 7,
-    external: true,
-  },
+  { label: "GitHub", href: "https://github.com/mdraselswe", Icon: FaGithub, external: true },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/mdraselswe",
     Icon: FaLinkedin,
-    tone: 1,
     external: true,
   },
-  { label: "Email", href: "mailto:mdraselswe@gmail.com", Icon: MdEmail, tone: 3, external: false },
-  { label: "CV", href: RESUME, Icon: FaFileDownload, tone: 2, external: false },
+  { label: "Email", href: "mailto:mdraselswe@gmail.com", Icon: MdEmail, external: false },
 ];
 
 /** Entrance animations are CSS, staggered through the --d variable. */
 const delay = (seconds: number) => ({ "--d": `${seconds}s` }) as CSSProperties;
 
-const tileMotion =
-  "transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1.5 hover:scale-[1.07] active:scale-90";
-
 export default function Hero({ lang }: { lang: Language }) {
   const t = getT(lang).hero;
   const words = t.title.split(" ");
+  const accentFrom = Math.ceil(words.length / 2);
+
+  const stats = [
+    { to: 8, suffix: "+", label: t.stats.years },
+    { to: 10, suffix: "x", label: t.stats.speed },
+    { to: 85, suffix: "%+", label: t.stats.rerenders },
+    { to: 10, suffix: "x", label: t.stats.bugs },
+  ];
 
   return (
     <section
       id="top"
       aria-labelledby="hero-title"
-      className="relative isolate pb-20 pt-28 sm:pb-24 sm:pt-36"
+      className="relative isolate pb-16 pt-28 sm:pb-24 sm:pt-36"
     >
       <div aria-hidden className="aurora">
         <i />
@@ -57,7 +53,7 @@ export default function Hero({ lang }: { lang: Language }) {
         className="spotlight pointer-events-none absolute inset-0 -z-10"
       />
 
-      <div className="section-shell grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16">
+      <div className="section-shell grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-14">
         <div>
           <p
             style={delay(0)}
@@ -75,17 +71,20 @@ export default function Hero({ lang }: { lang: Language }) {
 
           <h1
             id="hero-title"
-            className="font-display mt-6 text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[1.04] tracking-[-0.035em] sm:mt-7"
+            className="font-display mt-6 text-[clamp(2.5rem,7vw,5.25rem)] font-semibold leading-[1.04] tracking-[-0.035em] sm:mt-7"
           >
             <span
               style={delay(0.08)}
-              className="slide mb-4 block font-sans text-base font-medium tracking-normal text-muted sm:mb-5 sm:text-lg"
+              className="slide font-mono-ui mb-4 block text-sm font-medium tracking-normal text-aqua sm:mb-5 sm:text-base"
             >
               {t.kicker}
             </span>
             {words.map((word, i) => (
               <Fragment key={`${i}-${word}`}>
-                <span style={delay(0.06 + i * 0.05)} className="word-in">
+                <span
+                  style={delay(0.06 + i * 0.05)}
+                  className={`word-in ${i >= accentFrom ? "gradient-text" : ""}`}
+                >
                   {word}
                 </span>{" "}
               </Fragment>
@@ -98,7 +97,7 @@ export default function Hero({ lang }: { lang: Language }) {
 
           <p
             style={delay(0.36)}
-            className="slide mt-5 max-w-[34rem] text-base text-muted sm:mt-6 sm:text-lg"
+            className="slide mt-5 max-w-[36rem] text-base text-muted sm:mt-6 sm:text-lg"
           >
             {t.desc}
           </p>
@@ -114,55 +113,61 @@ export default function Hero({ lang }: { lang: Language }) {
               {t.downloadResume}
             </Button>
           </div>
+
+          <ul aria-label={t.linksLabel} style={delay(0.5)} className="slide mt-6 flex gap-2">
+            {dock.map(({ label, href, Icon, external }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  aria-label={label}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="inline-grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-lg transition-[transform,background-color,border-color] duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 active:scale-90"
+                >
+                  <Icon aria-hidden />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Home screen: the apps themselves are the navigation. */}
+        {/* Snapshot card: where I work now, and the numbers behind it. */}
         <div style={delay(0.3)} className="rise mx-auto w-full max-w-[32rem] lg:max-w-none">
           <div
             data-tilt
-            className="relative rounded-[2rem] border border-ink/10 bg-surface p-5 shadow-[0_40px_90px_-40px_rgb(0_0_0/0.45)] transition-transform duration-200 ease-out sm:rounded-[2.5rem] sm:p-8"
+            className="glass beam relative rounded-[2rem] p-5 shadow-[0_40px_90px_-40px_rgb(var(--accent)/0.5)] transition-transform duration-200 ease-out sm:p-7"
           >
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[radial-gradient(ellipse_at_top_right,rgb(var(--accent)/0.16),transparent_60%)]"
-            />
-            <ul
-              aria-label={t.appsLabel}
-              className="relative grid grid-cols-3 gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-8"
-            >
-              {heroTiles.map(({ slug, Icon, tone, label }, i) => (
-                <li key={slug} style={delay(0.45 + i * 0.05)} className="pop min-w-0">
-                  <a
-                    href={`#project-${slug}`}
-                    className={`flex flex-col items-center gap-2 rounded-2xl ${tileMotion}`}
-                  >
-                    <AppTile Icon={Icon} tone={tone} size="lg" floatDelay={i * 0.35} />
-                    <span className="w-full break-words text-center text-xs font-medium leading-tight sm:text-[0.8125rem]">
-                      {label[lang]}
-                    </span>
-                  </a>
+            <p className="font-mono-ui text-xs font-medium uppercase tracking-widest text-muted">
+              {t.now.label}
+            </p>
+            <p className="font-display mt-2 text-xl font-semibold leading-snug sm:text-2xl">
+              {t.now.role}
+            </p>
+            <p className="mt-0.5 text-base text-muted">
+              {t.now.company} · {t.now.period}
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {t.now.stack.map((item) => (
+                <li
+                  key={item}
+                  className="font-mono-ui rounded-full bg-accent/12 px-3 py-1 text-xs font-medium text-accent"
+                >
+                  {item}
                 </li>
               ))}
             </ul>
 
-            <ul
-              aria-label={t.linksLabel}
-              className="relative mt-7 flex justify-center gap-3 rounded-[1.5rem] bg-ink/6 p-3 sm:mt-9 sm:gap-4"
-            >
-              {dock.map(({ label, href, Icon, tone, external }, i) => (
-                <li key={label} style={delay(0.85 + i * 0.05)} className="pop">
-                  <a
-                    href={href}
-                    aria-label={label}
-                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    {...(label === "CV" ? { download: true } : {})}
-                    className={`block rounded-2xl ${tileMotion}`}
-                  >
-                    <AppTile Icon={Icon} tone={tone} size="md" />
-                  </a>
-                </li>
+            <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-ink/10">
+              {stats.map((stat) => (
+                <div key={stat.label} className="flex flex-col-reverse gap-1 bg-surface p-4">
+                  <dt className="text-xs font-medium leading-snug text-muted sm:text-sm">
+                    {stat.label}
+                  </dt>
+                  <dd className="font-display text-3xl font-semibold tracking-[-0.03em] text-accent sm:text-4xl">
+                    <Counter to={stat.to} suffix={stat.suffix} />
+                  </dd>
+                </div>
               ))}
-            </ul>
+            </dl>
           </div>
         </div>
       </div>

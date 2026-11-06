@@ -7,23 +7,25 @@
    (`bg-ink/10`). Contrast for body text: ink on paper ≥ 15:1, muted on paper
    ≥ 6:1 in both themes. */
 :root {
-  --paper: 242 244 240;
+  --paper: 247 248 252;
   --surface: 255 255 255;
-  --ink: 14 26 22;
-  --muted: 75 90 84;
-  --accent: 12 107 82;
+  --ink: 15 18 38;
+  --muted: 84 92 116;
+  --accent: 79 70 229;
   --accent-ink: 255 255 255;
-  --marigold: 232 163 23;
+  --aqua: 8 145 178;
+  --marigold: 217 119 6;
 }
 
 .dark {
-  --paper: 11 18 16;
-  --surface: 19 29 26;
-  --ink: 234 242 238;
-  --muted: 157 176 168;
-  --accent: 79 209 165;
-  --accent-ink: 11 18 16;
-  --marigold: 240 180 60;
+  --paper: 7 9 18;
+  --surface: 16 19 36;
+  --ink: 232 236 248;
+  --muted: 160 168 194;
+  --accent: 129 140 248;
+  --accent-ink: 7 9 18;
+  --aqua: 34 211 238;
+  --marigold: 251 191 36;
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────────── */
@@ -213,7 +215,7 @@ section[id] {
   height: 46rem;
   left: -12%;
   top: -14rem;
-  background: radial-gradient(closest-side, rgb(var(--accent) / 0.4), transparent);
+  background: radial-gradient(closest-side, rgb(var(--accent) / 0.34), transparent);
 }
 
 .aurora i:nth-child(2) {
@@ -221,7 +223,7 @@ section[id] {
   height: 40rem;
   right: -10%;
   top: -2.5rem;
-  background: radial-gradient(closest-side, rgb(var(--marigold) / 0.4), transparent);
+  background: radial-gradient(closest-side, rgb(var(--aqua) / 0.3), transparent);
   animation-duration: 26s;
   animation-direction: alternate-reverse;
 }
@@ -231,7 +233,7 @@ section[id] {
   height: 36rem;
   left: 34%;
   top: 19rem;
-  background: radial-gradient(closest-side, rgb(43 76 140 / 0.3), transparent);
+  background: radial-gradient(closest-side, rgb(168 85 247 / 0.22), transparent);
   animation-duration: 32s;
 }
 
@@ -242,8 +244,11 @@ section[id] {
 }
 
 .dot-grid {
-  background-image: radial-gradient(rgb(var(--ink) / 0.09) 1px, transparent 1px);
-  background-size: 26px 26px;
+  background-image:
+    linear-gradient(rgb(var(--ink) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--ink) / 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 30%, transparent 75%);
 }
 
 @keyframes bob {
@@ -525,6 +530,12 @@ body > footer {
 #about {
   contain-intrinsic-size: auto 1380px;
 }
+#experience {
+  contain-intrinsic-size: auto 2600px;
+}
+#education {
+  contain-intrinsic-size: auto 480px;
+}
 #work {
   contain-intrinsic-size: auto 7250px;
 }
@@ -645,4 +656,132 @@ html:not(.motion-on) .animate-bob,
 html:not(.motion-on) .aurora i,
 html:not(.motion-on) .ping-dot {
   animation-play-state: paused;
+}
+
+/* ── v3 design language: glass cards, gradient text, border beam, timeline ─── */
+.font-mono-ui {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  letter-spacing: 0;
+}
+
+.gradient-text {
+  color: rgb(var(--accent));
+  background-image: linear-gradient(
+    100deg,
+    rgb(var(--accent)),
+    rgb(var(--aqua)) 60%,
+    rgb(var(--accent))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass {
+  background: rgb(var(--surface) / 0.7);
+  border: 1px solid rgb(var(--ink) / 0.1);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.05) inset;
+}
+
+@media (min-width: 768px) {
+  .glass {
+    backdrop-filter: blur(14px);
+  }
+}
+
+/* Border beam: a conic highlight that sweeps the card edge on hover (desktop pointers only,
+   so phones never run the animation). */
+@property --beam {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.beam {
+  position: relative;
+}
+
+.beam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--beam),
+    transparent 0 70%,
+    rgb(var(--aqua)) 85%,
+    rgb(var(--accent)) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .beam:hover::after {
+    opacity: 1;
+    animation: beam-spin 2.4s linear infinite;
+  }
+}
+
+@keyframes beam-spin {
+  to {
+    --beam: 360deg;
+  }
+}
+
+/* Experience timeline: one rail, one dot per role */
+.rail {
+  position: relative;
+}
+
+.rail::before {
+  content: "";
+  position: absolute;
+  left: 0.6875rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: linear-gradient(rgb(var(--accent)), rgb(var(--aqua) / 0.5), transparent);
+}
+
+.rail-dot {
+  position: absolute;
+  left: 0.1875rem;
+  top: 0.35rem;
+  width: 1.0625rem;
+  height: 1.0625rem;
+  border-radius: 9999px;
+  background: rgb(var(--paper));
+  border: 3px solid rgb(var(--accent));
+}
+
+/* Noise-free film of colour behind big headings */
+.section-glow {
+  position: absolute;
+  inset-inline: 0;
+  top: -6rem;
+  height: 22rem;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(40rem 14rem at 50% 0, rgb(var(--accent) / 0.12), transparent 70%);
+}
+
+/* Mobile menu: a native <details>, so it works without JavaScript */
+.menu[open] > summary {
+  background: rgb(var(--ink) / 0.1);
+}
+
+.menu > summary {
+  list-style: none;
+}
+
+.menu > summary::-webkit-details-marker {
+  display: none;
 }

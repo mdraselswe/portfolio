@@ -43,9 +43,14 @@ export default function ProjectCard({ project, lang, compact = false }: ProjectR
         <p className={`mt-2 max-w-[62ch] text-muted ${compact ? "line-clamp-2" : ""}`}>
           {project.description}
         </p>
-        <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
+        <ul className="mt-4 flex flex-wrap gap-2">
           {project.tech.map((tech) => (
-            <li key={tech}>{tech}</li>
+            <li
+              key={tech}
+              className="font-mono-ui rounded-full bg-ink/6 px-2.5 py-1 text-xs font-medium"
+            >
+              {tech}
+            </li>
           ))}
         </ul>
       </div>

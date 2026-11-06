@@ -16,7 +16,7 @@ export default function FeaturedProjectCard({
     <article
       id={`project-${project.slug}`}
       data-glow
-      className={`hue-${tile?.tone ?? "neutral"} group/card relative flex h-full scroll-mt-28 flex-col overflow-hidden rounded-[1.75rem] border border-ink/10 bg-surface p-6 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1.5 hover:border-[rgb(var(--tile)/0.55)] hover:shadow-[0_30px_60px_-30px_rgb(var(--tile)/0.6)] sm:rounded-[2rem] sm:p-8`}
+      className={`hue-${tile?.tone ?? "neutral"} beam group/card relative flex h-full scroll-mt-28 flex-col overflow-hidden rounded-[1.75rem] border border-ink/10 bg-surface p-6 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1.5 hover:border-transparent hover:shadow-[0_30px_60px_-30px_rgb(var(--tile)/0.6)] sm:rounded-[2rem] sm:p-8`}
     >
       <span
         aria-hidden
@@ -38,9 +38,14 @@ export default function FeaturedProjectCard({
           {project.title}
         </h4>
         <p className="mt-3 flex-1 text-muted">{project.description}</p>
-        <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
+        <ul className="mt-5 flex flex-wrap gap-2">
           {project.tech.map((tech) => (
-            <li key={tech}>{tech}</li>
+            <li
+              key={tech}
+              className="font-mono-ui rounded-full bg-ink/6 px-2.5 py-1 text-xs font-medium"
+            >
+              {tech}
+            </li>
           ))}
         </ul>
         <div className="mt-6 flex flex-wrap gap-2">

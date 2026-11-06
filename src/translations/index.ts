@@ -9,6 +9,9 @@ export const translations = {
     name: "Muhammad Rasel",
     skipToContent: "Skip to content",
     header: {
+      about: "About",
+      experience: "Experience",
+      menu: "Open menu",
       work: "Work",
       toolkit: "Toolkit",
       contact: "Contact",
@@ -20,10 +23,23 @@ export const translations = {
     },
     hero: {
       availability: "Open to senior frontend roles",
-      kicker: "Muhammad Rasel, Software Engineer in Dhaka",
+      kicker: "Muhammad Rasel · Senior Frontend Engineer, Dhaka",
       roles: ["Software Engineer", "Frontend Developer", "React Developer", "Next.js Developer"],
       title: "I make the calls. AI makes me fast.",
-      desc: "Senior frontend engineer in Dhaka. I build fast, accessible React and Next.js products, from online shops to learning platforms used by millions of students.",
+      desc: "8+ years building fast, accessible React and Next.js products, from online shops to learning platforms. I lead frontends, grow component libraries and mentor teams.",
+      now: {
+        label: "Currently",
+        role: "Senior Software Engineer",
+        company: "Shikho Technologies",
+        period: "Dec 2022 – Present",
+        stack: ["Next.js", "TypeScript", "GraphQL"],
+      },
+      stats: {
+        years: "Years of experience",
+        speed: "Faster UI delivery with my component library",
+        rerenders: "Fewer redundant re-renders",
+        bugs: "Fewer production bugs",
+      },
       seeWork: "See my work",
       downloadResume: "Download CV",
       appsLabel: "Products I've built. Select one to read about it.",
@@ -38,13 +54,16 @@ export const translations = {
         "Performance, accessibility and testing",
         "Mentoring and technical leadership",
       ],
-      stats: {
-        years: "Years building for the web",
-        students: "Students on platforms I led the frontend for",
-        speed: "Faster UI delivery with a shared component library",
-        products: "Products running on that library",
-      },
       marquee: "Technologies I use",
+    },
+    experience: {
+      title: "Experience",
+      intro:
+        "Eight years across learning, health, food delivery and agency products, always in React.",
+    },
+    education: {
+      title: "Education",
+      intro: "Where I studied software engineering.",
     },
     work: {
       title: "Selected work",
@@ -69,6 +88,13 @@ export const translations = {
       intro:
         "Hiring a senior frontend engineer, or have a product to ship? Tell me about it and I'll reply within a day.",
       emailDirect: "Or email directly",
+      details: {
+        label: "Contact details",
+        email: "Email",
+        phone: "Phone",
+        location: "Location",
+        locationValue: "Dhaka, Bangladesh",
+      },
       name: "Name",
       email: "Email",
       message: "Message",
@@ -84,12 +110,16 @@ export const translations = {
       rights: "All rights reserved",
       built: "Built with Next.js",
       social: "Social links",
+      top: "Back to top",
     },
   },
   bn: {
     name: "মোহাম্মদ রাসেল",
     skipToContent: "মূল কনটেন্টে যান",
     header: {
+      about: "পরিচিতি",
+      experience: "অভিজ্ঞতা",
+      menu: "মেনু খুলুন",
       work: "কাজ",
       toolkit: "টুলকিট",
       contact: "যোগাযোগ",
@@ -101,7 +131,7 @@ export const translations = {
     },
     hero: {
       availability: "সিনিয়র ফ্রন্টএন্ড রোলের জন্য প্রস্তুত",
-      kicker: "মোহাম্মদ রাসেল, ঢাকার সফটওয়্যার ইঞ্জিনিয়ার",
+      kicker: "মোহাম্মদ রাসেল · সিনিয়র ফ্রন্টএন্ড ইঞ্জিনিয়ার, ঢাকা",
       roles: [
         "সফটওয়্যার ইঞ্জিনিয়ার",
         "ফ্রন্টএন্ড ডেভেলপার",
@@ -109,7 +139,20 @@ export const translations = {
         "Next.js ডেভেলপার",
       ],
       title: "সিদ্ধান্ত আমার, গতি এআই-এর।",
-      desc: "ঢাকার সিনিয়র ফ্রন্টএন্ড ইঞ্জিনিয়ার। অনলাইন শপ থেকে লাখো শিক্ষার্থীর লার্নিং প্ল্যাটফর্ম পর্যন্ত, দ্রুত ও সবার ব্যবহারযোগ্য React আর Next.js প্রোডাক্ট বানাই।",
+      desc: "৮+ বছর ধরে দ্রুত ও সবার ব্যবহারযোগ্য React আর Next.js প্রোডাক্ট বানাচ্ছি, অনলাইন শপ থেকে লার্নিং প্ল্যাটফর্ম পর্যন্ত। ফ্রন্টএন্ড লিড করি, কম্পোনেন্ট লাইব্রেরি গড়ি, আর টিমকে মেন্টর করি।",
+      now: {
+        label: "বর্তমানে",
+        role: "সিনিয়র সফটওয়্যার ইঞ্জিনিয়ার",
+        company: "শিখো টেকনোলজিস",
+        period: "ডিসেম্বর ২০২২ – বর্তমান",
+        stack: ["Next.js", "TypeScript", "GraphQL"],
+      },
+      stats: {
+        years: "বছরের অভিজ্ঞতা",
+        speed: "দ্রুত UI ডেলিভারি, আমার কম্পোনেন্ট লাইব্রেরিতে",
+        rerenders: "কম অপ্রয়োজনীয় রি-রেন্ডার",
+        bugs: "কম প্রোডাকশন বাগ",
+      },
       seeWork: "আমার কাজ দেখুন",
       downloadResume: "সিভি ডাউনলোড করুন",
       appsLabel: "আমার তৈরি প্রোডাক্ট। বিস্তারিত পড়তে একটিতে ক্লিক করুন।",
@@ -124,13 +167,16 @@ export const translations = {
         "পারফরম্যান্স, অ্যাক্সেসিবিলিটি ও টেস্টিং",
         "মেন্টরিং ও টেকনিক্যাল লিডারশিপ",
       ],
-      stats: {
-        years: "বছর ধরে ওয়েব বানাচ্ছি",
-        students: "শিক্ষার্থী, যেসব প্ল্যাটফর্মের ফ্রন্টএন্ডে নেতৃত্ব দিয়েছি",
-        speed: "দ্রুত UI ডেলিভারি, শেয়ার্ড কম্পোনেন্ট লাইব্রেরির কল্যাণে",
-        products: "প্রোডাক্ট চলছে সেই একই লাইব্রেরিতে",
-      },
       marquee: "আমার ব্যবহৃত প্রযুক্তি",
+    },
+    experience: {
+      title: "অভিজ্ঞতা",
+      intro:
+        "আট বছর ধরে লার্নিং, হেলথ, ফুড ডেলিভারি ও এজেন্সির প্রোডাক্টে কাজ করেছি, সব সময় React নিয়ে।",
+    },
+    education: {
+      title: "শিক্ষা",
+      intro: "যেখানে সফটওয়্যার ইঞ্জিনিয়ারিং পড়েছি।",
     },
     work: {
       title: "নির্বাচিত কাজ",
@@ -155,6 +201,13 @@ export const translations = {
       intro:
         "সিনিয়র ফ্রন্টএন্ড ইঞ্জিনিয়ার খুঁজছেন, নাকি শিপ করার মতো একটা প্রোডাক্ট আছে? আমাকে জানান, এক দিনের মধ্যে উত্তর দেব।",
       emailDirect: "অথবা সরাসরি ইমেইল করুন",
+      details: {
+        label: "যোগাযোগের তথ্য",
+        email: "ইমেইল",
+        phone: "ফোন",
+        location: "অবস্থান",
+        locationValue: "ঢাকা, বাংলাদেশ",
+      },
       name: "নাম",
       email: "ইমেইল",
       message: "বার্তা",
@@ -170,6 +223,7 @@ export const translations = {
       rights: "সর্বস্বত্ব সংরক্ষিত",
       built: "Next.js দিয়ে তৈরি",
       social: "সোশ্যাল লিংক",
+      top: "উপরে ফিরে যান",
     },
   },
 };

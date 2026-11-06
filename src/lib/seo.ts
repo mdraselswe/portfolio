@@ -47,6 +47,8 @@ export const KEYWORDS = [
   "Next.js Developer",
   "TypeScript Developer",
   "Senior Frontend Developer",
+  "Senior Frontend Engineer",
+  "Shikho software engineer",
   "Frontend Engineer Bangladesh",
   "Frontend Developer Dhaka",
   "React Developer Bangladesh",
@@ -91,8 +93,8 @@ export function headFor(lang: Language) {
       imageAlt: copy.ogAlt,
     },
     themeColors: [
-      { media: "(prefers-color-scheme: light)", color: "#f2f4f0" },
-      { media: "(prefers-color-scheme: dark)", color: "#0b1210" },
+      { media: "(prefers-color-scheme: light)", color: "#f7f8fc" },
+      { media: "(prefers-color-scheme: dark)", color: "#070912" },
     ],
     googleVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   };
@@ -117,6 +119,12 @@ export function buildJsonLd(lang: Language) {
     jobTitle: [...SITE.roles],
     description: SITE.description,
     email: `mailto:${SITE.email}`,
+    telephone: "+8801781182143",
+    worksFor: { "@type": "Organization", name: "Shikho Technologies Bangladesh Ltd" },
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Daffodil International University",
+    },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Dhaka",

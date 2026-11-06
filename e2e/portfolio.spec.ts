@@ -35,21 +35,28 @@ test.describe("structure and content", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "I make the calls. AI makes me fast."
     );
-    for (const name of ["About Muhammad Rasel", "Selected work", "Toolkit", "Let's talk"]) {
+    for (const name of [
+      "About Muhammad Rasel",
+      "Experience",
+      "Education",
+      "Selected work",
+      "Toolkit",
+      "Let's talk",
+    ]) {
       await expect(page.getByRole("heading", { level: 2, name })).toBeVisible();
     }
     await expect(page.locator("article[id^=project-]")).toHaveCount(18);
     expect(errors).toEqual([]);
   });
 
-  test("hero app tiles jump to their project", async ({ page }) => {
+  test("experience lists every role from the CV", async ({ page }) => {
     await open(page);
-    await page
-      .getByRole("list", { name: /Products I've built/ })
-      .getByRole("link", { name: "LifeTrack" })
-      .click();
-    await expect(page.locator("#project-lifetrack")).toBeInViewport();
-    await expect(page).toHaveURL(/#project-lifetrack$/);
+    const roles = page.locator("#experience ol > li");
+    await expect(roles).toHaveCount(4);
+    for (const company of ["Shikho", "Grameen Digital Health", "Shohoz", "Shimahin"]) {
+      await expect(page.locator("#experience")).toContainText(company);
+    }
+    await expect(page.locator("#education")).toContainText("Daffodil International University");
   });
 
   test("project links are labelled and open safely", async ({ page }) => {
@@ -139,9 +146,8 @@ test.describe("interaction", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(
-      page.getByRole("list", { name: /Products I've built/ }).getByRole("link")
-    ).toHaveCount(6);
+    await expect(page.locator("#top dl")).toContainText("Years of experience");
+    await expect(page.locator("#experience")).toBeVisible();
   });
 });
 
@@ -157,38 +163,17 @@ test.describe("responsive", () => {
     });
   }
 
-  for (const lang of ["/", "/bn"]) {
-    test(`hero app tiles never overlap or leave the panel (${lang})`, async ({ page }) => {
-      await open(page, lang);
-      for (const width of [320, 360, 390, 768, 820, 1024, 1032, 1180, 1280, 1440, 1920]) {
-        await page.setViewportSize({ width, height: 900 });
-        await page.waitForTimeout(150);
-        const { tiles, panel } = await page.evaluate(() => {
-          const panelEl = document.querySelector("#top [data-tilt]")!;
-          const rect = (el: Element) => {
-            const r = el.getBoundingClientRect();
-            return { l: r.left, t: r.top, r: r.right, b: r.bottom };
-          };
-          return {
-            panel: rect(panelEl),
-            tiles: [...panelEl.querySelectorAll("ul")[0].querySelectorAll("li > a")].map(rect),
-          };
-        });
-        expect(tiles, `${width}px`).toHaveLength(6);
-        for (let i = 0; i < tiles.length; i++) {
-          const a = tiles[i];
-          expect(a.l, `${width}px tile ${i} inside panel`).toBeGreaterThanOrEqual(panel.l - 0.5);
-          expect(a.r, `${width}px tile ${i} inside panel`).toBeLessThanOrEqual(panel.r + 0.5);
-          for (let j = i + 1; j < tiles.length; j++) {
-            const b = tiles[j];
-            const overlaps =
-              a.l < b.r - 0.5 && b.l < a.r - 0.5 && a.t < b.b - 0.5 && b.t < a.b - 0.5;
-            expect(overlaps, `${width}px tiles ${i} and ${j} overlap`).toBe(false);
-          }
-        }
-      }
-    });
-  }
+  test("mobile menu opens and navigates", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await open(page);
+    await page.getByLabel("Open menu").click();
+    await page
+      .getByRole("navigation", { name: "Mobile" })
+      .getByRole("link", { name: "Work" })
+      .click();
+    await expect(page).toHaveURL(/#work$/);
+    await expect(page.locator("[data-menu]")).not.toHaveAttribute("open", "");
+  });
 
   test("touch targets are at least 44px", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 800 });
